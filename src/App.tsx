@@ -1,17 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
+    <div className="-bg-grey-6">
+      <header className="App-header font ">
+        <p className="font-lexend">
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <p className="font-inter">Hello word</p>
         <a
-          className="App-link"
+          className="font"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
