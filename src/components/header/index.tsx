@@ -12,6 +12,7 @@ interface IUserProp {
 }
 
 export const Header = ({ user }: IUserProp) => {
+
   const [boolMobile, setBoolMobile] = useState(false);
   const [boolPerfile, setBoolPerfile] = useState(false);
   const logged = true;
@@ -88,10 +89,12 @@ export const Header = ({ user }: IUserProp) => {
               </div>
             ) : (
               <div className="relative flex flex-col md:flex-row space-x-8 items-baseline md:items-center font-lexend pr-16 gap-y-3">
+
                 <button className="hover:-text-brand1">Fazer Login</button>
                 <button className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-10 md:h-8 w-full md:w-28">
                   Cadastrar
                 </button>
+
                 <ul className="absolute flex flex-col ">
                   <li>Editar Perfil</li>
                   <li>Editar Endereço</li>
@@ -105,6 +108,7 @@ export const Header = ({ user }: IUserProp) => {
       </div>
       <div className="hidden sm:flex items-center space-x-10 font-inter ">
         <nav className="flex space-x-3 text-sm h-5">
+
           <button className=" hover:-text-brand1 ">Carros</button>
           <button className=" hover:-text-brand1 ">Motos</button>
           <button className=" hover:-text-brand1 ">Leilão</button>
@@ -114,6 +118,7 @@ export const Header = ({ user }: IUserProp) => {
             className="relative flex gap-x-2 items-center pr-9"
             onClick={() => setBoolMobile(!boolMobile)}
           >
+
             <div className="flex items-center justify-center -bg-brand1 rounded-2xl text-white w-8 h-8 ">
               {"GP"}
             </div>
