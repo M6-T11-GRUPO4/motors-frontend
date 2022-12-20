@@ -3,15 +3,11 @@
 @tailwind utilities;
 
 @layer components {
-  .classPink {
-    @apply space-y-3;
+  .classPink{
+    @apply -bg--brand3
   }
-  .absoluteNave {
-    position: absolute;
-    background-color: aliceblue;
-    height: 14rem;
-    top: 3rem;
-    width: 100vw;
-    right: -16px;
+  .classPink-azul{
+    background-color: aqua;
   }
 }
+
