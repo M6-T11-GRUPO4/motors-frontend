@@ -1,10 +1,11 @@
 import { Home } from "./Pages/home";
+import { Routers } from "./Routes";
 
 
 function App() {
   return (
-    <div className="-bg-grey-6">
-      <Home/>
+    <div className="-bg-grey-10">
+      <Routers/>
     </div>
   );
 }
