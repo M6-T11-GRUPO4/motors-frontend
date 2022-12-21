@@ -104,6 +104,13 @@ export const Header = ({ user }: IUserProp) => {
                 <button className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-10 md:h-8 w-full md:w-28">
                   Cadastrar
                 </button>
+
+                <ul className="absolute flex flex-col ">
+                  <li>Editar Perfil</li>
+                  <li>Editar Endereço</li>
+                  <li>Minha Compras</li>
+                  <li>Sair</li>
+                </ul>
               </div>
             )}
           </nav>
