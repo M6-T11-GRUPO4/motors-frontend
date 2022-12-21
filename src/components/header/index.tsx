@@ -1,4 +1,5 @@
 import riscos from "../../image/risco.png";
+import x from "../../image/xmark.png";
 import image from "../../image/NameShop.png";
 import { useState } from "react";
 
@@ -14,8 +15,7 @@ interface IUserProp {
 export const Header = ({ user }: IUserProp) => {
   const [boolMobile, setBoolMobile] = useState(false);
   const [boolPerfile, setBoolPerfile] = useState(false);
-  const logged = true;
-  console.log(boolMobile);
+  const logged = false;
 
   return (
     <header className="flex justify-between h-20">
@@ -29,17 +29,21 @@ export const Header = ({ user }: IUserProp) => {
             className=" px-3 py-1"
             onClick={() => setBoolMobile(!boolMobile)}
           >
-            <img src={riscos} alt="img" className="w-5 h-5" />
+            {boolMobile ? (
+              <img src={riscos} alt="img" className="w-5 h-5" />
+            ) : (
+              <img src={x} alt="img" className="w-4 h-4" />
+            )}
           </button>
           <nav
             className={
               boolMobile
-                ? "static hidden "
-                : "absolute -right-4 top-12 h-64 w-screen space-y-6 -bg-grey-9"
+                ? "static hidden"
+                : "absolute -right-4 top-12 h-80 w-screen space-y-6 -bg-grey-6"
             }
           >
             {/* <nav className="absoluteNave  md:flex flex-col md:flex-row -bg-grey-6"> */}
-            <ul className="flex flex-col items-start px-8 space-y-8 mt-10 font-inter">
+            <ul className="flex flex-col items-start px-8 space-y-8 mt-10 pb-6 font-inter border-b -border-grey-4">
               <li>
                 <button className={"block w-full hover:-text-brand1"}>
                   Carros
@@ -58,8 +62,10 @@ export const Header = ({ user }: IUserProp) => {
             </ul>
             {logged ? (
               <div
-                className="relative flex gap-x-2 items-center justify-center pr-4"
-                onClick={() => {setBoolPerfile(!boolPerfile)}}
+                className="relative flex gap-x-2 items-center justify-center pr-4 h-20"
+                onClick={() => {
+                  setBoolPerfile(!boolPerfile);
+                }}
               >
                 <div className="flex items-center justify-center -bg-brand1 rounded-2xl text-white w-8 h-8 ">
                   {"GP"}
@@ -68,18 +74,24 @@ export const Header = ({ user }: IUserProp) => {
                 <ul
                   className={
                     boolPerfile
-                      ? "absolute top-14 w-44 flex flex-col space-y-4 pl-2 h-32 "
+                      ? "absolute top-20 left-28 w-44 flex flex-col space-y-4 pl-2 pb-2 -bg-grey-10"
                       : "static hidden"
                   }
                 >
                   <li>
-                    <button className="hover:-text-brand1">Editar Perfil</button>
+                    <button className="hover:-text-brand1">
+                      Editar Perfil
+                    </button>
                   </li>
                   <li>
-                    <button className="hover:-text-brand1">Editar Endereço</button>
+                    <button className="hover:-text-brand1">
+                      Editar Endereço
+                    </button>
                   </li>
                   <li>
-                    <button className="hover:-text-brand1">Minha Compras</button>
+                    <button className="hover:-text-brand1">
+                      Minha Compras
+                    </button>
                   </li>
                   <li>
                     <button onClick={() => console.log("foii")}>Sair</button>
@@ -92,12 +104,6 @@ export const Header = ({ user }: IUserProp) => {
                 <button className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-10 md:h-8 w-full md:w-28">
                   Cadastrar
                 </button>
-                <ul className="absolute flex flex-col ">
-                  <li>Editar Perfil</li>
-                  <li>Editar Endereço</li>
-                  <li>Minha Compras</li>
-                  <li>Sair</li>
-                </ul>
               </div>
             )}
           </nav>
@@ -121,8 +127,8 @@ export const Header = ({ user }: IUserProp) => {
             <ul
               className={
                 boolMobile
-                  ? "absolute top-14 w-44 flex flex-col -bg-grey-9 space-y-4 pl-4 py-2 h-40"
-                  : "static hidden"
+                  ? "static hidden"
+                  : "absolute top-14 w-44 flex flex-col -bg-grey-9 space-y-4 pl-4 py-2 h-40"
               }
             >
               <li>

@@ -7,7 +7,7 @@ export const Home = () => {
     <>
       <Header />
       <Mid/>
-      <Footer />
+      <Footer/>
     </>
   );
 };
