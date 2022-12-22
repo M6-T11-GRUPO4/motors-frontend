@@ -1,3 +1,4 @@
+import Cards from "../../components/cards/vehicles";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { ProfileCard } from "../../components/profileCard";
@@ -21,6 +22,7 @@ export const ProfileViewUser = () => {
 
       <main className="h-screen bg-blue-white-gradient flex flex-col">
         <ProfileCard />
+        <Cards />
       </main>
 
       <Footer />
