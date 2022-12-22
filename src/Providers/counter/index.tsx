@@ -1,12 +1,14 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
+import { api } from "../../services/api";
 
 interface IContextProps {
   Transform(string: string): Array<string>;
   setBoolMobile(boolMobile: boolean): void;
-  boolMobile: Boolean;
+  boolMobile: boolean;
   setBoolPerfile(boolMobile: boolean): void;
-  boolPerfile: Boolean;
-  logged: Boolean;
+  boolPerfile: boolean;
+  logged: boolean;
+  response: any
 }
 export const CounterContext = createContext({} as IContextProps);
 
@@ -17,6 +19,18 @@ export const CounterProvider = ({ children }: IProviderProps) => {
   const [boolMobile, setBoolMobile] = useState(true);
   const [boolPerfile, setBoolPerfile] = useState(false);
   const logged = true;
+  const [response, setResponse] = useState([]);
+
+  useEffect(() => {
+    api
+      .get("vehicles")
+      .then((res) => {
+        setResponse(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 
   function Transform(string: string): string[] {
     let arr: string[] = [];
@@ -32,7 +46,17 @@ export const CounterProvider = ({ children }: IProviderProps) => {
   }
 
   return (
-    <CounterContext.Provider value={{ Transform, boolMobile, setBoolMobile, boolPerfile, setBoolPerfile, logged }}>
+    <CounterContext.Provider
+      value={{
+        Transform,
+        boolMobile,
+        setBoolMobile,
+        boolPerfile,
+        setBoolPerfile,
+        logged,
+        response
+      }}
+    >
       {children}
     </CounterContext.Provider>
   );
