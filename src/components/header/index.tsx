@@ -15,6 +15,7 @@ interface IUserProp {
 }
 
 export const Header = ({ user }: IUserProp) => {
+
   const [boolMobile, setBoolMobile] = useState(true);
   const [boolPerfile, setBoolPerfile] = useState(false);
   const logged = true;
@@ -43,7 +44,6 @@ export const Header = ({ user }: IUserProp) => {
                 : "absolute -right-4 top-12 h-80 w-screen space-y-6 -bg-grey-10"
             }
           >
-            {/* <nav className="absoluteNave  md:flex flex-col md:flex-row -bg-grey-6"> */}
             <ul className="flex flex-col items-start px-8 space-y-8 mt-10 pb-6 font-inter border-b -border-grey-4">
               <li>
                 <button className={"block w-full hover:-text-brand1"}>
