@@ -11,7 +11,7 @@
   .classInputRadio {
     display: none;
   }
-  .classLabelInputRadioActivate {
+  .classLabelInputRadioButtonActivate {
     font-family: "Inter", sans-serif;
     font-style: normal;
     font-weight: 600;
@@ -31,8 +31,28 @@
 
     cursor: pointer;
   }
+  .classButtonCancelDefault {
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
 
-  .classLabelInputRadioDesactivate {
+
+    background: #DEE2E6;;
+    color: #495057;;
+    border: 1.5px solid #DEE2E6;
+    border-radius: 4px;
+    width: 126px;
+    height: 48px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+  }
+  .classLabelInputRadioButtonDesactivate {
     font-family: "Inter", sans-serif;
     font-style: normal;
     font-weight: 600;
@@ -51,5 +71,41 @@
     align-items: center;
 
     cursor: pointer;
+  }
+  .inputDefaultModal{
+    border: 1.5px solid #868E96;
+    border-radius: 4px;
+    padding-left: 0.5rem;
+
+    height: 48px;
+
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 0px;    
+  }
+  .inputDefaultModal:hover{
+    border: 1.5px solid #5126EA;
+  }
+  .inputDefaultModal:focus{
+    box-shadow: 0 0 0 0;
+    outline: 0;
+  }
+  .textAreaDefaultModal{
+    padding: 0.5rem;
+
+    border: 1.5px solid #868E96;
+    border-radius: 4px;
+
+    outline: none;
+    resize: none;
+  }
+  .textAreaDefaultModal:hover {
+    border: 1.5px solid #5126EA;
+  }
+  .textAreaDefaultModal:focus{
+    box-shadow: 0 0 0 0;
+    outline: 0;
   }
 }
