@@ -1,3 +1,4 @@
+import CreateVehicle from "./components/create-vehicle";
 import { Home } from "./Pages/home";
 import { Routers } from "./Routes";
 
