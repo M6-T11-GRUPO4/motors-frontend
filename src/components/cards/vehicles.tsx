@@ -1,21 +1,17 @@
 import "./style.css";
-
 import { useState, useContext } from "react";
 // import { useNavigate } from "react-router-dom";
 import { CounterContext } from "../../Providers/counter";
-
 interface IProps {
   children?: JSX.Element;
 }
-
 const Cards = ({ children }: IProps): JSX.Element => {
   const [name, setName] = useState<string>("");
   const [active, setActive] = useState<boolean>(true);
-
   // const navigate = useNavigate();
-
   const { response }: any = useContext(CounterContext);
-
+  console.log(response);
+  
   const twoLetters = (): void => {
     let complet_name = name.replace(/\s(de|da|dos|das)\s/g, " ");
     var initial = complet_name.match(/\b(\w)/gi);
@@ -26,12 +22,10 @@ const Cards = ({ children }: IProps): JSX.Element => {
       .toUpperCase();
     setName(user_name + last_name);
   };
-
   const callback = (id: string) => {
     sessionStorage.setItem("@idVeiculo", id);
     // navigate("/dashboard")
   };
-
   return (
     <>
       <div className="flex overflow-x-auto mx-4 flex-col ml-6">
@@ -64,7 +58,6 @@ const Cards = ({ children }: IProps): JSX.Element => {
                   <p className="text-xs -text-grey-2 w-64 font-inter">
                     {products.description}
                   </p>
-
                   <div className="flex w-64 items-center py-3">
                     <div className="-bg-brand1 rounded-full -text-white-fixed p-1 text-sm mr-2 font-inter">
                       BT
@@ -73,7 +66,6 @@ const Cards = ({ children }: IProps): JSX.Element => {
                       {products.user_mokado}
                     </p>
                   </div>
-
                   <div className="flex w-64 p-0 space-x-10">
                     <div className="flex w-24 space-x-4">
                       <p className="-bg-brand4 -text-brand1 text-sm uppercase font-medium p-1 font-inter">
@@ -83,7 +75,6 @@ const Cards = ({ children }: IProps): JSX.Element => {
                         {products.year}
                       </p>
                     </div>
-
                     <p className="font-semibold -text-grey-1 pl-5 font-lexend">
                       R$ {products.price}
                     </p>
@@ -95,7 +86,6 @@ const Cards = ({ children }: IProps): JSX.Element => {
         </div>
         {children}
       </div>
-
       <div className="flex overflow-x-auto mx-4 flex-col ml-6">
         <h1 className="py-8 font-bold text-lg font-lexend ml-8">Motos</h1>
         <div className="flex mx-4">
@@ -126,7 +116,6 @@ const Cards = ({ children }: IProps): JSX.Element => {
                   <p className="text-xs -text-grey-2 w-64 font-inter">
                     {products.description}
                   </p>
-
                   <div className="flex w-64 items-center py-3">
                     <div className="-bg-brand1 rounded-full -text-white-fixed p-1 text-sm mr-2 font-inter">
                       GP
@@ -135,7 +124,6 @@ const Cards = ({ children }: IProps): JSX.Element => {
                       {products.user_mokado}
                     </p>
                   </div>
-
                   <div className="flex w-64 p-0 space-x-10">
                     <div className="flex w-30 space-x-4">
                       <p className="-bg-brand4 -text-brand1 text-xs uppercase font-medium p-1 font-inter">
@@ -145,7 +133,6 @@ const Cards = ({ children }: IProps): JSX.Element => {
                         {products.year}
                       </p>
                     </div>
-
                     <p className="font-semibold -text-grey-1 pl-5 font-lexend">
                       R$ {products.price}
                     </p>
@@ -160,5 +147,4 @@ const Cards = ({ children }: IProps): JSX.Element => {
     </>
   );
 };
-
 export default Cards;
