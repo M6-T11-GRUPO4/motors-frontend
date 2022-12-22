@@ -7,6 +7,7 @@ import { useState } from "react";
 interface IUser {
   name: string;
   img: string;
+  isSeller?: boolean;
 }
 
 interface IUserProp {
@@ -14,12 +15,11 @@ interface IUserProp {
 }
 
 export const Header = ({ user }: IUserProp) => {
-
-  const [boolMobile, setBoolMobile] = useState(false);
+  const [boolMobile, setBoolMobile] = useState(true);
   const [boolPerfile, setBoolPerfile] = useState(false);
-  const logged = false;
+  const logged = true;
   return (
-    <header className="flex justify-between h-20">
+    <header className="flex justify-between h-20 -bg-grey-10">
       <div className="flex flex-row items-center space-x-1 font-bold ">
         <img src={image} alt="img" className="pl-8 h-8" />
       </div>
@@ -30,7 +30,6 @@ export const Header = ({ user }: IUserProp) => {
             className=" px-3 py-1"
             onClick={() => setBoolMobile(!boolMobile)}
           >
-
             {boolMobile ? (
               <img src={riscos} alt="img" className="w-5 h-5" />
             ) : (
@@ -41,7 +40,7 @@ export const Header = ({ user }: IUserProp) => {
             className={
               boolMobile
                 ? "static hidden"
-                : "absolute -right-4 top-12 h-80 w-screen space-y-6 -bg-grey-6"
+                : "absolute -right-4 top-12 h-80 w-screen space-y-6 -bg-grey-10"
             }
           >
             {/* <nav className="absoluteNave  md:flex flex-col md:flex-row -bg-grey-6"> */}
@@ -77,7 +76,6 @@ export const Header = ({ user }: IUserProp) => {
                   className={
                     boolPerfile
                       ? "absolute top-20 left-28 w-44 flex flex-col space-y-4 pl-2 pb-2 -bg-grey-10"
-
                       : "static hidden"
                   }
                 >
@@ -92,9 +90,15 @@ export const Header = ({ user }: IUserProp) => {
                     </button>
                   </li>
                   <li>
-                    <button className="hover:-text-brand1">
-                      Minha Compras
-                    </button>
+                    {user.isSeller ? (
+                      <button className="hover:-text-brand1">
+                        Meus Anúncios
+                      </button>
+                    ) : (
+                      <button className="hover:-text-brand1">
+                        Minhas Compras
+                      </button>
+                    )}
                   </li>
                   <li>
                     <button onClick={() => console.log("foii")}>Sair</button>
@@ -141,7 +145,11 @@ export const Header = ({ user }: IUserProp) => {
                 <button className="hover:-text-brand1">Editar Endereço</button>
               </li>
               <li>
-                <button className="hover:-text-brand1">Minha Compras</button>
+                {user.isSeller ? (
+                  <button className="hover:-text-brand1">Meus Anúncios</button>
+                ) : (
+                  <button className="hover:-text-brand1">Minhas Compras</button>
+                )}
               </li>
               <li>
                 <button onClick={() => console.log("foii")}>Sair</button>
