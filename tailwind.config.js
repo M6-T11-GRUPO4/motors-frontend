@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{tsx,ts}"],
   theme: {
     extend: {
+      backgroundImage: {
+        'risco': "url('/src/image/risco.png')",
+      },
       fontFamily: {
         'lexend': ['Lexend',"sans-serif"],
         'inter': ['Inter',"sans-serif"],
