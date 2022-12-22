@@ -1,4 +1,4 @@
-import Auction from "./components/cards/auction";
+import Cards from './components/cards/vehicles';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-    <Auction />
+    <Cards />
   );
 }
 
