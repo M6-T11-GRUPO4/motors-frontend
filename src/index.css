@@ -5,8 +5,11 @@
   .classPink {
     @apply -bg--brand3;
   }
-  .classPink-azul {
-    background-color: aqua;
+  .bigBackgroundImage{
+    background-image: linear-gradient(#4529E6 30rem, #F1F3F5 30rem 100%);
+  }
+  .littleBackgroundImage{
+    background-image: linear-gradient(#4529E6 23rem, #F1F3F5 23rem 100%);
   }
   .classInputRadio {
     display: none;
