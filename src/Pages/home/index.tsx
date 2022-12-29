@@ -1,3 +1,4 @@
+import Auction from "../../components/cards/auction";
 import Cards from "../../components/cards/vehicles";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
@@ -22,6 +23,7 @@ export const Home = () => {
           </button>
         </div>
       </section>
+      <Auction />
       <Cards />
       <Footer />
     </>
