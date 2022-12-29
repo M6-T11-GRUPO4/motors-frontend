@@ -1,42 +1,46 @@
 import "./style.css";
 import { useState, useContext } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CounterContext } from "../../Providers/counter";
 interface IProps {
   children?: JSX.Element;
 }
 const Cards = ({ children }: IProps): JSX.Element => {
+
   const [name, setName] = useState<string>("");
   const [active, setActive] = useState<boolean>(true);
-  // const navigate = useNavigate();
+
+  const navigate = useNavigate();
   const { response }: any = useContext(CounterContext);
-  console.log(response);
   
   const twoLetters = (): void => {
     let complet_name = name.replace(/\s(de|da|dos|das)\s/g, " ");
-    var initial = complet_name.match(/\b(\w)/gi);
-    var user_name = complet_name.split("")[0].toUpperCase();
-    var last_name = initial!
+    let initial = complet_name.match(/\b(\w)/gi);
+    let user_name = complet_name.split("")[0].toUpperCase();
+    let last_name = initial!
       .splice(1, initial!.length - 1)
       .join("")
       .toUpperCase();
     setName(user_name + last_name);
   };
-  const callback = (id: string) => {
+
+  const callback = (id: string): void => {
     sessionStorage.setItem("@idVeiculo", id);
-    // navigate("/dashboard")
+    navigate("/dashboard")
   };
+
   return (
     <>
       <div className="flex overflow-x-auto mx-4 flex-col ml-6">
-        <h1 className="py-8 font-bold text-lg font-lexend ml-8">Carros</h1>
+        <h1 className="py-8 font-bold text-lg font-lexend ml-10">Carros</h1>
         <div className="flex mx-4">
+
           {response?.map((products: any) => {
             if (products.type === "Carro") {
               return (
                 <div
                   onClick={() => callback(products.id)}
-                  className="flex flex-col m-4 relative"
+                  className="flex flex-col m-7 relative cursor-pointer"
                 >
                   {active === true ? (
                     <span className="-bg-brand1 -text-white-fixed font-medium font-inter text-xs w-10 flex justify-center absolute mt-2 ml-3">
@@ -87,14 +91,15 @@ const Cards = ({ children }: IProps): JSX.Element => {
         {children}
       </div>
       <div className="flex overflow-x-auto mx-4 flex-col ml-6">
-        <h1 className="py-8 font-bold text-lg font-lexend ml-8">Motos</h1>
+        <h1 className="py-8 font-bold text-lg font-lexend ml-10">Motos</h1>
         <div className="flex mx-4">
           {response?.map((products: any) => {
+
             if (products.type === "Moto") {
               return (
-                <div
+                <div key={products.id}
                   onClick={() => callback(products.id)}
-                  className="flex flex-col m-4 relative"
+                  className="flex flex-col m-7 relative cursor-pointer"
                 >
                   {active === true ? (
                     <span className="-bg-brand1 -text-white-fixed font-medium font-inter text-xs w-10 flex justify-center absolute mt-2 ml-3">
