@@ -8,21 +8,21 @@ interface IProps {
 const Cards = ({ children }: IProps): JSX.Element => {
 
   const [name, setName] = useState<string>("");
-  const [active, setActive] = useState<boolean>(true);
+  // const [active, setActive] = useState<boolean>(true);
 
   const navigate = useNavigate();
   const { response }: any = useContext(CounterContext);
   
-  const twoLetters = (): void => {
-    let complet_name = name.replace(/\s(de|da|dos|das)\s/g, " ");
-    let initial = complet_name.match(/\b(\w)/gi);
-    let user_name = complet_name.split("")[0].toUpperCase();
-    let last_name = initial!
-      .splice(1, initial!.length - 1)
-      .join("")
-      .toUpperCase();
-    setName(user_name + last_name);
-  };
+  // const twoLetters = (): void => {
+  //   let complet_name = name.replace(/\s(de|da|dos|das)\s/g, " ");
+  //   let initial = complet_name.match(/\b(\w)/gi);
+  //   let user_name = complet_name.split("")[0].toUpperCase();
+  //   let last_name = initial!
+  //     .splice(1, initial!.length - 1)
+  //     .join("")
+  //     .toUpperCase();
+  //   setName(user_name + last_name);
+  // };
 
   const callback = (id: string): void => {
     sessionStorage.setItem("@idVeiculo", id);
@@ -31,9 +31,9 @@ const Cards = ({ children }: IProps): JSX.Element => {
 
   return (
     <>
-      <div className="flex overflow-x-auto mx-4 flex-col ml-6">
-        <h1 className="py-8 font-bold text-lg font-lexend ml-10">Carros</h1>
-        <div className="flex mx-4">
+      <div className="flex mx-4 flex-col ml-6">
+        <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">Carros</h1>
+        <div className="flex overflow-x-auto">
 
           {response?.map((products: any) => {
             if (products.type === "Carro") {
@@ -42,7 +42,7 @@ const Cards = ({ children }: IProps): JSX.Element => {
                   onClick={() => callback(products.id)}
                   className="flex flex-col m-7 relative cursor-pointer"
                 >
-                  {active === true ? (
+                  {/* {active === true ? (
                     <span className="-bg-brand1 -text-white-fixed font-medium font-inter text-xs w-10 flex justify-center absolute mt-2 ml-3">
                       Ativo
                     </span>
@@ -50,7 +50,7 @@ const Cards = ({ children }: IProps): JSX.Element => {
                     <span className="-bg-grey-4 -text-white-fixed font-medium font-inter text-xs w-10 flex justify-center absolute top-24 mt-2 ml-3 py-1">
                       Inativo
                     </span>
-                  )}
+                  )} */}
                   <img
                     className="w-64  -bg-grey-7"
                     src={products.image[0].url}
@@ -90,9 +90,9 @@ const Cards = ({ children }: IProps): JSX.Element => {
         </div>
         {children}
       </div>
-      <div className="flex overflow-x-auto mx-4 flex-col ml-6">
-        <h1 className="py-8 font-bold text-lg font-lexend ml-10">Motos</h1>
-        <div className="flex mx-4">
+      <div className="flex mx-4 flex-col ml-6">
+        <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">Motos</h1>
+        <div className="flex overflow-x-auto mb-20">
           {response?.map((products: any) => {
 
             if (products.type === "Moto") {
@@ -101,7 +101,7 @@ const Cards = ({ children }: IProps): JSX.Element => {
                   onClick={() => callback(products.id)}
                   className="flex flex-col m-7 relative cursor-pointer"
                 >
-                  {active === true ? (
+                  {/* {active === true ? (
                     <span className="-bg-brand1 -text-white-fixed font-medium font-inter text-xs w-10 flex justify-center absolute mt-2 ml-3">
                       Ativo
                     </span>
@@ -109,7 +109,7 @@ const Cards = ({ children }: IProps): JSX.Element => {
                     <span className="-bg-grey-4 -text-white-fixed font-medium font-inter text-xs w-10 flex justify-center absolute top-24 mt-2 ml-3 py-1">
                       Inativo
                     </span>
-                  )}
+                  )} */}
                   <img
                     className="w-64  -bg-grey-7"
                     src={products.image[0].url}
