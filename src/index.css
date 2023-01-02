@@ -4,16 +4,22 @@
 
 @layer components {
   .bg-blue-white-gradient {
-    background-image: linear-gradient(#4529E6 12rem, #F1F3F5 12rem 100%);
+    background-image: linear-gradient(#4529e6 12rem, #f1f3f5 12rem 100%);
   }
-  .classPink {
-    @apply -bg--brand3;
+  ::-webkit-scrollbar {
+    background: #edeafd;
+    height: 5px;
   }
-  .bigBackgroundImage{
-    background-image: linear-gradient(#4529E6 30rem, #F1F3F5 30rem 100%);
+
+  ::-webkit-scrollbar-thumb {
+    background: #ced4da;
+    border-radius: 10px;
   }
-  .littleBackgroundImage{
-    background-image: linear-gradient(#4529E6 23rem, #F1F3F5 23rem 100%);
+  .bigBackgroundImage {
+    background-image: linear-gradient(#4529e6 30rem, #f1f3f5 30rem 100%);
+  }
+  .littleBackgroundImage {
+    background-image: linear-gradient(#4529e6 23rem, #f1f3f5 23rem 100%);
   }
   .classInputRadio {
     display: none;
@@ -44,10 +50,9 @@
     font-weight: 600;
     font-size: 16px;
 
-
-    background: #DEE2E6;;
-    color: #495057;;
-    border: 1.5px solid #DEE2E6;
+    background: #dee2e6;
+    color: #495057;
+    border: 1.5px solid #dee2e6;
     border-radius: 4px;
     width: 126px;
     height: 48px;
@@ -79,8 +84,8 @@
 
     cursor: pointer;
   }
-  .inputDefaultModal{
-    border: 1.5px solid #868E96;
+  .inputDefaultModal {
+    border: 1.5px solid #868e96;
     border-radius: 4px;
     padding-left: 0.5rem;
 
@@ -90,28 +95,28 @@
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    line-height: 0px;    
+    line-height: 0px;
   }
-  .inputDefaultModal:hover{
-    border: 1.5px solid #5126EA;
+  .inputDefaultModal:hover {
+    border: 1.5px solid #5126ea;
   }
-  .inputDefaultModal:focus{
+  .inputDefaultModal:focus {
     box-shadow: 0 0 0 0;
     outline: 0;
   }
-  .textAreaDefaultModal{
+  .textAreaDefaultModal {
     padding: 0.5rem;
 
-    border: 1.5px solid #868E96;
+    border: 1.5px solid #868e96;
     border-radius: 4px;
 
     outline: none;
     resize: none;
   }
   .textAreaDefaultModal:hover {
-    border: 1.5px solid #5126EA;
+    border: 1.5px solid #5126ea;
   }
-  .textAreaDefaultModal:focus{
+  .textAreaDefaultModal:focus {
     box-shadow: 0 0 0 0;
     outline: 0;
   }

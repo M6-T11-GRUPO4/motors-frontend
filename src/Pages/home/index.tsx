@@ -1,15 +1,31 @@
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router";
 import { Link } from "react-scroll";
-import Auction from "../../components/cards/auction";
-import Cards from "../../components/cards/vehicles";
+import Auction from "../../components/cards/auction/index";
+import Cards, { IImage } from "../../components/cards/vehicles/index";
 import CreateVehicle from "../../components/create-vehicle";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
+import { CounterContext } from "../../Providers/counter";
 
+export interface IProducts {
+  id: string;
+  image: IImage[];
+  name: string;
+  description: string;
+  user_mokado: string;
+  km: number;
+  year: number;
+  price: string;
+  type?: string;
+}
 export const Home = () => {
+  const { response }: any = useContext(CounterContext);
+
   return (
     <>
       <Header user={{ name: "string", img: "" }} />
-      <section className="flex flex-col items-center w-screen h-[34rem] md:h-96 text-center justify-center space-y-16 -bg-brand2 font-inter -text-grey-10 ">
+      <section className="flex flex-col items-center w-screen h-[34rem] md:h-96 text-center justify-center space-y-16 -bg-brand2 font-inter -text-grey-10 select-none">
         <h2 className="text-4xl w-12/12 md:w-7/12 font-bold">
           Velocidade e experiência em um lugar feito para você
         </h2>
@@ -44,7 +60,28 @@ export const Home = () => {
         </div>
       </section>
       <Auction />
-      <Cards />
+
+      <div className="flex overflow-x-auto mx-4 flex-col ml-6 select-none">
+        <h1 className="py-8 font-bold text-lg font-lexend ml-10">Carros</h1>
+        <div className="flex mx-4" id="carro">
+          {response?.map((products: IProducts) => {
+            if (products.type === "Carro") {
+              return <Cards products={products} />;
+            }
+          })}
+        </div>
+      </div>
+      <div className="flex overflow-x-auto mx-4 flex-col ml-6">
+        <h1 className="py-8 font-bold text-lg font-lexend ml-10">Motos</h1>
+        <div className="flex mx-4" id="moto">
+          {response?.map((products: IProducts) => {
+            if (products.type === "Moto") {
+              return <Cards products={products} />;
+            }
+          })}
+        </div>
+      </div>
+
       <Footer />
       <CreateVehicle />
     </>

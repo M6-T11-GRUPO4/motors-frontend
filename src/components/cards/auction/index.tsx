@@ -1,5 +1,5 @@
-import Timer from "../../image/time.png";
-import Seta from "../../image/seta.png";
+import Timer from "../../../image/time.png";
+import Seta from "../../../image/seta.png";
 
 const Auction = (): JSX.Element => {
 
