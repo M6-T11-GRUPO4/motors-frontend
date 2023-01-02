@@ -1,6 +1,7 @@
 import { Link } from "react-scroll";
 import Auction from "../../components/cards/auction";
 import Cards from "../../components/cards/vehicles";
+import CreateVehicle from "../../components/create-vehicle";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 
@@ -45,6 +46,7 @@ export const Home = () => {
       <Auction />
       <Cards />
       <Footer />
+      <CreateVehicle />
     </>
   );
 };

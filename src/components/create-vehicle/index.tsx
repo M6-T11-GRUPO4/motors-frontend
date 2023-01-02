@@ -7,13 +7,7 @@ import Modal, { Styles } from "react-modal";
 export default function CreateVehicle() {
   const [modal, setModal] = useState(true);
   const [isAuction, setIsAuction] = useState(false);
-  const [isCar, setIsCar] = useState(false)
-  // const [image, setImage] = useState([])
-
-  // function addInputButton(): void {
-  //   console.log("funcionou")
-    
-  // }
+  const [isCar, setIsCar] = useState(true)
 
   function setAuctionTrue(): void {
     setIsAuction(true);
@@ -65,6 +59,7 @@ export default function CreateVehicle() {
       maxHeight: "1036px",
       maxWidth: "520px",
       minWidth: "346px",
+
     },
   };
   
@@ -88,22 +83,22 @@ export default function CreateVehicle() {
           <input type="radio" id="leilao" name="is_auction" value="Leilão" onClick={setAuctionTrue} className='classInputRadio'/>
           {!isAuction ? <label htmlFor="leilao" className="classLabelInputRadioButtonDesactivate mr-3">Leilão</label> : isAuction && <label htmlFor="leilao" className="classLabelInputRadioButtonActivate mr-3">Leilão</label>}
         </div>
-        <p className="ml-6 my-[0.8rem]">Informações do veículo</p>
+        <p className="ml-6 my-[0.8rem] font-inter text-base text-[14px] font-medium leading-5 text-[#000000]">Informações do veículo</p>
         <div className="flex flex-col mb-[0.8rem]">
-          <label className="ml-6">Título</label>
+          <label className="ml-6 font-inter text-base text-[14px] font-medium leading-[17px] -text-grey-1">Título</label>
           <input type="text" placeholder="Digitar título" className="inputDefaultModal w-[91%] self-center"/>
         </div>
         <div className="flex flex-row mb-[0.8rem]">
           <div className="flex flex-col">
-          <label className="ml-6">Ano</label>
+          <label className="ml-6 font-inter text-base text-[14px] font-medium leading-[17px] -text-grey-1">Ano</label>
           <input type="text" placeholder="Digitar ano" className="inputDefaultModal w-[75%] ml-6"/>
           </div>
           <div className="flex flex-col">
-          <label>Quilometragem</label>
+          <label className="font-inter text-base text-[14px] font-medium leading-[17px] -text-grey-1">Quilometragem</label>
           <input type="text" placeholder="0" className="inputDefaultModal w-[85%]"/>
           </div>
           <div className="flex flex-col">
-          {!isAuction ? <label>Preço</label> : <label>Lance</label>}
+          {!isAuction ? <label className="font-inter text-base text-[14px] font-medium leading-[17px] -text-grey-1">Preço</label> : <label className="font-inter text-base text-[14px] font-medium leading-[17px] -text-grey-1">Lance</label>}
           {!isAuction ? (
             <input type="text" placeholder="Digitar preço" className="inputDefaultModal w-[85%]"/>
           ) : (
@@ -112,10 +107,10 @@ export default function CreateVehicle() {
           </div>
         </div>
         <div className="flex flex-col mb-[0.8rem]">
-        <label className='ml-6'>Descrição</label>
+        <label className='ml-6 font-inter text-base text-[14px] font-medium leading-[17px] -text-grey-1'>Descrição</label>
         <textarea rows={3} placeholder='Digitar descrição' className='textAreaDefaultModal mx-6'></textarea>
         </div>
-        <p className="ml-6 mb-[0.8rem]">Tipo de veículo</p>
+        <p className="ml-6 mb-[0.8rem] font-inter text-base text-[14px] font-medium leading-5 text-[#000000]">Tipo de veículo</p>
         <div className="flex flex-row justify-around mb-[0.8rem] mx-3">
           <input type="radio" id="carro" name="type" value="Carro" onClick={setCarTrue} className='classInputRadio'/>
           {isCar ? <label htmlFor="carro" className="classLabelInputRadioButtonActivate ml-2">Carro</label> : <label htmlFor="carro" className="classLabelInputRadioButtonDesactivate ml-2">Carro</label>}
@@ -123,11 +118,11 @@ export default function CreateVehicle() {
           {isCar ? <label htmlFor="moto" className="classLabelInputRadioButtonDesactivate mr-3">Moto</label> : <label htmlFor="moto" className="classLabelInputRadioButtonActivate mr-3">Moto</label>}
           </div>
           <div className="flex flex-col mb-[0.8rem]">
-          <label className="ml-6">Imagem da capa</label>
+          <label className="ml-6 font-inter text-base text-[14px] font-medium leading-[17px] -text-grey-1">Imagem da capa</label>
           <input type="url" placeholder="Inserir URL da imagem" className="inputDefaultModal mx-6"/>
           </div>
           <div className="flex flex-col mb-6">
-        <label className="ml-6">1º Imagem da galeria</label>
+        <label className="ml-6 font-inter text-base text-[14px] font-medium leading-[17px] -text-grey-1">1º Imagem da galeria</label>
         <input type="url" placeholder="Inserir URL da imagem" className="inputDefaultModal mx-6"/>
           </div>
         <button  onClick={(e) => {e.preventDefault() 
