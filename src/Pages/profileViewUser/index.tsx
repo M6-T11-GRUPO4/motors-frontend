@@ -20,7 +20,7 @@ export const ProfileViewUser = () => {
     <>
       <Header user={user} />
 
-      <main className="h-screen bg-blue-white-gradient flex flex-col">
+      <main className="h-full bg-blue-white-gradient flex flex-col">
         <ProfileCard />
         <Cards />
       </main>

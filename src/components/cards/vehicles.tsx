@@ -33,7 +33,7 @@ const Cards = ({ children }: IProps): JSX.Element => {
     <>
       <div className="flex overflow-x-auto mx-4 flex-col ml-6">
         <h1 className="py-8 font-bold text-lg font-lexend ml-10">Carros</h1>
-        <div className="flex mx-4">
+        <div className="flex mx-4" id="carro">
 
           {response?.map((products: any) => {
             if (products.type === "Carro") {
@@ -92,7 +92,7 @@ const Cards = ({ children }: IProps): JSX.Element => {
       </div>
       <div className="flex overflow-x-auto mx-4 flex-col ml-6">
         <h1 className="py-8 font-bold text-lg font-lexend ml-10">Motos</h1>
-        <div className="flex mx-4">
+        <div className="flex mx-4" id="moto">
           {response?.map((products: any) => {
 
             if (products.type === "Moto") {

@@ -1,8 +1,9 @@
 import riscos from "../../image/risco.png";
-
 import x from "../../image/xmark.png";
 import image from "../../image/NameShop.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { CounterContext } from "../../Providers/counter";
 
 interface IUser {
   name: string;
@@ -16,13 +17,14 @@ interface IUserProp {
 
 export const Header = ({ user }: IUserProp) => {
 
-  const [boolMobile, setBoolMobile] = useState(true);
-  const [boolPerfile, setBoolPerfile] = useState(false);
-  const logged = true;
+  const {setBoolMobile, boolMobile, logged, setBoolPerfile, boolPerfile} = useContext(CounterContext)
+
   return (
-    <header className="flex justify-between h-20 -bg-grey-10">
+    <header id="header" className="flex justify-between h-20 -bg-grey-10 select-none">
       <div className="flex flex-row items-center space-x-1 font-bold ">
-        <img src={image} alt="img" className="pl-8 h-8" />
+        <Link to={"/"}>
+          <img src={image} alt="img" className="pl-8 h-8" />
+        </Link>
       </div>
 
       <div className="flex items-center pr-4 sm:hidden">

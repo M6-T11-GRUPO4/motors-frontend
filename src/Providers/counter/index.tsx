@@ -18,8 +18,8 @@ export interface IProviderProps {
 export const CounterProvider = ({ children }: IProviderProps) => {
   const [boolMobile, setBoolMobile] = useState(true);
   const [boolPerfile, setBoolPerfile] = useState(false);
-  const logged = true;
   const [response, setResponse] = useState([]);
+  const logged = true;
 
   useEffect(() => {
     api

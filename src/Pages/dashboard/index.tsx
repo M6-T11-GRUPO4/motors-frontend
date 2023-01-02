@@ -67,7 +67,7 @@ export const Dashboard = () => {
                 </div>
                 <button
                   className="-bg-grey-0 h-10 w-56 text-white rounded"
-                  onClick={() => navigate("/")}
+                  onClick={() => navigate("/profile")}
                 >
                   Ver todos anuncios
                 </button>

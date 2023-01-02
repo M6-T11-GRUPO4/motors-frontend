@@ -1,3 +1,4 @@
+import { Link } from "react-scroll";
 import Auction from "../../components/cards/auction";
 import Cards from "../../components/cards/vehicles";
 import { Footer } from "../../components/footer";
@@ -15,11 +16,29 @@ export const Home = () => {
           Um ambiente feito para você explorar o seu melhor
         </h4>
         <div className="flex flex-col sm:flex-row items-center justify-center space-y-5 sm:space-x-5 sm:space-y-0 w-80">
-          <button className=" -border-grey-10 border w-80 sm:w-5/12 h-10 rounded">
-            Carros
+          <button className="hover:-bg-grey-10 hover:text-gray-900 -border-grey-10 border w-80 sm:w-5/12 h-10 rounded">
+            <Link
+              to="carro"
+              spy={true}
+              smooth={true}
+              offset={-90}
+              duration={500}
+              className="flex items-center justify-center w-full h-full"
+            >
+              Carros
+            </Link>
           </button>
-          <button className=" -border-grey-10 border w-80 sm:w-5/12 h-10 rounded">
-            Motos
+          <button className="hover:-bg-grey-10 hover:text-gray-900 -border-grey-10 border w-80 sm:w-5/12 h-10 rounded">
+            <Link
+              to="moto"
+              spy={true}
+              smooth={true}
+              offset={-50}
+              duration={500}
+              className="flex items-center justify-center w-full h-full"
+            >
+              Motos
+            </Link>
           </button>
         </div>
       </section>
