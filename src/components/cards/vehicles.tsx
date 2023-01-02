@@ -22,7 +22,6 @@ const Cards = ({ children }: IProps): JSX.Element => {
       .join("")
       .toUpperCase();
     setName(user_name + last_name);
-    console.log(name)
   };
 
   const callback = (id: string): void => {
