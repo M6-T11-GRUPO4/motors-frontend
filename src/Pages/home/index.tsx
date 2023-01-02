@@ -1,4 +1,5 @@
 import Cards from "../../components/cards/vehicles";
+import CreateVehicle from "../../components/create-vehicle";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 
@@ -24,6 +25,7 @@ export const Home = () => {
       </section>
       <Cards />
       <Footer />
+      <CreateVehicle />
     </>
   );
 };
