@@ -8,6 +8,7 @@ export default function CreateVehicle() {
   const [modal, setModal] = useState(true);
   const [isAuction, setIsAuction] = useState(false);
   const [isCar, setIsCar] = useState(true)
+  // const {customStyles, modal, OpenAndCloseModal} = useContext(CounterContext)
 
   function setAuctionTrue(): void {
     setIsAuction(true);

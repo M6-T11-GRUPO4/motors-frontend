@@ -172,7 +172,7 @@ export interface IImage{
   url:string
 }
 const Cards = ({products}:IProps) => {
-  const [name, setName] = useState<string>("");
+  // const [name, setName] = useState<string>("");
   const [active, setActive] = useState<boolean>(true);
 
   const {setProduct} = useContext(CounterContext)

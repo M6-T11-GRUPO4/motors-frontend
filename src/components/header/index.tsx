@@ -1,7 +1,7 @@
 import riscos from "../../image/risco.png";
 import x from "../../image/xmark.png";
 import image from "../../image/NameShop.png";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CounterContext } from "../../Providers/counter";
 

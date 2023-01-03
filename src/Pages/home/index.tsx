@@ -1,5 +1,4 @@
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router";
+import { useContext } from "react";
 import { Link } from "react-scroll";
 import Auction from "../../components/cards/auction/index";
 import Cards, { IImage } from "../../components/cards/vehicles/index";

@@ -2,11 +2,29 @@ import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import carro from "../../image/carro2.png";
 import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { CounterContext } from "../../Providers/counter";
+import Modal from "react-modal";
+import { ImageVehicleModal } from "../../components/modais/imageVehicleModal";
+
+interface Itype {
+  type:string
+  image:string
+}
 
 export const Dashboard = () => {
-  const arrCarros: Array<number> = [1, 2, 3, 4, 5, 6];
   const arrComent: Array<number> = [1, 2, 3];
+  const { product, customStyles, modal, OpenAndCloseModal } =
+    useContext(CounterContext);
+  const [typeCar, setTypeCar] = useState<Itype>({} as Itype);
   const navigate = useNavigate();
+  console.log(typeCar);
+  
+  function CallBack(image:string) {
+    setTypeCar({ type: "Car", image: image })
+    OpenAndCloseModal()
+  }
+
   return (
     <>
       <Header user={{ name: "string", img: "" }} />
@@ -15,19 +33,21 @@ export const Dashboard = () => {
           <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center w-full md:space-x-7">
             <div className="flex flex-col w-80 md:w-[36rem] space-y-3 items-center">
               <div className="-bg-grey-10 h-72 w-80 md:w-[36rem] flex items-center justify-center rounded-sm">
-                <img className="h-36 md:h-48" src={carro} alt="corro1" />
+                <img
+                  className="h-36 md:h-48"
+                  src={product?.image[0].url}
+                  alt="corro1"
+                />
               </div>
               <div className="-bg-grey-10 w-80 md:w-[36rem] p-8 space-y-16 rounded-sm">
                 <div className="flex flex-col space-y-10 ">
-                  <p className="font-bold w-64 md:w-[32rem]">
-                    Mercedes Benz A 200 CGI ADVANCE SEDAN Mercedes Benz A 200
-                  </p>
+                  <p className="font-bold w-64 md:w-[32rem]">{product?.name}</p>
                   <div className="flex flex-col h-16 md:flex-row justify-between  font-bold">
                     <div className="flex justify-around md:justify-between text-xs w-32 -text-brand2">
-                      <div>2013</div>
-                      <div>{0} KM</div>
+                      <div>{product?.year}</div>
+                      <div>{product?.km} KM</div>
                     </div>
-                    <div>R$ {"00.000,00"}</div>
+                    <div>R$ {product?.price}</div>
                   </div>
                   <button className=" w-32 h-10 rounded-md -bg-brand2 -text-grey-10">
                     Comprar
@@ -36,11 +56,7 @@ export const Dashboard = () => {
                 <div className="flex flex-col space-y-5">
                   <h3 className="font-bold text-lg">Descrição</h3>
                   <span className="w-72 md:w-auto text-sm font-sans">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book.
+                    {product?.description}
                   </span>
                 </div>
               </div>
@@ -49,9 +65,12 @@ export const Dashboard = () => {
               <div className=" -bg-grey-10 flex flex-col w-80 md:w-96 justify-evenly h-[20rem] md:p-8 rounded-sm">
                 <h4 className="font-bold text-xl pl-3">Fotos</h4>
                 <div className="flex flex-row items-center justify-center flex-wrap h-56 gap-2 gap-y-7">
-                  {arrCarros.map((e) => (
-                    <div className="w-26 h-26">
-                      <img className="h-14" src={carro} alt="corro1" />
+                  {product?.image.map((e) => (
+                    <div
+                      className="w-26 h-26"
+                      onClick={() => CallBack(e.url)}
+                    >
+                      <img className="h-14" src={carro} alt="corro/moto" />
                     </div>
                   ))}
                 </div>
@@ -99,6 +118,13 @@ export const Dashboard = () => {
           </div>
         </div>
       </section>
+      <Modal
+        isOpen={modal}
+        onRequestClose={OpenAndCloseModal}
+        style={customStyles}
+      >
+        {typeCar.type === "Car" ? <ImageVehicleModal image={typeCar.image}/> : null}
+      </Modal>
       <Footer />
     </>
   );
