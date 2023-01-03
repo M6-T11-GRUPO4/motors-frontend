@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { Link } from "react-scroll";
 import Auction from "../../components/cards/auction/index";
 import Cards, { IImage } from "../../components/cards/vehicles/index";
-import CreateVehicle from "../../components/create-vehicle";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { CounterContext } from "../../Providers/counter";
@@ -83,7 +82,6 @@ export const Home = () => {
       </div>
 
       <Footer />
-      <CreateVehicle />
     </>
   );
 };
