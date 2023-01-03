@@ -7,3 +7,11 @@
     background: #CED4DA;
     border-radius: 10px;
   }
+
+::-webkit-overflow-scrolling{
+    touch-action: auto;
+}
+
+img{
+    -webkit-user-drag: none;
+}

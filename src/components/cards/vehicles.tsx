@@ -28,10 +28,11 @@ const Cards = ({ children }: IProps): JSX.Element => {
     sessionStorage.setItem("@idVeiculo", id);
     navigate("/dashboard")
   };
+  
 
   return (
     <>
-      <div className="flex mx-4 flex-col ml-6">
+      <div className="flex mx-4 flex-col ml-6 select-none">
         <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">Carros</h1>
         <div className="flex overflow-x-auto">
 
@@ -52,7 +53,7 @@ const Cards = ({ children }: IProps): JSX.Element => {
                     </span>
                   )} */}
                   <img
-                    className="w-64  -bg-grey-7"
+                    className="w-64 -bg-grey-7 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-125 duration-300"
                     src={products.image[0].url}
                     alt="foto veiculo"
                   />
@@ -90,7 +91,7 @@ const Cards = ({ children }: IProps): JSX.Element => {
         </div>
         {children}
       </div>
-      <div className="flex mx-4 flex-col ml-6">
+      <div className="flex mx-4 flex-col ml-6 select-none">
         <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">Motos</h1>
         <div className="flex overflow-x-auto mb-20">
           {response?.map((products: any) => {
@@ -111,7 +112,7 @@ const Cards = ({ children }: IProps): JSX.Element => {
                     </span>
                   )} */}
                   <img
-                    className="w-64  -bg-grey-7"
+                    className="w-64  -bg-grey-7 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-125 duration-300"
                     src={products.image[0].url}
                     alt="foto veiculo"
                   />
