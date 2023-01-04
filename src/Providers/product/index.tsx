@@ -11,24 +11,20 @@ interface IContextProps {
   boolPerfile: boolean;
   setProduct(product: IProducts): void;
   product: IProducts;
-  setModal(modal: boolean): void;
-  modal: boolean;
-  OpenAndCloseModal(): void;
   logged: boolean;
   response: any;
   customStyles: Styles;
 }
-export const CounterContext = createContext({} as IContextProps);
+export const ProductContext = createContext({} as IContextProps);
 
 export interface IProviderProps {
   children: ReactNode;
 }
-export const CounterProvider = ({ children }: IProviderProps) => {
+export const ProductProvider = ({ children }: IProviderProps) => {
   const [boolMobile, setBoolMobile] = useState(true);
   const [boolPerfile, setBoolPerfile] = useState(false);
   const [response, setResponse] = useState<IProducts[]>([] as IProducts[]);
   const [product, setProduct] = useState<IProducts>({} as IProducts);
-  const [modal, setModal] = useState(true);
   const logged = true;
 
   console.log(product);
@@ -57,35 +53,6 @@ export const CounterProvider = ({ children }: IProviderProps) => {
     return arr;
   }
 
-  // const customStyles: Styles = {
-  //   overlay: {
-  //     position: "fixed",
-  //     top: 0,
-  //     left: 0,
-  //     right: 0,
-  //     bottom: 0,
-  //     backgroundColor: "rgba(0, 0, 0, 0.75)",
-  //   },
-  //   content: {
-  //     position: "absolute",
-  //     top: "50%",
-  //     left: "50%",
-  //     right: "auto",
-  //     bottom: "auto",
-  //     background: "#fff",
-  //     overflow: "auto",
-  //     WebkitOverflowScrolling: "touch",
-  //     borderRadius: "15px",
-  //     outline: "none",
-  //     padding: "0px",
-  //     marginRight: "10%",
-  //     transform: "translate(-50%, -50%)",
-  //     maxHeight: "1036px",
-  //     maxWidth: "520px",
-  //     minWidth: "346px",
-  //   },
-  // };
-
   const customStyles: Styles = {
     overlay: {
       position: "fixed",
@@ -107,7 +74,7 @@ export const CounterProvider = ({ children }: IProviderProps) => {
       borderRadius: "15px",
       outline: "none",
       padding: "20px",
-      marginRight: "-50%",
+      marginRight: "10%",
       transform: "translate(-50%, -50%)",
       maxHeight: "1036px",
       maxWidth: "520px",
@@ -115,12 +82,8 @@ export const CounterProvider = ({ children }: IProviderProps) => {
     },
   };
 
-  function OpenAndCloseModal(): void {
-    setModal(!modal);
-  }
-
   return (
-    <CounterContext.Provider
+    <ProductContext.Provider
       value={{
         Transform,
         boolMobile,
@@ -131,13 +94,10 @@ export const CounterProvider = ({ children }: IProviderProps) => {
         response,
         setProduct,
         product,
-        modal,
-        setModal,
         customStyles,
-        OpenAndCloseModal
       }}
     >
       {children}
-    </CounterContext.Provider>
+    </ProductContext.Provider>
   );
 };

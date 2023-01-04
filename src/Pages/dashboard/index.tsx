@@ -3,26 +3,29 @@ import { Header } from "../../components/header";
 import carro from "../../image/carro2.png";
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import { CounterContext } from "../../Providers/counter";
+import { ProductContext } from "../../Providers/product";
 import Modal from "react-modal";
 import { ImageVehicleModal } from "../../components/modais/imageVehicleModal";
+import { ModalContext } from "../../Providers/modal";
+import { EditProfileModal } from "../../components/modais/editProfileModal";
 
 interface Itype {
-  type:string
-  image:string
+  type: string;
+  image: string;
 }
 
 export const Dashboard = () => {
   const arrComent: Array<number> = [1, 2, 3];
-  const { product, customStyles, modal, OpenAndCloseModal } =
-    useContext(CounterContext);
+  const { product } =
+    useContext(ProductContext);
+  const { customStyles, modal, OpenAndCloseModal } =
+    useContext(ModalContext);
   const [typeCar, setTypeCar] = useState<Itype>({} as Itype);
   const navigate = useNavigate();
-  console.log(typeCar);
-  
-  function CallBack(image:string) {
-    setTypeCar({ type: "Car", image: image })
-    OpenAndCloseModal()
+
+  function CallBack(image: string) {
+    setTypeCar({ type: "Car", image: image });
+    OpenAndCloseModal();
   }
 
   return (
@@ -66,10 +69,7 @@ export const Dashboard = () => {
                 <h4 className="font-bold text-xl pl-3">Fotos</h4>
                 <div className="flex flex-row items-center justify-center flex-wrap h-56 gap-2 gap-y-7">
                   {product?.image.map((e) => (
-                    <div
-                      className="w-26 h-26"
-                      onClick={() => CallBack(e.url)}
-                    >
+                    <div className="w-26 h-26" onClick={() => CallBack(e.url)}>
                       <img className="h-14" src={carro} alt="corro/moto" />
                     </div>
                   ))}
@@ -123,7 +123,10 @@ export const Dashboard = () => {
         onRequestClose={OpenAndCloseModal}
         style={customStyles}
       >
-        {typeCar.type === "Car" ? <ImageVehicleModal image={typeCar.image}/> : null}
+        {typeCar.type === "Car" ? (
+          // <ImageVehicleModal image={typeCar.image} />
+          <EditProfileModal image={typeCar.image} />
+        ) : null}
       </Modal>
       <Footer />
     </>

@@ -5,7 +5,7 @@ import Cards, { IImage } from "../../components/cards/vehicles/index";
 import CreateVehicle from "../../components/create-vehicle";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
-import { CounterContext } from "../../Providers/counter";
+import { ProductContext } from "../../Providers/product";
 
 export interface IProducts {
   id: string;
@@ -19,7 +19,7 @@ export interface IProducts {
   type?: string;
 }
 export const Home = () => {
-  const { response }: any = useContext(CounterContext);
+  const { response }: any = useContext(ProductContext);
 
   return (
     <>

@@ -3,7 +3,7 @@ import Cards from "../../components/cards/vehicles";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { ProfileCard } from "../../components/profileCard";
-import { CounterContext } from "../../Providers/counter";
+import { ProductContext } from "../../Providers/product";
 import { IProducts } from "../home";
 
 export const ProfileViewUser = () => {
@@ -18,7 +18,7 @@ export const ProfileViewUser = () => {
     img: "www.google.com",
     isSeller: false,
   };
-  const { response } = useContext(CounterContext);
+  const { response } = useContext(ProductContext);
 
   return (
     <>

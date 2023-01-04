@@ -6,7 +6,7 @@ interface iUniqueImage {
   image: string;
 }
 
-export const ImageVehicleModal = ({ image }: iUniqueImage) => {
+export const EditProfileModal = ({ image }: iUniqueImage) => {
   const { OpenAndCloseModal } = useContext(ModalContext);
   return (
     <div>
