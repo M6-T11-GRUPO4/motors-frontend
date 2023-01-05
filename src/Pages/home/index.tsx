@@ -2,10 +2,10 @@ import { useContext } from "react";
 import { Link } from "react-scroll";
 import Auction from "../../components/cards/auction/index";
 import Cards, { IImage } from "../../components/cards/vehicles/index";
-import CreateVehicle from "../../components/create-vehicle";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { ProductContext } from "../../Providers/product";
+import EditVehicle from "../../components/modais/editVehicle";
 
 export interface IProducts {
   id: string;
@@ -82,7 +82,7 @@ export const Home = () => {
       </div>
 
       <Footer />
-      <CreateVehicle />
+      <EditVehicle />
     </>
   );
 };

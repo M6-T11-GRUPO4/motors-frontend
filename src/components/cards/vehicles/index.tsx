@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { DetailedHTMLProps, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IProducts } from "../../../Pages/home";
 import { ProductContext } from "../../../Providers/product/index";
@@ -45,7 +45,7 @@ const Cards = ({ products }: IProps) => {
     <div
       key={products.id}
       onClick={() => callback(products)}
-      className="flex flex-col m-7 relative cursor-pointer"
+      className="flex      flex-col m-7 relative cursor-pointer"
     >
       {active === true ? (
         <span className="-bg-brand1 -text-white-fixed font-medium font-inter text-xs w-10 flex justify-center absolute mt-2 ml-3">
@@ -57,7 +57,7 @@ const Cards = ({ products }: IProps) => {
         </span>
       )}
       <img
-        className="w-64 -bg-grey-7"
+        className="w-64 -bg-grey-7 "
         src={products.image[0].url}
         alt="foto veiculo"
       />

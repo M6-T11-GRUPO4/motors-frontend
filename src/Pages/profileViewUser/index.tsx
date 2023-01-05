@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Cards from "../../components/cards/vehicles";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
-import { ProfileCard } from "../../components/profileCard";
+import { ProfileCard } from "../../components/cards/profileCard";
 import { ProductContext } from "../../Providers/product";
 import { IProducts } from "../home";
 

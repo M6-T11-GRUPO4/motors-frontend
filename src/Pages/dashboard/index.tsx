@@ -2,31 +2,20 @@ import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import carro from "../../image/carro2.png";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ProductContext } from "../../Providers/product";
 import Modal from "react-modal";
-import { ImageVehicleModal } from "../../components/modais/imageVehicleModal";
 import { ModalContext } from "../../Providers/modal";
 import { EditProfileModal } from "../../components/modais/editProfileModal";
 
-interface Itype {
-  type: string;
-  image: string;
-}
 
 export const Dashboard = () => {
   const arrComent: Array<number> = [1, 2, 3];
   const { product } =
     useContext(ProductContext);
-  const { customStyles, modal, OpenAndCloseModal } =
+  const { customStylesModalCar, modal, OpenAndCloseModal, typeCar, CallBack } =
     useContext(ModalContext);
-  const [typeCar, setTypeCar] = useState<Itype>({} as Itype);
   const navigate = useNavigate();
-
-  function CallBack(image: string) {
-    setTypeCar({ type: "Car", image: image });
-    OpenAndCloseModal();
-  }
 
   return (
     <>
@@ -121,11 +110,11 @@ export const Dashboard = () => {
       <Modal
         isOpen={modal}
         onRequestClose={OpenAndCloseModal}
-        style={customStyles}
+        style={customStylesModalCar}
       >
         {typeCar.type === "Car" ? (
           // <ImageVehicleModal image={typeCar.image} />
-          <EditProfileModal image={typeCar.image} />
+          <EditProfileModal image={typeCar.obj.image} />
         ) : null}
       </Modal>
       <Footer />
