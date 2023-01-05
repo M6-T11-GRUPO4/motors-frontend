@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { IProducts } from "../../Pages/home";
 import { api } from "../../services/api";
 
 interface IContextProps {
@@ -7,8 +8,10 @@ interface IContextProps {
   boolMobile: boolean;
   setBoolPerfile(boolMobile: boolean): void;
   boolPerfile: boolean;
+  setProduct(product: IProducts): void;
+  product: IProducts;
   logged: boolean;
-  response: any
+  response: any;
 }
 export const CounterContext = createContext({} as IContextProps);
 
@@ -18,8 +21,9 @@ export interface IProviderProps {
 export const CounterProvider = ({ children }: IProviderProps) => {
   const [boolMobile, setBoolMobile] = useState(true);
   const [boolPerfile, setBoolPerfile] = useState(false);
+  const [response, setResponse] = useState<IProducts[]>([] as IProducts[]);
+  const [product, setProduct] = useState<IProducts>({} as IProducts);
   const logged = true;
-  const [response, setResponse] = useState([]);
 
   useEffect(() => {
     api
@@ -54,7 +58,9 @@ export const CounterProvider = ({ children }: IProviderProps) => {
         boolPerfile,
         setBoolPerfile,
         logged,
-        response
+        response,
+        setProduct,
+        product,
       }}
     >
       {children}

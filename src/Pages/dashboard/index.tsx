@@ -10,7 +10,7 @@ export const Dashboard = () => {
   return (
     <>
       <Header user={{ name: "string", img: "" }} />
-      <section className="littleBackgroundImage md:bigBackgroundImage flex flex-col mx-auto pt-10 -bg-brand2 items-center font-inter space-y-16">
+      <section className="littleBackgroundImage md:bigBackgroundImage flex flex-col mx-auto pt-10 -bg-brand2 items-center font-inter space-y-16 select-none">
         <div className="flex flex-col w-72 lg:w-[62rem] items-start space-y-10">
           <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center w-full md:space-x-7">
             <div className="flex flex-col w-80 md:w-[36rem] space-y-3 items-center">
@@ -67,7 +67,7 @@ export const Dashboard = () => {
                 </div>
                 <button
                   className="-bg-grey-0 h-10 w-56 text-white rounded"
-                  onClick={() => navigate("/")}
+                  onClick={() => navigate("/profile")}
                 >
                   Ver todos anuncios
                 </button>
