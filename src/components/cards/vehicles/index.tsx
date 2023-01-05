@@ -48,7 +48,6 @@ const Cards = ({products}:IProps) => {
     
     <div
       key={products.id}
-      onClick={() => callback(products)}
       className="flex flex-col m-7 relative cursor-pointer select-none"
     >
 
@@ -65,6 +64,7 @@ const Cards = ({products}:IProps) => {
         className="w-64 -bg-grey-7 transition-property: hover:border-2 -border-random4 transition-duration: 150ms  ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
         src={products.image[0].url}
         alt="foto veiculo"
+        onClick={() => callback(products)}
       />
        
       <p className="text-sm font-bold py-3 w- font-lexend">{products.name}</p>

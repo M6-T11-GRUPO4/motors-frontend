@@ -18,8 +18,10 @@ interface IUserRegister {
     street: string,
     number: string,
     complement: string,
+    is_seller2: string,
+    is_seller:string,
     password: string,
-    confirm_password: string
+    confirm_password: string,
 }
 
 const RegisterPage = (): JSX.Element => {
@@ -39,6 +41,8 @@ const RegisterPage = (): JSX.Element => {
         street: yup.string().required("Nome da rua é obrigatório"),
         number: yup.string().required("Numero residencial é obrigatório"),
         complement: yup.string().required("Complemento é obrigatório"),
+        is_seller2: yup.string(),
+        is_seller: yup.string(),
 		password: yup.string().required("Senha é obrigatório.").min(6, "Mínimo 6 caracteres."),
 		confirm_password: yup.string().required("Senha é obrigatório.").oneOf([yup.ref("password")], "Senhas diferentes"),
 	});
@@ -137,8 +141,8 @@ const RegisterPage = (): JSX.Element => {
             <p className="font-semibold font-inter text-xs ml-4 my-6">Tipo de conta</p>
 
             <div className="flex w-12/12">
-            <button onClick={changeColor} className={colorChange === false ? "w-6/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-7 rounded -bg-brand1 font-inter text-white font-bold" : "w-6/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-4 rounded font-inter font-bold"}>Comprador</button>
-            <button onClick={changeColor} className={colorChange === false ? "w-6/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-4 rounded font-inter font-bold" : "w-6/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-7 rounded -bg-brand1 font-inter text-white font-bold"}>Anuciante</button>
+            <input onClick={changeColor} {...register("is_seller2")} name="is_seller2" type="button" value="Comprador" className={colorChange === false ? "w-6/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-7 rounded -bg-brand1 font-inter text-white font-bold" : "w-6/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-4 rounded font-inter font-bold cursor-pointer"} />
+            <input onClick={changeColor} {...register("is_seller")} name="is_seller" type="button" value="Anuciante" className={colorChange === false ? "w-6/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-4 rounded font-inter font-bold" : "w-6/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-7 rounded -bg-brand1 font-inter text-white font-bold cursor-pointer"} />
             </div>
 
             <p className="font-semibold font-inter text-xs ml-4 my-2 mt-5">Senha</p>

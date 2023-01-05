@@ -8,6 +8,7 @@ import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { CounterContext } from "../../Providers/counter";
 import { motion } from "framer-motion";
+import "./style.css";
 
 export interface IProducts {
   id: string;
@@ -22,14 +23,19 @@ export interface IProducts {
 }
 export const Home = () => {
   const { response }: any = useContext(CounterContext);
+
   const carousel:any = useRef(null);
-  const [width, setWidth] = useState<any>(0)
+
+  const [widthCar, setWidthCar] = useState<any>(0)
+  const [widthMotorcycle, setWidthMotorcycle] = useState<any>(0)
 
   useEffect(()=>{
-    setWidth(carousel.current!.scrollWidth - carousel.current?.offsetWidth)
+    setWidthCar(carousel.current!.scrollWidth - carousel.current?.offsetWidth)
   },[])
 
-
+  useEffect(()=>{
+    setWidthMotorcycle(carousel.current!.scrollWidth - carousel.current?.offsetWidth)
+  },[])
 
   
 
@@ -72,12 +78,12 @@ export const Home = () => {
       </section>
       <Auction />
 
-      <div className="flex mx-4 flex-col ml-6 select-none">
+      <div className="flex overflow-x-hidden mx-4 flex-col ml-6 select-none">
         <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">Carros</h1>
         <motion.div
         ref={carousel}
         drag="x"
-        dragConstraints={{right:0, left:-width}} 
+        dragConstraints={{right:0, left:-widthCar}} 
         className="flex mx-4" id="carro">
           {response?.map((products: IProducts) => {
             if (products.type === "Carro") {
@@ -86,12 +92,13 @@ export const Home = () => {
           })}
         </motion.div>
       </div>
-      <div  className="flex mx-4 flex-col ml-6 mb-16">
+      <div className="flex overflow-x-hidden mx-4 flex-col ml-6 mb-16">
         <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">Motos</h1>
         <motion.div
+
         ref={carousel}
         drag="x"
-        dragConstraints={{right:0, left:-width}}
+        dragConstraints={{right:0, left:-widthMotorcycle}}
         className="flex mx-4" id="moto">
           {response?.map((products: IProducts) => {
             if (products.type === "Moto") {
