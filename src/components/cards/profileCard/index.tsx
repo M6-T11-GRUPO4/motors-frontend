@@ -1,4 +1,5 @@
-import { IUser } from "../../Pages/profile";
+import { IUser } from "../../../Pages/profile";
+
 
 interface IUserProp {
   user: IUser;

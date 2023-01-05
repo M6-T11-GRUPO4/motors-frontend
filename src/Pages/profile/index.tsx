@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import Auction from "../../components/cards/auction";
 import Cards from "../../components/cards/vehicles";
-import CreateVehicle from "../../components/create-vehicle";
+
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
-import { ProfileCard } from "../../components/profileCard";
-import { CounterContext } from "../../Providers/counter";
+import { ProfileCard } from "../../components/cards/profileCard";
+import { ProductContext } from "../../Providers/product";
 import { IProducts } from "../home";
+import CreateVehicle from "../../components/modais/createVehicle";
 
 export interface IUser {
   name: string;
@@ -20,8 +21,7 @@ export const ProfileView = () => {
     img: "www.google.com",
     isSeller: false,
   };
-
-  const { response } = useContext(CounterContext);
+  const { response } = useContext(ProductContext);
 
   return (
     <>

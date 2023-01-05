@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router";
+import { useContext } from "react";
 import { Link } from "react-scroll";
 import Auction from "../../components/cards/auction/index";
 import Cards, { IImage } from "../../components/cards/vehicles/index";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
-import { CounterContext } from "../../Providers/counter";
+import { ProductContext } from "../../Providers/product";
+import EditVehicle from "../../components/modais/editVehicle";
 
 export interface IProducts {
   id: string;
@@ -19,7 +19,7 @@ export interface IProducts {
   type?: string;
 }
 export const Home = () => {
-  const { response }: any = useContext(CounterContext);
+  const { response }: any = useContext(ProductContext);
 
   return (
     <>
@@ -82,6 +82,7 @@ export const Home = () => {
       </div>
 
       <Footer />
+      <EditVehicle />
     </>
   );
 };
