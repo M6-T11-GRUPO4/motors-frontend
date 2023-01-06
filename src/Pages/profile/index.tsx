@@ -26,12 +26,9 @@ export const ProfileView = () => {
   return (
     <>
       <Header user={user} />
-
       <main className="h-full bg-blue-white-gradient flex flex-col select-none">
         <ProfileCard user={user} />
-
         <Auction />
-
         <div className="flex overflow-x-auto mx-4 flex-col ml-6">
           <h1 className="py-8 font-bold text-lg font-lexend ml-10">Carros</h1>
           <div className="flex mx-4" id="carro">
@@ -55,10 +52,7 @@ export const ProfileView = () => {
           </div>
         </div>
       </main>
-
       <Footer />
-
-      <CreateVehicle />
     </>
   );
 };

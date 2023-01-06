@@ -7,7 +7,7 @@ export const Footer = () => {
       <img className="pl-8 h-8" src={logo} alt="logo" />
       <p>© 2022 - Todos os direitos reservados.</p>
       <div className="md:pr-16">
-        <button className="flex items-center justify-center -bg-grey-1 h-8 w-8 rounded-md">
+        <button className="flex items-center justify-center -bg-grey-1 h-8 w-8 rounded-md" draggable>
           <Link
             to="header"
             spy={true}
