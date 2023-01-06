@@ -1,10 +1,9 @@
 import { Routers } from "./Routes";
 
-
 function App() {
   return (
-    <div className="-bg-grey-10">
-      <Routers/>
+    <div className="-bg-grey-10 w-full">
+      <Routers />
     </div>
   );
 }
