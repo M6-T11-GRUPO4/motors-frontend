@@ -1,8 +1,8 @@
 import riscos from "../../image/risco.png";
 import x from "../../image/xmark.png";
 import image from "../../image/NameShop.png";
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { CounterContext } from "../../Providers/counter";
 
 interface IUser {
@@ -16,11 +16,11 @@ interface IUserProp {
 }
 
 export const Header = ({ user }: IUserProp) => {
-
+  const navigate = useNavigate();
   const {setBoolMobile, boolMobile, logged, setBoolPerfile, boolPerfile} = useContext(CounterContext)
 
   return (
-    <header id="header" className="flex justify-between h-20 -bg-grey-10 select-none">
+    <header id="header" className="flex justify-between h-[10vh] -bg-grey-10 select-none">
       <div className="flex flex-row items-center space-x-1 font-bold ">
         <Link to={"/"}>
           <img src={image} alt="img" className="pl-8 h-8" />
@@ -154,7 +154,7 @@ export const Header = ({ user }: IUserProp) => {
                 )}
               </li>
               <li>
-                <button onClick={() => console.log("foii")}>Sair</button>
+                <button onClick={() => navigate("/login")}>Sair</button>
               </li>
             </ul>
           </div>
