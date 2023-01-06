@@ -1,6 +1,5 @@
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
-import carro from "../../image/carro2.png";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ProductContext } from "../../Providers/product";

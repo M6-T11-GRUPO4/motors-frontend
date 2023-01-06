@@ -61,7 +61,6 @@ export const EditProfileModal = () => {
 
   function onHandleSubmit(data: FieldValues) {
     console.log(data);
-    return data;
 
     // const EditData = {
     //   name: data.name,
@@ -71,12 +70,12 @@ export const EditProfileModal = () => {
 
     // const response = AxiosRender({
     //   method: "patch",
-    //   url: `http://localhost:3001/contact/${axiosId}`,
-    //   data:EditData,
+    //   url: `http://localhost:4000/users/${UserId}`,
+    //   data,
     // });
 
     // if (response !== undefined || typeof response !== "string") {
-    //   OpenAndCloseModal({});
+    //   OpenAndCloseModal();
     // }
   }
 
