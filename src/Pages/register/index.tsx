@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { api } from "../../services/api";
 
 interface IUserRegister {
     name: string,
@@ -13,13 +14,12 @@ interface IUserRegister {
     birthdate: string,
     description: string,
     cep: string,
-    estate: string,
+    state: string,
     city: string,
     street: string,
     number: string,
     complement: string,
-    is_seller2: string,
-    is_seller:string,
+    is_seller:boolean,
     password: string,
     confirm_password: string,
 }
@@ -27,6 +27,8 @@ interface IUserRegister {
 const RegisterPage = (): JSX.Element => {
 
     const [colorChange, setColorChange] = useState<boolean>(false)
+    const [isSeller, setIsSeller] = useState(false);
+
 
     const formSchema = yup.object().shape({
 		name: yup.string().required("O nome é obrigatório"),
@@ -36,13 +38,12 @@ const RegisterPage = (): JSX.Element => {
         birthdate: yup.string().required("Data de nascimento é obrigatório"),
         description: yup.string().required("Descrição é Obrigatório"),
         cep: yup.string().required("CEP é Obrigatório").max(8),
-        estate: yup.string().required("Estado é obrigatório"),
+        state: yup.string().required("Estado é obrigatório"),
         city: yup.string().required("Cidade é obrigatório"),
         street: yup.string().required("Nome da rua é obrigatório"),
         number: yup.string().required("Numero residencial é obrigatório"),
         complement: yup.string().required("Complemento é obrigatório"),
-        is_seller2: yup.string(),
-        is_seller: yup.string(),
+        is_seller: yup.boolean(),
 		password: yup.string().required("Senha é obrigatório.").min(6, "Mínimo 6 caracteres."),
 		confirm_password: yup.string().required("Senha é obrigatório.").oneOf([yup.ref("password")], "Senhas diferentes"),
 	});
@@ -54,6 +55,7 @@ const RegisterPage = (): JSX.Element => {
 	} = useForm<IUserRegister>({ resolver: yupResolver(formSchema) });
 
     const changeColor = () : void => {
+    
         if(colorChange === false){
             setColorChange(true)
         }else{
@@ -63,6 +65,10 @@ const RegisterPage = (): JSX.Element => {
 
     const submit = (data:IUserRegister) =>{
         console.log(data)
+      api.post("users/register",data).then((res)=>{
+        console.log(res)
+    }).catch((err)=> console.log(err))
+
     }
 
     return(
@@ -70,8 +76,8 @@ const RegisterPage = (): JSX.Element => {
         <Header user={{ name: "string", img: "" }} />
 
         <div className="flex flex-col items-center w-screen -bg-grey-7 ">
-        <form onSubmit={handleSubmit(submit)} className="-bg-grey-10 h-auto w-4/12 flex flex-col items-center content-center my-10 rounded p-8 min-w-[320px] mb-16 md:mb-32  ">
-            <div>
+        <form onSubmit={handleSubmit(submit)} className="-bg-grey-10 h-auto w-4/12 flex flex-col items-center content-center my-10 rounded p-8 max-w-[90%] min-w-[320px] mb-16 md:mb-32  ">
+            <div className="w-[100%]">
             <h1 className="font-bold font-lexend ml-4 my-4 text-lg">Cadastro</h1>
                 <p className="font-semibold font-inter text-xs ml-4 my-6">Informações pessoais</p>
                 <p className="font-semibold font-inter text-xs ml-4 my-2">Nome</p>
@@ -103,17 +109,17 @@ const RegisterPage = (): JSX.Element => {
                 <input {...register("cep")} name="cep" className="w-11/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-7 rounded" type="number" placeholder="00000.000"/>
                 {errors.cep && <span className="font-semibold font-inter text-[10px] ml-4 my-2 text-red-600">{errors.cep?.message}</span>}
 
-                <div className="flex content-between">
+                <div className="flex content-between w-[100%]">
 
-                <div className="flex flex-col">
+                <div className="flex flex-col w-[50%]">
                     <p className="font-semibold font-inter text-xs ml-4 my-2 mt-5">Estado</p>
-                    <input {...register("estate")} name="estate"  className="w-11/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-7 rounded" type="text" placeholder="Digitar Estado" />
-                    {errors.estate && <span className="flex font-semibold font-inter text-[10px] ml-4 my-2 text-red-600">{errors.estate?.message}</span>}
+                    <input {...register("state")} name="state"  className="w-[90%] ml-4 text-sm p-2 border-solid border-2 -border-grey-7 rounded" type="text" placeholder="Digitar Estado" />
+                    {errors.state && <span className="flex font-semibold font-inter text-[10px] ml-4 my-2 text-red-600">{errors.state?.message}</span>}
                 </div>
 
-                <div>
+                <div className="w-[50%]">
                     <p className="font-semibold font-inter text-xs ml-4 my-2 mt-5">Cidade</p>
-                    <input {...register("city")} name="city" className="w-11/12 ml-2 text-sm p-2 border-solid border-2 -border-grey-7 rounded" type="text" placeholder="Digitar cidade"/>
+                    <input {...register("city")} name="city" className="w-[90%] text-sm p-2 border-solid border-2 -border-grey-7 rounded" type="text" placeholder="Digitar cidade"/>
                     {errors.city && <span className="font-semibold font-inter text-[10px] ml-4 my-2 text-red-600">{errors.city?.message}</span>}
                 </div>
                 
@@ -122,17 +128,17 @@ const RegisterPage = (): JSX.Element => {
             <input {...register("street")} name="street" className="w-11/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-7 rounded" type="text" placeholder="Digitar rua"/>
             {errors.street && <span className="font-semibold font-inter text-[10px] ml-4 my-2 text-red-600">{errors.street?.message}</span>}
 
-            <div className="flex">
+            <div className="flex content-betwen w-[100%]">
 
-            <div>
+            <div className=" flex flex-col w-[50%]">
             <p className="font-semibold font-inter text-xs ml-4 my-2 mt-5">Numero</p>
-            <input {...register("number")} name="number" className="w-11/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-7 rounded" type="number" placeholder="Digitar número"/>
+            <input {...register("number")} name="number" className="w-[90%] ml-4 text-sm p-2 border-solid border-2 -border-grey-7 rounded" type="number" placeholder="Digitar número"/>
             {errors.number && <span className="flex font-semibold font-inter text-[10px] ml-4 my-2 text-red-600">{errors.number?.message}</span>}
             </div>
 
-            <div>
+            <div className="w-[50%]">
                 <p className="font-semibold font-inter text-xs ml-4 my-2 mt-5">Complemento</p>
-                <input {...register("complement")} name="complement" className="w-10/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-7 rounded" type="text" placeholder="Ex: apart 307"/>
+                <input {...register("complement")} name="complement" className="w-[90%] text-sm p-2 border-solid border-2 -border-grey-7 rounded" type="text" placeholder="Ex: apart 307"/>
                 {errors.complement && <span className="font-semibold font-inter text-[10px] ml-4 my-2 text-red-600">{errors.complement?.message}</span>}
             </div>
 
@@ -141,8 +147,56 @@ const RegisterPage = (): JSX.Element => {
             <p className="font-semibold font-inter text-xs ml-4 my-6">Tipo de conta</p>
 
             <div className="flex w-12/12">
-            <input onClick={changeColor} {...register("is_seller2")} name="is_seller2" type="button" value="Comprador" className={colorChange === false ? "w-6/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-7 rounded -bg-brand1 font-inter text-white font-bold" : "w-6/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-4 rounded font-inter font-bold cursor-pointer"} />
-            <input onClick={changeColor} {...register("is_seller")} name="is_seller" type="button" value="Anuciante" className={colorChange === false ? "w-6/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-4 rounded font-inter font-bold" : "w-6/12 ml-4 text-sm p-2 border-solid border-2 -border-grey-7 rounded -bg-brand1 font-inter text-white font-bold cursor-pointer"} />
+            <div className="flex flex-row w-80 md:w-[28rem] justify-evenly ">
+            <input
+              type="radio"
+              id="comprador"
+              name="is_seller"
+              value="Comprador"
+              onClick={() => setIsSeller(false)}
+              className="classInputRadio"
+            />
+            {!isSeller ? (
+              <label
+                htmlFor="comprador"
+                className="classLabelInputRadioButtonActivate w-[9.1rem] md:w-[11.7rem]"
+              >
+                Comprador
+              </label>
+            ) : (
+              <label
+                htmlFor="comprador"
+                className="classLabelInputRadioButtonDesactivate w-[9.1rem] md:w-[11.7rem]"
+              >
+                Comprador
+              </label>
+            )}
+            <input
+              type="radio"
+              id="anuciante"
+              name="is_seller"
+              value="Anuciante"
+              onClick={() => setIsSeller(true)}
+              className="classInputRadio"
+            />
+            {!isSeller ? (
+              <label
+                htmlFor="anuciante"
+                className="classLabelInputRadioButtonDesactivate w-[9.5rem] md:w-[11.7rem]"
+              >
+                Anuciante
+              </label>
+            ) : (
+              isSeller && (
+                <label
+                  htmlFor="anuciante"
+                  className="classLabelInputRadioButtonActivate w-[9.5rem] md:w-[11.7rem]"
+                >
+                  Anuciante
+                </label>
+              )
+            )}
+          </div>
             </div>
 
             <p className="font-semibold font-inter text-xs ml-4 my-2 mt-5">Senha</p>

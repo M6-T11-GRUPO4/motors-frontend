@@ -33,21 +33,22 @@ const Cards = ({ products, showIsActive = false }: IProps) => {
 
   const navigate = useNavigate();
 
+  
   // const twoLetters = (): void => {
-  //   let complet_name = name.replace(/\s(de|da|dos|das)\s/g, " ");
-  //   let initial = complet_name.match(/\b(\w)/gi);
-  //   let user_name = complet_name.split("")[0].toUpperCase();
-  //   let last_name = initial!
-  //     .splice(1, initial!.length - 1)
-  //     .join("")
-  //     .toUpperCase();
-  //   setName(user_name + last_name);
-  // };
-
-
-  const callback = (products:IProducts): void => {
-    setProduct(products)
-    navigate("/dashboard");
+    //   let complet_name = name.replace(/\s(de|da|dos|das)\s/g, " ");
+    //   let initial = complet_name.match(/\b(\w)/gi);
+    //   let user_name = complet_name.split("")[0].toUpperCase();
+    //   let last_name = initial!
+    //     .splice(1, initial!.length - 1)
+    //     .join("")
+    //     .toUpperCase();
+    //   setName(user_name + last_name);
+    // };
+    
+    
+    const callback = (products:IProducts): void => {
+      setProduct(products)
+      navigate("/dashboard");
   };
 
   return (

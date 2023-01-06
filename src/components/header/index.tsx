@@ -4,6 +4,7 @@ import image from "../../image/NameShop.png";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ProductContext } from "../../Providers/product";
+import { useNavigate } from "react-router-dom";
 
 interface IUser {
   name: string;
@@ -18,6 +19,8 @@ interface IUserProp {
 export const Header = ({ user }: IUserProp) => {
   const { setBoolMobile, boolMobile, logged, setBoolPerfile, boolPerfile } =
     useContext(ProductContext);
+
+    const navigate = useNavigate();
 
   return (
     <header
@@ -113,7 +116,7 @@ export const Header = ({ user }: IUserProp) => {
             ) : (
               <div className="relative flex flex-col md:flex-row space-x-8 items-baseline md:items-center font-lexend pr-16 gap-y-3">
                 <button className="hover:-text-brand1">Fazer Login</button>
-                <button className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-10 md:h-8 w-full md:w-28">
+                <button onClick={() => navigate("/profile")} className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-10 md:h-8 w-full md:w-28">
                   Cadastrar
                 </button>
               </div>
