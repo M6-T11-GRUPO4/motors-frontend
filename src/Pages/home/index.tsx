@@ -1,14 +1,12 @@
 import { useContext, useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router";
 import { Link } from "react-scroll";
 import Auction from "../../components/cards/auction/index";
 import Cards, { IImage } from "../../components/cards/vehicles/index";
-import CreateVehicle from "../../components/create-vehicle";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
-import { CounterContext } from "../../Providers/counter";
 import { motion } from "framer-motion";
-import "./style.css";
+import { ProductContext } from "../../Providers/product";
+import EditVehicle from "../../components/modais/editVehicle";
 
 export interface IProducts {
   id: string;
@@ -22,7 +20,7 @@ export interface IProducts {
   type?: string;
 }
 export const Home = () => {
-  const { response }: any = useContext(CounterContext);
+  const { response }: any = useContext(ProductContext);
 
   const carousel:any = useRef(null);
 
@@ -112,7 +110,7 @@ export const Home = () => {
       </div>
 
       <Footer />
-      <CreateVehicle />
+      <EditVehicle />
     </>
   );
 };
