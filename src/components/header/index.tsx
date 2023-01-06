@@ -4,6 +4,7 @@ import image from "../../image/NameShop.png";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ProductContext } from "../../Providers/product";
+import { ModalContext } from "../../Providers/modal";
 
 interface IUser {
   name: string;
@@ -18,7 +19,11 @@ interface IUserProp {
 export const Header = ({ user }: IUserProp) => {
   const { setBoolMobile, boolMobile, logged, setBoolPerfile, boolPerfile } =
     useContext(ProductContext);
+
+  const { CallBack } = useContext(ModalContext);
+
     const navigate = useNavigate();
+
   return (
     <header
       id="header"
@@ -144,10 +149,20 @@ export const Header = ({ user }: IUserProp) => {
               }
             >
               <li>
-                <button className="hover:-text-brand1">Editar Perfil</button>
+                <button
+                  className="hover:-text-brand1"
+                  onClick={() => CallBack("EditProfile")}
+                >
+                  Editar Perfil
+                </button>
               </li>
               <li>
-                <button className="hover:-text-brand1">Editar Endereço</button>
+                <button
+                  className="hover:-text-brand1"
+                  onClick={() => CallBack("EditAddress")}
+                >
+                  Editar Endereço
+                </button>
               </li>
               <li>
                 {user.isSeller ? (
