@@ -1,5 +1,4 @@
 import Modal from "react-modal";
-
 import { Routers } from "./Routes";
 import { ModalContext } from "./Providers/modal";
 import { useContext } from "react";
