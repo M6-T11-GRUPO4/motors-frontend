@@ -6,7 +6,7 @@ import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { motion } from "framer-motion";
 import { ProductContext } from "../../Providers/product";
-import EditVehicle from "../../components/modais/editVehicle";
+
 
 export interface IProducts {
   id: string;
@@ -29,11 +29,11 @@ export const Home = () => {
 
   useEffect(()=>{
     setWidthCar(carousel.current!.scrollWidth - carousel.current?.offsetWidth)
-  },[])
+  },[response])
 
   useEffect(()=>{
     setWidthMotorcycle(carousel.current!.scrollWidth - carousel.current?.offsetWidth)
-  },[])
+  },[response])
 
   
 
@@ -110,7 +110,7 @@ export const Home = () => {
       </div>
 
       <Footer />
-      <EditVehicle />
+
     </>
   );
 };

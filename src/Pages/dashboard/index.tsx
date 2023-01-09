@@ -1,10 +1,8 @@
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
-import carro from "../../image/carro2.png";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ProductContext } from "../../Providers/product";
-import Modal from "react-modal";
 import { ModalContext } from "../../Providers/modal";
 import { EditProfileModal } from "../../components/modais/editProfileModal";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -26,10 +24,8 @@ export const Dashboard = () => {
 	} = useForm<any>({ resolver: yupResolver(formSchema) });
 
   const arrComent: Array<number> = [1, 2, 3];
-  const { product } =
-    useContext(ProductContext);
-  const { customStylesModalCar, modal, OpenAndCloseModal, typeCar, CallBack } =
-    useContext(ModalContext);
+  const { product } = useContext(ProductContext);
+  const { CallBack } = useContext(ModalContext);
   const navigate = useNavigate();
 
   const buttonclick = (data:any) => {
@@ -49,6 +45,7 @@ export const Dashboard = () => {
                   className="h-36 md:h-48"
                   src={product?.image[0].url}
                   alt="corro1"
+                  draggable={false}
                 />
               </div>
               <div className="-bg-grey-10 w-80 md:w-[36rem] p-8 rounded-sm">
@@ -79,8 +76,16 @@ export const Dashboard = () => {
                 <h4 className="font-bold text-xl pl-3">Fotos</h4>
                 <div className="flex flex-row items-center justify-center flex-wrap h-56 gap-2 gap-y-7">
                   {product?.image.map((e) => (
-                    <div className="w-26 h-26" onClick={() => CallBack(e.url)}>
-                      <img className="h-14" src={carro} alt="corro/moto" />
+                    <div
+                      className="w-26 h-26"
+                      onClick={() => CallBack("Car", e.url)}
+                    >
+                      <img
+                        className="h-14"
+                        src={e.url}
+                        alt="carro/moto"
+                        draggable={false}
+                      />
                     </div>
                   ))}
                 </div>
@@ -154,16 +159,7 @@ export const Dashboard = () => {
              
 
       </section>
-      <Modal
-        isOpen={modal}
-        onRequestClose={OpenAndCloseModal}
-        style={customStylesModalCar}
-      >
-        {typeCar.type === "Car" ? (
-          // <ImageVehicleModal image={typeCar.image} />
-          <EditProfileModal image={typeCar.obj.image} />
-        ) : null}
-      </Modal>
+
       <Footer />
     </>
   );

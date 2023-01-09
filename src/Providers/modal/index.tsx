@@ -1,15 +1,15 @@
 import { createContext, ReactNode, useState } from "react";
 import { Styles } from "react-modal";
 
+
 interface IContextProps {
   setModal(modal: boolean): void;
   modal: boolean;
   setTypeObject(typeCar: Itype): void;
-  typeCar: Itype;
-  CallBack(image: string): void;
+  typeObject: Itype;
+  CallBack(type:string, any?:any): void;
   OpenAndCloseModal(): void;
   customStyles: Styles;
-  customStylesModalCar: Styles;
 }
 
 export interface IProviderProps {
@@ -24,13 +24,17 @@ interface Itype {
 export const ModalContext = createContext({} as IContextProps);
 
 export const ModalProvider = ({ children }: IProviderProps) => {
-  const [typeCar, setTypeObject] = useState<Itype>({} as Itype);
+  const [typeObject, setTypeObject] = useState<Itype>({} as Itype);
   const [modal, setModal] = useState(true);
 
-  function CallBack(image: string) {
-    setTypeObject({ type: "Car", obj: { image } });
+  function CallBack(type:string, any?:any) {
+    setTypeObject({ type, obj: { any } });
     OpenAndCloseModal();
   }
+
+  // useEffect(() => {
+  //   SuccessModal()
+  // }, [typeObject]);
 
   const customStyles: Styles = {
     overlay: {
@@ -45,11 +49,11 @@ export const ModalProvider = ({ children }: IProviderProps) => {
     },
     content: {
       position: "absolute",
-      top: "50%",
+      top: typeObject.type === "Car" ? "30%" : "50%",
       left: "50%",
       right: "auto",
       bottom: 0,
-      height: "850px",
+      height: typeObject.type === "Car" ? "250px" : typeObject.type === "EditAddress" ? "530px" : "740px",
       background: "#fff",
       overflow: "auto",
       overflowX: "hidden",
@@ -65,36 +69,6 @@ export const ModalProvider = ({ children }: IProviderProps) => {
     },
   };
 
-  const customStylesModalCar: Styles = {
-    overlay: {
-      position: "fixed",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: "rgba(0, 0, 0, 0.75)",
-      height: "100%",
-      width: "100%",
-    },
-    content: {
-      position: "absolute",
-      top: "20%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      background: "#fff",
-      overflow: "auto",
-      WebkitOverflowScrolling: "touch",
-      borderRadius: "15px",
-      outline: "none",
-      padding: "20px",
-      marginRight: "0%",
-      transform: "translate(-50%, -50%)",
-      maxHeight: "1036px",
-      maxWidth: "520px",
-      minWidth: "346px",
-    },
-  };
 
   function OpenAndCloseModal(): void {
     setModal(!modal);
@@ -107,8 +81,7 @@ export const ModalProvider = ({ children }: IProviderProps) => {
         setModal,
         customStyles,
         OpenAndCloseModal,
-        customStylesModalCar,
-        typeCar,
+        typeObject,
         setTypeObject,
         CallBack,
       }}
