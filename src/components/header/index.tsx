@@ -176,7 +176,7 @@ export const Header = ({ user }: IUserProp) => {
         ) : (
           <div className=" flex space-x-8 items-center text-sm pr-16">
             <button className="hover:-text-brand1">Fazer Login</button>
-            <button className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-8 w-28">
+            <button onClick={() => navigate("/profile")} className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-8 w-28">
               Cadastrar
             </button>
           </div>

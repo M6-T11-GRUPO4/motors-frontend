@@ -26,8 +26,7 @@ interface IUserRegister {
 
 const RegisterPage = (): JSX.Element => {
 
-    const [colorChange, setColorChange] = useState<boolean>(false)
-    const [isSeller, setIsSeller] = useState(false);
+    const [isSeller, setIsSeller] = useState<boolean>(false);
 
 
     const formSchema = yup.object().shape({
@@ -54,15 +53,6 @@ const RegisterPage = (): JSX.Element => {
 		formState: { errors },
 	} = useForm<IUserRegister>({ resolver: yupResolver(formSchema) });
 
-    const changeColor = () : void => {
-    
-        if(colorChange === false){
-            setColorChange(true)
-        }else{
-            setColorChange(false)
-        }
-    }
-
     const submit = (data:IUserRegister) =>{
         console.log(data)
       api.post("users/register",data).then((res)=>{
@@ -76,7 +66,7 @@ const RegisterPage = (): JSX.Element => {
         <Header user={{ name: "string", img: "" }} />
 
         <div className="flex flex-col items-center w-screen -bg-grey-7 ">
-        <form onSubmit={handleSubmit(submit)} className="-bg-grey-10 h-auto w-4/12 flex flex-col items-center content-center my-10 rounded p-8 max-w-[90%] min-w-[320px] mb-16 md:mb-32  ">
+        <form onSubmit={handleSubmit(submit)} className="-bg-grey-10 h-auto w-4/12 flex flex-col items-center content-center my-10 rounded p-8 max-w-[90%] min-w-[320px] mb-16 md:mb-32 md:w-[460px]  ">
             <div className="w-[100%]">
             <h1 className="font-bold font-lexend ml-4 my-4 text-lg">Cadastro</h1>
                 <p className="font-semibold font-inter text-xs ml-4 my-6">Informações pessoais</p>
@@ -146,7 +136,7 @@ const RegisterPage = (): JSX.Element => {
 
             <p className="font-semibold font-inter text-xs ml-4 my-6">Tipo de conta</p>
 
-            <div className="flex w-12/12">
+            <div className="flex w-12/12 justify-center">
             <div className="flex flex-row w-80 md:w-[28rem] justify-evenly ">
             <input
               type="radio"
