@@ -1,7 +1,9 @@
-import { useContext, useState } from "react";
+import { DetailedHTMLProps, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IProducts } from "../../../Pages/home";
 import { ProductContext } from "../../../Providers/product/index";
+
+
 export interface IProps {
   products: {
     id: string;
@@ -21,36 +23,37 @@ export interface IProps {
 export interface IImage {
   url: string;
 }
+
 const Cards = ({ products, showIsActive = false }: IProps) => {
-  const [name, setName] = useState<string>("");
+
   const [active, setActive] = useState<boolean>(true);
 
   const { setProduct } = useContext(ProductContext);
 
   const navigate = useNavigate();
 
+  
   // const twoLetters = (): void => {
-  //   let complet_name = name.replace(/\s(de|da|dos|das)\s/g, " ");
-  //   let initial = complet_name.match(/\b(\w)/gi);
-  //   let user_name = complet_name.split("")[0].toUpperCase();
-  //   let last_name = initial!
-  //     .splice(1, initial!.length - 1)
-  //     .join("")
-  //     .toUpperCase();
-  //   setName(user_name + last_name);
-  // };
-
-  const callback = (products: IProducts): void => {
-    setProduct(products);
-    navigate("/dashboard");
+    //   let complet_name = name.replace(/\s(de|da|dos|das)\s/g, " ");
+    //   let initial = complet_name.match(/\b(\w)/gi);
+    //   let user_name = complet_name.split("")[0].toUpperCase();
+    //   let last_name = initial!
+    //     .splice(1, initial!.length - 1)
+    //     .join("")
+    //     .toUpperCase();
+    //   setName(user_name + last_name);
+    // };
+    
+    
+    const callback = (products:IProducts): void => {
+      setProduct(products)
+      navigate("/dashboard");
   };
 
   return (
-    <div
-      key={products.id}
-      onClick={() => callback(products)}
-      className="w-[19.5rem] h-[22.25rem] -bg-grey-8 flex flex-col gap-4 m-7 relative cursor-pointer"
-    >
+    
+      <div
+      className="w-[19.5rem] h-[22.25rem] -bg-grey-8 flex flex-col gap-4 m-7 relative cursor-pointer select-none">
       {showIsActive &&
         (products.is_active ? (
           <span className="-bg-brand1 -text-white-fixed font-medium font-inter text-xs w-12 h-5 flex justify-center items-center absolute mt-2 ml-3">
@@ -63,9 +66,10 @@ const Cards = ({ products, showIsActive = false }: IProps) => {
         ))}
       <div className="w-full h-[9.5rem] -bg-grey-7 flex justify-center items-center">
         <img
-          className="h-[9.4rem]"
+          className="h-[9.4rem] w-64 -bg-grey-7 transition-property: hover:border-2 -border-random4 transition-duration: 150ms  ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
           src={products.image[0].url}
           alt="foto veiculo"
+          onClick={() => callback(products)}
         />
       </div>
       <p className="text-sm font-bold font-lexend truncate">{products.name}</p>
@@ -110,6 +114,7 @@ const Cards = ({ products, showIsActive = false }: IProps) => {
         </button>
       </div> */}
     </div>
-  );
+   
+  )
 };
 export default Cards;

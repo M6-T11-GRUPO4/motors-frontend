@@ -1,13 +1,12 @@
 import { useContext } from "react";
 import Auction from "../../components/cards/auction";
-import Cards from "../../components/cards/vehicles";
-
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { ProfileCard } from "../../components/cards/profileCard";
 import { ProductContext } from "../../Providers/product";
 import { IProducts } from "../home";
 import CreateVehicle from "../../components/modais/createVehicle";
+import Cards from "../../components/cards/vehicles";
 
 export interface IUser {
   name: string;

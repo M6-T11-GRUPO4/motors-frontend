@@ -1,3 +1,8 @@
+
+import Auction from "./components/cards/auction";
+import CreateVehicle from "./components/modais/createVehicle";
+import { Home } from "./Pages/home";
+import RegisterPage from "./Pages/register";
 import Modal from "react-modal";
 import { Routers } from "./Routes";
 import { ModalContext } from "./Providers/modal";
@@ -11,7 +16,7 @@ function App() {
     useContext(ModalContext);
   console.log(typeObject.type);
   return (
-    <div className="-bg-grey-10 w-full">
+    <div className="-bg-grey-8 w-full">
       <Routers />
       {typeObject?.type !== undefined ? (
         <Modal
