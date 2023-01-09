@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import x from "../../../image/x.png";
 import { ModalContext } from "../../../Providers/modal";
-import { ProductContext } from "../../../Providers/product";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues } from "react-hook-form/dist/types";
@@ -17,7 +16,6 @@ export interface IForm {
 }
 export const AddressProfileModal = () => {
   const { OpenAndCloseModal } = useContext(ModalContext);
-  const { AxiosRender } = useContext(ProductContext);
 
   const schemaForm = yup.object().shape({
     cep: yup

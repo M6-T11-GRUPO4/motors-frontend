@@ -12,10 +12,15 @@ interface IContextProps {
   product: IProducts;
   logged: boolean;
   response: any;
-  // AxiosRender(method: string, url: string, data?: object, addState?:void):void
-  AxiosRender({ method, url, data, addState }: IAxiosRender):string | void;
+  setLogin(login: ILogin): void;
+  login: ILogin;
 }
 export const ProductContext = createContext({} as IContextProps);
+
+interface ILogin {
+  id: string;
+  token: string;
+}
 
 export interface IProviderProps {
   children: ReactNode;
@@ -31,34 +36,9 @@ export const ProductProvider = ({ children }: IProviderProps) => {
   const [boolPerfile, setBoolPerfile] = useState(false);
   const [response, setResponse] = useState<IProducts[]>([] as IProducts[]);
   const [product, setProduct] = useState<IProducts>({} as IProducts);
-  const [erroData, setErroData] = useState("");
+  const [login, setLogin] = useState<ILogin>({} as ILogin);
   const logged = true;
 
-  function AxiosRender({
-    method,
-    url,
-    data = {},
-    addState = console.log,
-  }: IAxiosRender) {
-    if (method === "get" || method === "post") {
-      api({ method: method, url: url, data: data })
-        .then((res) => {
-          addState(res.data);
-        })
-        .catch((err) => {
-          setErroData(err.response.data.message);
-        });
-    } else {
-      apiPrivate({ method: method, url: url, data: data })
-        .then((res) => {
-          addState(res.data);
-        })
-        .catch((err) => {
-          setErroData(err.response.data.message);
-        });
-    }
-    return erroData;
-  }
 
   useEffect(() => {
     api
@@ -69,7 +49,7 @@ export const ProductProvider = ({ children }: IProviderProps) => {
       .catch((err) => {
         console.log(err);
       });
-  });
+  },[]);
 
   function Transform(string: string): string[] {
     let arr: string[] = [];
@@ -96,7 +76,8 @@ export const ProductProvider = ({ children }: IProviderProps) => {
         response,
         setProduct,
         product,
-        AxiosRender,
+        login,
+        setLogin,
       }}
     >
       {children}
