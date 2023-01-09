@@ -1,4 +1,3 @@
-
 import { DetailedHTMLProps, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IProducts } from "../../../Pages/home";

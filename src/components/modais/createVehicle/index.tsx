@@ -2,7 +2,8 @@ import { useContext, useState } from "react";
 import x from "../../../image/x.png";
 import Modal from "react-modal";
 import { ModalContext } from "../../../Providers/modal";
-import { Input } from "../../input";
+import { AddInput } from "../../inputs/addInput";
+
 
 export default function CreateVehicle() {
   const [isAuction, setIsAuction] = useState(false);
@@ -10,7 +11,7 @@ export default function CreateVehicle() {
   const { customStyles, modal, OpenAndCloseModal } = useContext(ModalContext);
   const [numberImput, setNumberImput] = useState([1] as number[]);
   const [number, setNumber] = useState(0);
-  let arr = [0,1,2,3,4]
+  let arr = [0, 1, 2, 3, 4];
 
   return (
     <Modal
@@ -214,14 +215,18 @@ export default function CreateVehicle() {
               className="inputDefaultModal"
             />
           </div>
-          {numberImput?.map((e,i)=> (<Input number={numberImput[arr[i]]}/>))}
+          {numberImput?.map((e, i) => (
+            <AddInput number={numberImput[arr[i]]} />
+          ))}
           <button
             onClick={(e) => {
               e.preventDefault();
-              setNumber(number+1)
-              setNumberImput([...numberImput, number+2])
+              setNumber(number + 1);
+              setNumberImput([...numberImput, number + 2]);
             }}
-            className={`classButtonCancelDefault mb-14 w-[19.7rem] md:w-[24rem] h-10 -text-brand1 font-inter ${number===4 ? "hidden" : "flex"}`}
+            className={`classButtonCancelDefault mb-14 w-[19.7rem] md:w-[24rem] h-10 -text-brand1 font-inter ${
+              number === 4 ? "hidden" : "flex"
+            }`}
           >
             Adicionar campo para imagem da galeria
           </button>
