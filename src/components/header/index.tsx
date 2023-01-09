@@ -4,7 +4,6 @@ import image from "../../image/NameShop.png";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ProductContext } from "../../Providers/product";
-import { useNavigate } from "react-router-dom";
 import { ModalContext } from "../../Providers/modal";
 
 interface IUser {

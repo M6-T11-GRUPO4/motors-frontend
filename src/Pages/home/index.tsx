@@ -29,11 +29,11 @@ export const Home = () => {
 
   useEffect(()=>{
     setWidthCar(carousel.current!.scrollWidth - carousel.current?.offsetWidth)
-  },[])
+  },[response])
 
   useEffect(()=>{
     setWidthMotorcycle(carousel.current!.scrollWidth - carousel.current?.offsetWidth)
-  },[])
+  },[response])
 
   
 
