@@ -10,6 +10,7 @@ export const Dashboard = () => {
   const { product } = useContext(ProductContext);
   const { CallBack } = useContext(ModalContext);
   const navigate = useNavigate();
+  window.scrollTo(0,0)
 
   return (
     <>

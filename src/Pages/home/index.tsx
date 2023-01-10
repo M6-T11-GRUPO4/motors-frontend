@@ -20,12 +20,12 @@ export interface IProducts {
   type?: string;
 }
 export const Home = () => {
-  const { response }: any = useContext(ProductContext);
-
+  const { response } = useContext(ProductContext);
+  
   const carousel:any = useRef(null);
 
-  const [widthCar, setWidthCar] = useState<any>(0)
-  const [widthMotorcycle, setWidthMotorcycle] = useState<any>(0)
+  const [widthCar, setWidthCar] = useState(0)
+  const [widthMotorcycle, setWidthMotorcycle] = useState(0)
 
   useEffect(()=>{
     setWidthCar(carousel.current!.scrollWidth - carousel.current?.offsetWidth)
@@ -34,6 +34,7 @@ export const Home = () => {
   useEffect(()=>{
     setWidthMotorcycle(carousel.current!.scrollWidth - carousel.current?.offsetWidth)
   },[response])
+
 
   
 

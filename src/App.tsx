@@ -1,8 +1,3 @@
-
-import Auction from "./components/cards/auction";
-import CreateVehicle from "./components/modais/createVehicle";
-import { Home } from "./Pages/home";
-import RegisterPage from "./Pages/register";
 import Modal from "react-modal";
 import { Routers } from "./Routes";
 import { ModalContext } from "./Providers/modal";
@@ -14,15 +9,14 @@ import { ImageVehicleModal } from "./components/modais/imageVehicleModal";
 function App() {
   const { customStyles, modal, OpenAndCloseModal, typeObject } =
     useContext(ModalContext);
-  console.log(typeObject.type);
+
   return (
     <div className="-bg-grey-8 w-full">
       <Routers />
-      {typeObject?.type !== undefined ? (
         <Modal
-          isOpen={modal}
-          onRequestClose={OpenAndCloseModal}
-          style={customStyles}
+        isOpen={modal}
+        onRequestClose={OpenAndCloseModal}
+        style={customStyles}
         >
           {typeObject.type === "EditProfile" ? (
             <EditProfileModal />
@@ -32,7 +26,6 @@ function App() {
             <ImageVehicleModal image={typeObject.obj.any} />
           ) : null}
         </Modal>
-      ) : null}
     </div>
   );
 }

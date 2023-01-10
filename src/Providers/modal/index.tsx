@@ -1,7 +1,6 @@
 import { createContext, ReactNode, useState } from "react";
 import { Styles } from "react-modal";
 
-
 interface IContextProps {
   setModal(modal: boolean): void;
   modal: boolean;
@@ -25,16 +24,12 @@ export const ModalContext = createContext({} as IContextProps);
 
 export const ModalProvider = ({ children }: IProviderProps) => {
   const [typeObject, setTypeObject] = useState<Itype>({} as Itype);
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
 
   function CallBack(type:string, any?:any) {
     setTypeObject({ type, obj: { any } });
     OpenAndCloseModal();
   }
-
-  // useEffect(() => {
-  //   SuccessModal()
-  // }, [typeObject]);
 
   const customStyles: Styles = {
     overlay: {
