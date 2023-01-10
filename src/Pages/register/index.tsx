@@ -66,7 +66,7 @@ const RegisterPage = (): JSX.Element => {
 
     return(
         <>
-        <Header user={{ name: "string", img: "" }} />
+        <Header />
 
         <div className="flex flex-col items-center w-screen -bg-grey-7 ">
         <form onSubmit={handleSubmit(submit)} className="-bg-grey-10 h-auto w-4/12 flex flex-col items-center content-center my-10 rounded p-8 max-w-[90%] min-w-[320px] mb-16 md:mb-32 md:w-[460px]  ">

@@ -37,7 +37,7 @@ export const ProfileView = () => {
 
   return (
     <>
-      <Header user={user} />
+      <Header />
       <main className="h-full bg-blue-white-gradient flex flex-col select-none">
         <ProfileCard user={user} />
 

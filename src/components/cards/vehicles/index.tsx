@@ -4,7 +4,6 @@ import { IProducts } from "../../../Pages/home";
 import { ProductContext } from "../../../Providers/product/index";
 import { api } from "../../../services/api";
 
-
 export interface IProps {
   products: {
     id: string;
@@ -58,9 +57,7 @@ const Cards = ({ products, showIsActive = false }: IProps) => {
   };
 
   return (
-    
-      <div
-      className="w-[19.5rem] h-[22.25rem] -bg-grey-8 flex flex-col gap-4 m-7 relative cursor-pointer select-none">
+    <div className="w-[19.5rem] h-[22.25rem] -bg-grey-8 flex flex-col gap-4 m-7 relative cursor-pointer select-none">
       {showIsActive &&
         (products.is_active ? (
           <span className="-bg-brand1 -text-white-fixed font-medium font-inter text-xs w-12 h-5 flex justify-center items-center absolute mt-2 ml-6">
@@ -121,7 +118,6 @@ const Cards = ({ products, showIsActive = false }: IProps) => {
         </button>
       </div> */}
     </div>
-   
-  )
+  );
 };
 export default Cards;

@@ -5,44 +5,37 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ProductContext } from "../../Providers/product";
 import { ModalContext } from "../../Providers/modal";
+import { UserContext } from "../../Providers/user";
 
-interface IUser {
-  name: string;
-  img: string;
-  isSeller?: boolean;
-}
-
-interface IUserProp {
-  user: IUser;
-}
-
-export const Header = ({ user }: IUserProp) => {
-  const [logged, setLogged] = useState(sessionStorage.getItem("@Token"))
-  const { setBoolMobile, boolMobile, setBoolPerfile, boolPerfile} = useContext(ProductContext);
+export const Header = () => {
+  const [logged, setLogged] = useState(sessionStorage.getItem("@Token"));
+  const { setBoolMobile, boolMobile, setBoolPerfile, boolPerfile } =
+    useContext(ProductContext);
   const { setTypeObject, OpenAndCloseModal } = useContext(ModalContext);
   const navigate = useNavigate();
+  const { user, twoLetters } = useContext(UserContext);
 
   function exit() {
     sessionStorage.removeItem("@UserId");
+    sessionStorage.removeItem("@User");
     sessionStorage.removeItem("@Token");
-    navigate("/login")
+    navigate("/login");
   }
+  // console.log(user);
 
   function login() {
-    navigate("/login")
+    navigate("/login");
     // if (sessionStorage.getItem("@Token")) {
     //   setLogged(true)
     // }else{
     //   setLogged(false)
     // }
   }
-  function CallBack(type:string, any?:any) {
+  function CallBack(type: string, any?: any) {
     setTypeObject({ type, obj: { any } });
     OpenAndCloseModal();
   }
-  useEffect(()=>{
-    
-  },[])
+  useEffect(() => {}, []);
   return (
     <header
       id="header"
@@ -98,9 +91,9 @@ export const Header = ({ user }: IUserProp) => {
                 }}
               >
                 <div className="flex items-center justify-center -bg-brand1 rounded-2xl text-white w-8 h-8 ">
-                  {"GP"}
+                  {twoLetters(user?.name)}
                 </div>
-                <p>{"Gabriel Pereira"}</p>
+                <p>{user?.name}</p>
                 <ul
                   className={
                     boolPerfile
@@ -109,17 +102,22 @@ export const Header = ({ user }: IUserProp) => {
                   }
                 >
                   <li>
-                    <button className="hover:-text-brand1">
+                    <button
+                      onClick={() => CallBack("EditProfile")}
+                      className="hover:-text-brand1"
+                    >
                       Editar Perfil
                     </button>
                   </li>
                   <li>
-                    <button className="hover:-text-brand1">
+                    <button 
+                    onClick={() => CallBack("EditAddress")}
+                     className="hover:-text-brand1">
                       Editar Endereço
                     </button>
                   </li>
                   <li>
-                    {user.isSeller ? (
+                    {user?.is_seller ? (
                       <button className="hover:-text-brand1">
                         Meus Anúncios
                       </button>
@@ -130,14 +128,22 @@ export const Header = ({ user }: IUserProp) => {
                     )}
                   </li>
                   <li>
-                    <button onClick={() => console.log("foii")}>Sair</button>
+                    <button onClick={() => exit()}>Sair</button>
                   </li>
                 </ul>
               </div>
             ) : (
               <div className="relative flex flex-col md:flex-row space-x-8 items-baseline md:items-center font-lexend pr-16 gap-y-3">
-                <button className="hover:-text-brand1">Fazer Login</button>
-                <button onClick={() => navigate("/profile")} className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-10 md:h-8 w-full md:w-28">
+                <button
+                  onClick={() => navigate("/login")}
+                  className="hover:-text-brand1"
+                >
+                  Fazer Login
+                </button>
+                <button
+                  onClick={() => navigate("/register")}
+                  className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-10 md:h-8 w-full md:w-28"
+                >
                   Cadastrar
                 </button>
               </div>
@@ -157,9 +163,9 @@ export const Header = ({ user }: IUserProp) => {
             onClick={() => setBoolMobile(!boolMobile)}
           >
             <div className="flex items-center justify-center -bg-brand1 rounded-2xl text-white w-8 h-8 ">
-              {"GP"}
+              {twoLetters(user?.name)}
             </div>
-            <p>{"Gabriel Pereira"}</p>
+            <p>{user?.name}</p>
             <ul
               className={
                 boolMobile
@@ -184,7 +190,7 @@ export const Header = ({ user }: IUserProp) => {
                 </button>
               </li>
               <li>
-                {user.isSeller ? (
+                {user?.is_seller ? (
                   <button className="hover:-text-brand1">Meus Anúncios</button>
                 ) : (
                   <button className="hover:-text-brand1">Minhas Compras</button>
@@ -197,8 +203,13 @@ export const Header = ({ user }: IUserProp) => {
           </div>
         ) : (
           <div className=" flex space-x-8 items-center text-sm pr-16">
-            <button className="hover:-text-brand1" onClick={()=>login()}>Fazer Login</button>
-            <button className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-8 w-28" onClick={()=>navigate("/register")}>
+            <button className="hover:-text-brand1" onClick={() => login()}>
+              Fazer Login
+            </button>
+            <button
+              className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-8 w-28"
+              onClick={() => navigate("/register")}
+            >
               Cadastrar
             </button>
           </div>

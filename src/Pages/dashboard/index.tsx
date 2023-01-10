@@ -10,11 +10,9 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { apiPrivate } from "../../services/api";
 
-
 export const Dashboard = () => {
-
   const formSchema = yup.object().shape({
-    comment: yup.string().max(300)
+    comment: yup.string().max(300),
   });
 
   const {
@@ -27,16 +25,18 @@ export const Dashboard = () => {
   const { product } = useContext(ProductContext);
   const { CallBack } = useContext(ModalContext);
   const navigate = useNavigate();
-  window.scrollTo(0, 0)
+  window.scrollTo(0, 0);
 
   const buttonclick = (data: any) => {
-    apiPrivate.post("comments", data).then((res) => console.log(res)).catch((err) => console.log(err))
-
-  }
+    apiPrivate
+      .post("comments", data)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <>
-      <Header user={{ name: "string", img: "" }} />
+      <Header />
       <section className="littleBackgroundImage md:bigBackgroundImage flex flex-col mx-auto pt-10 -bg-brand2 items-center font-inter space-y-16 select-none">
         <div className="flex flex-col w-72 lg:w-[62rem] items-start space-y-10">
           <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center w-full md:space-x-7">
@@ -55,10 +55,19 @@ export const Dashboard = () => {
                   <p className="font-bold w-64 md:w-[32rem]">{product?.name}</p>
                   <div className="flex flex-col h-16 items-baseline md:flex-row justify-between  font-bold">
                     <div className="flex text-xs w-[35%] -text-brand2 mt-10">
-                      <div className="-bg-brand4 h-5 w-[40%] flex items-center justify-center p-3">{product?.year}</div>
-                      <div className="-bg-brand4 h-5 w-[40%] flex flex-row items-center justify-center p-3 ml-2">{product?.km} KM</div>
+                      <div className="-bg-brand4 h-5 w-[40%] flex items-center justify-center p-3">
+                        {product?.year}
+                      </div>
+                      <div className="-bg-brand4 h-5 w-[40%] flex flex-row items-center justify-center p-3 ml-2">
+                        {product?.km} KM
+                      </div>
                     </div>
-                    <div>R$ {product?.price}</div>
+                    <div>
+                      {Number(product?.price).toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
+                    </div>
                   </div>
                   <button className=" w-40 h-10 rounded-md -bg-brand2 -text-grey-10 mt-5">
                     Comprar
@@ -138,34 +147,47 @@ export const Dashboard = () => {
                 </div>
               </div>
             ))}
-
           </div>
 
           <div className="flex flex-col justify-center py-8 -bg-grey-10 w-80 md:w-[320] rounded p-8 lg:w-[36rem]">
-
             <div className="flex items-center">
-              <div className="flex items-center justify-center rounded-full w-8 h-8 -bg-brand2 -text-grey-10 mr-3">GP</div>
+              <div className="flex items-center justify-center rounded-full w-8 h-8 -bg-brand2 -text-grey-10 mr-3">
+                GP
+              </div>
               <span>Gabriel Pereira</span>
             </div>
 
-            <form onSubmit={handleSubmit(buttonclick)} className=" flex flex-col mt-4"  >
-              <textarea {...register("comment")} name="comment" className="w-[100%] h-[80px] p-[15px] -bg-grey-7 text-xs border-solid rounded-sm" placeholder="Carro muito confortável, foi uma ótima experiência de compra..."></textarea>
-              <button type="submit" className="-bg-brand1 -text-white-fixed rounded font-inter w-24 h-[30px] text-sm relative left-[400px] bottom-[40px]">Comentar</button>
+            <form
+              onSubmit={handleSubmit(buttonclick)}
+              className=" flex flex-col mt-4"
+            >
+              <textarea
+                {...register("comment")}
+                name="comment"
+                className="w-[100%] h-[80px] p-[15px] -bg-grey-7 text-xs border-solid rounded-sm"
+                placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
+              ></textarea>
+              <button
+                type="submit"
+                className="-bg-brand1 -text-white-fixed rounded font-inter w-24 h-[30px] text-sm relative left-[400px] bottom-[40px]"
+              >
+                Comentar
+              </button>
             </form>
 
-
             <div className="flex w-[80%]">
-              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">gostei muito!</span>
-              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">incrível!</span>
-              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">Recomendaria para um amigo!</span>
+              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">
+                gostei muito!
+              </span>
+              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">
+                incrível!
+              </span>
+              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">
+                Recomendaria para um amigo!
+              </span>
             </div>
-
           </div>
-
         </div>
-
-
-
       </section>
 
       <Footer />
