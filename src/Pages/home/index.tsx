@@ -40,7 +40,7 @@ export const Home = () => {
 
   return (
     <>
-      <Header user={{ name: "string", img: "" }} />
+      <Header />
       <section className="flex flex-col items-center w-screen h-[34rem] md:h-96 text-center justify-center space-y-16 -bg-brand2 font-inter -text-grey-10 select-none">
         <h2 className="text-4xl w-12/12 md:w-7/12 font-bold">
           Velocidade e experiência em um lugar feito para você

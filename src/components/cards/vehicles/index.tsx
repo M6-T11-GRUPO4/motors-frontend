@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { IProducts } from "../../../Pages/home";
 import { ProductContext } from "../../../Providers/product/index";
 
-
 export interface IProps {
   products: {
     id: string;
@@ -25,36 +24,18 @@ export interface IImage {
 }
 
 const Cards = ({ products, showIsActive = false }: IProps) => {
-
-  const [active, setActive] = useState<boolean>(true);
-
   const { setProduct } = useContext(ProductContext);
 
   const navigate = useNavigate();
 
-  
-  // const twoLetters = (): void => {
-    //   let complet_name = name.replace(/\s(de|da|dos|das)\s/g, " ");
-    //   let initial = complet_name.match(/\b(\w)/gi);
-    //   let user_name = complet_name.split("")[0].toUpperCase();
-    //   let last_name = initial!
-    //     .splice(1, initial!.length - 1)
-    //     .join("")
-    //     .toUpperCase();
-    //   setName(user_name + last_name);
-    // };
-    
-    
-    const callback = (products:IProducts): void => {
-      sessionStorage.setItem("@Vitrine", JSON.stringify(products))
-      setProduct(products)
-      navigate("/dashboard");
+  const callback = (products: IProducts): void => {
+    sessionStorage.setItem("@Vitrine", JSON.stringify(products));
+    setProduct(products);
+    navigate("/dashboard");
   };
 
   return (
-    
-      <div
-      className="w-[19.5rem] h-[22.25rem] -bg-grey-8 flex flex-col gap-4 m-7 relative cursor-pointer select-none">
+    <div className="w-[19.5rem] h-[22.25rem] -bg-grey-8 flex flex-col gap-4 m-7 relative cursor-pointer select-none">
       {showIsActive &&
         (products.is_active ? (
           <span className="-bg-brand1 -text-white-fixed font-medium font-inter text-xs w-12 h-5 flex justify-center items-center absolute mt-2 ml-6">
@@ -115,7 +96,6 @@ const Cards = ({ products, showIsActive = false }: IProps) => {
         </button>
       </div> */}
     </div>
-   
-  )
+  );
 };
 export default Cards;
