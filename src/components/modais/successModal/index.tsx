@@ -2,24 +2,22 @@ import { useContext } from "react";
 import x from "../../../image/x.png";
 import { ModalContext } from "../../../Providers/modal";
 
-interface iUniqueImage {
-  image: string;
-}
 
-export const ImageVehicleModal = ({ image }: iUniqueImage) => {
+export const SuccessModal = () => {
   const { OpenAndCloseModal } = useContext(ModalContext);
   return (
-    <div>
+    <div className="space-y-7">
       <div className="flex flex-row justify-between">
         <p className="font-lexend text-lg font-bold leading-5 text-[#000000]">
-          Imagem do veículo
+          Sucesso!
         </p>
         <button onClick={OpenAndCloseModal}>
           <img src={x} alt="fechar" />
         </button>
       </div>
-      <div className="flex items-center justify-center h-full w-full ">
-        <img className="w-80" src={image} alt="corro/moto" />
+      <div className="flex flex-col space-y-3">
+        <h3 className= "font-semibold">Seu anúncio foi criado com sucesso!</h3>
+        <span>Agora você poderá ver seus negócios crescendo em grande escala</span>
       </div>
     </div>
   );

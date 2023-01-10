@@ -1,9 +1,10 @@
 import riscos from "../../image/risco.png";
 import x from "../../image/xmark.png";
 import image from "../../image/NameShop.png";
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ProductContext } from "../../Providers/product";
+import { ModalContext } from "../../Providers/modal";
 
 interface IUser {
   name: string;
@@ -16,13 +17,36 @@ interface IUserProp {
 }
 
 export const Header = ({ user }: IUserProp) => {
-  const { setBoolMobile, boolMobile, logged, setBoolPerfile, boolPerfile } =
-    useContext(ProductContext);
+  const [logged, setLogged] = useState(sessionStorage.getItem("@Token"))
+  const { setBoolMobile, boolMobile, setBoolPerfile, boolPerfile} = useContext(ProductContext);
+  const { setTypeObject, OpenAndCloseModal } = useContext(ModalContext);
+  const navigate = useNavigate();
 
+  function exit() {
+    sessionStorage.removeItem("@UserId");
+    sessionStorage.removeItem("@Token");
+    navigate("/login")
+  }
+
+  function login() {
+    navigate("/login")
+    // if (sessionStorage.getItem("@Token")) {
+    //   setLogged(true)
+    // }else{
+    //   setLogged(false)
+    // }
+  }
+  function CallBack(type:string, any?:any) {
+    setTypeObject({ type, obj: { any } });
+    OpenAndCloseModal();
+  }
+  useEffect(()=>{
+    
+  },[])
   return (
     <header
       id="header"
-      className="flex justify-between h-20 -bg-grey-10 select-none"
+      className="flex justify-between h-[10vh] -bg-grey-10 select-none"
     >
       <div className="flex flex-row items-center space-x-1 font-bold ">
         <Link to={"/"}>
@@ -113,7 +137,7 @@ export const Header = ({ user }: IUserProp) => {
             ) : (
               <div className="relative flex flex-col md:flex-row space-x-8 items-baseline md:items-center font-lexend pr-16 gap-y-3">
                 <button className="hover:-text-brand1">Fazer Login</button>
-                <button className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-10 md:h-8 w-full md:w-28">
+                <button onClick={() => navigate("/profile")} className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-10 md:h-8 w-full md:w-28">
                   Cadastrar
                 </button>
               </div>
@@ -144,10 +168,20 @@ export const Header = ({ user }: IUserProp) => {
               }
             >
               <li>
-                <button className="hover:-text-brand1">Editar Perfil</button>
+                <button
+                  className="hover:-text-brand1"
+                  onClick={() => CallBack("EditProfile")}
+                >
+                  Editar Perfil
+                </button>
               </li>
               <li>
-                <button className="hover:-text-brand1">Editar Endereço</button>
+                <button
+                  className="hover:-text-brand1"
+                  onClick={() => CallBack("EditAddress")}
+                >
+                  Editar Endereço
+                </button>
               </li>
               <li>
                 {user.isSeller ? (
@@ -157,14 +191,14 @@ export const Header = ({ user }: IUserProp) => {
                 )}
               </li>
               <li>
-                <button onClick={() => console.log("foii")}>Sair</button>
+                <button onClick={() => exit()}>Sair</button>
               </li>
             </ul>
           </div>
         ) : (
           <div className=" flex space-x-8 items-center text-sm pr-16">
-            <button className="hover:-text-brand1">Fazer Login</button>
-            <button className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-8 w-28">
+            <button className="hover:-text-brand1" onClick={()=>login()}>Fazer Login</button>
+            <button className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-8 w-28" onClick={()=>navigate("/register")}>
               Cadastrar
             </button>
           </div>
