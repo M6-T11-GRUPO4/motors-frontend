@@ -1,11 +1,12 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { object } from "yup";
 import { IProducts } from "../../Pages/home";
 import { api } from "../../services/api";
 
 interface IContextProps {
   // Transform(string: string): Array<string>;
-  // setBoolMobile(boolMobile: boolean): void;
-  // boolMobile: boolean;
+  setUser(user: any): void;
+  user: any
   // setBoolPerfile(boolPerfile: boolean): void;
   // boolPerfile: boolean;
   // setProduct(product: IProducts): void;
@@ -19,19 +20,25 @@ export interface IProviderProps {
 }
 
 export const UserProvider = ({ children }: IProviderProps) => {
- 
+  const [user, setUser] = useState({} as any);
+  
+  console.log(user);
+
   return (
     <UserContext.Provider
-      value={{
-        // Transform,
-        // boolMobile,
-        // setBoolMobile,
-        // boolPerfile,
-        // setBoolPerfile,
-        // response,
-        // setProduct,
-        // product,
-      }}
+      value={
+        {
+          user, setUser
+          // Transform,
+          // boolMobile,
+          // setBoolMobile,
+          // boolPerfile,
+          // setBoolPerfile,
+          // response,
+          // setProduct,
+          // product,
+        }
+      }
     >
       {children}
     </UserContext.Provider>
