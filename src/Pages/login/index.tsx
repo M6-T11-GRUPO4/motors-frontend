@@ -5,8 +5,11 @@ import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import * as yup from "yup";
 import { api } from "../../services/api";
+import { useContext } from "react";
+import { UserContext } from "../../Providers/user";
 
 export const Login = () => {
+  const { setUser, user } = useContext(UserContext);
   const navigate = useNavigate();
   const schemaForm = yup.object().shape({
     email: yup
@@ -17,15 +20,20 @@ export const Login = () => {
   });
 
   function onHandleSubmit(data: FieldValues) {
-
     api
       .post("/users/login", data)
       .then((res) => {
         sessionStorage.setItem("@UserId", res.data.id);
         sessionStorage.setItem("@Token", res.data.token);
+        api
+          .get(`/users/${res.data.id}/`)
+          .then((res) => setUser(res.data))
+          .catch((err) => err);
         navigate("/");
       })
       .catch((err) => err);
+
+    console.log(user);
   }
   const {
     register,
@@ -75,7 +83,10 @@ export const Login = () => {
                   </span>
                 </div>
               </div>
-              <button className="mt-2 mb-5 self-end" onClick={()=>navigate("/recover")}>
+              <button
+                className="mt-2 mb-5 self-end"
+                onClick={() => navigate("/recover")}
+              >
                 Esqueci minha senha
               </button>
               <div className="flex flex-col gap-6">
