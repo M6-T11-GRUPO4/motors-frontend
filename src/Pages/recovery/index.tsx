@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Header } from "../../components/header";
-import logo from "../../image/NameShop.png";
 
 const RecoveryPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState(false);
