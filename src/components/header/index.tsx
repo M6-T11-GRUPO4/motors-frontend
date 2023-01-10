@@ -17,6 +17,7 @@ export const Header = () => {
 
   function exit() {
     sessionStorage.removeItem("@UserId");
+    sessionStorage.removeItem("@User");
     sessionStorage.removeItem("@Token");
     navigate("/login");
   }

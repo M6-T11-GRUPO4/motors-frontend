@@ -7,7 +7,7 @@ const RecoveryPassword = () => {
 
   return (
     <>
-    <Header user={{ name: "string", img: "" }} />
+    <Header />
       <section className="w-4/5 pt-1 text-center m-auto">
         <h1 className="font-lexend font-medium text-2xl text-black pt-5">
           Recupere sua senha
