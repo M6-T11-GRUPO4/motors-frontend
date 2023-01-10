@@ -17,9 +17,11 @@ export const Header = () => {
 
   function exit() {
     sessionStorage.removeItem("@UserId");
+    sessionStorage.removeItem("@User");
     sessionStorage.removeItem("@Token");
     navigate("/login");
   }
+  // console.log(user);
 
   function login() {
     navigate("/login");
@@ -100,12 +102,17 @@ export const Header = () => {
                   }
                 >
                   <li>
-                    <button className="hover:-text-brand1">
+                    <button
+                      onClick={() => CallBack("EditProfile")}
+                      className="hover:-text-brand1"
+                    >
                       Editar Perfil
                     </button>
                   </li>
                   <li>
-                    <button className="hover:-text-brand1">
+                    <button 
+                    onClick={() => CallBack("EditAddress")}
+                     className="hover:-text-brand1">
                       Editar Endereço
                     </button>
                   </li>
@@ -121,15 +128,20 @@ export const Header = () => {
                     )}
                   </li>
                   <li>
-                    <button onClick={() => console.log("foii")}>Sair</button>
+                    <button onClick={() => exit()}>Sair</button>
                   </li>
                 </ul>
               </div>
             ) : (
               <div className="relative flex flex-col md:flex-row space-x-8 items-baseline md:items-center font-lexend pr-16 gap-y-3">
-                <button className="hover:-text-brand1">Fazer Login</button>
                 <button
-                  onClick={() => navigate("/profile")}
+                  onClick={() => navigate("/login")}
+                  className="hover:-text-brand1"
+                >
+                  Fazer Login
+                </button>
+                <button
+                  onClick={() => navigate("/register")}
                   className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-10 md:h-8 w-full md:w-28"
                 >
                   Cadastrar

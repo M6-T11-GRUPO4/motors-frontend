@@ -5,7 +5,7 @@ import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import * as yup from "yup";
 import { api } from "../../services/api";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../Providers/user";
 
 export const Login = () => {
@@ -23,8 +23,6 @@ export const Login = () => {
     api
       .post("/users/login", data)
       .then((res) => {
-        sessionStorage.setItem("@UserId", res.data.id);
-        sessionStorage.setItem("@Token", res.data.token);
         api
           .get(`/users/${res.data.id}/`)
           .then((res) => {
@@ -32,12 +30,17 @@ export const Login = () => {
             sessionStorage.setItem("@User", JSON.stringify(res.data));
           })
           .catch((err) => err);
-        navigate("/");
+        sessionStorage.setItem("@UserId", res.data.id);
+        sessionStorage.setItem("@Token", res.data.token);
+        setTimeout(() => {
+          navigate("/");
+        }, 100);
       })
       .catch((err) => err);
 
     console.log(user);
   }
+
   const {
     register,
     handleSubmit,
