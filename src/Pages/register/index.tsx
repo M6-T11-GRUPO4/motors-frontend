@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { api } from "../../services/api";
+import { NormalInput } from "../../components/inputs/normalInput";
 
 interface IUserRegister {
     name: string,
@@ -32,11 +33,11 @@ const RegisterPage = (): JSX.Element => {
     const formSchema = yup.object().shape({
 		name: yup.string().required("O nome é obrigatório"),
 		email: yup.string().required("Email é obrigatório").email("Email Inválido"),
-        cpf: yup.string().required("CPF é obrigatório").min(11).max(14),
+        cpf: yup.string().required("CPF é obrigatório").min(11).max(14, "Maximo de 14 caracteres"),
         cellphone: yup.string().required("Celular é obrigatório"),
         birthdate: yup.string().required("Data de nascimento é obrigatório"),
         description: yup.string().required("Descrição é Obrigatório"),
-        cep: yup.string().required("CEP é Obrigatório").max(8),
+        cep: yup.string().required("CEP é Obrigatório").max(8, "Maximo de 8 caracteres"),
         state: yup.string().required("Estado é obrigatório"),
         city: yup.string().required("Cidade é obrigatório"),
         street: yup.string().required("Nome da rua é obrigatório"),
@@ -56,8 +57,10 @@ const RegisterPage = (): JSX.Element => {
     const submit = (data:IUserRegister) =>{
         console.log(data)
       api.post("users/register",data).then((res)=>{
-        console.log(res)
-    }).catch((err)=> console.log(err))
+    }).catch((err)=>{})
+
+    const arrTitle = ["Nome", "Email", "CPF", "Celular", "Data de nascimento"];
+    const arrResponse = ["name", "email", "cpf", "birthdate", "cellphone"];
 
     }
 
@@ -68,6 +71,7 @@ const RegisterPage = (): JSX.Element => {
         <div className="flex flex-col items-center w-screen -bg-grey-7 ">
         <form onSubmit={handleSubmit(submit)} className="-bg-grey-10 h-auto w-4/12 flex flex-col items-center content-center my-10 rounded p-8 max-w-[90%] min-w-[320px] mb-16 md:mb-32 md:w-[460px]  ">
             <div className="w-[100%]">
+             
             <h1 className="font-bold font-lexend ml-4 my-4 text-lg">Cadastro</h1>
                 <p className="font-semibold font-inter text-xs ml-4 my-6">Informações pessoais</p>
                 <p className="font-semibold font-inter text-xs ml-4 my-2">Nome</p>

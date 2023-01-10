@@ -1,7 +1,8 @@
-import { DetailedHTMLProps, useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IProducts } from "../../../Pages/home";
 import { ProductContext } from "../../../Providers/product/index";
+import { api } from "../../../services/api";
 
 
 export interface IProps {
@@ -10,7 +11,7 @@ export interface IProps {
     image: IImage[];
     name: string;
     description: string;
-    user_mokado: string;
+    userId: string;
     km: number;
     year: number;
     price: string;
@@ -20,30 +21,35 @@ export interface IProps {
   showIsActive?: boolean;
 }
 
+
 export interface IImage {
   url: string;
 }
 
+
 const Cards = ({ products, showIsActive = false }: IProps) => {
 
-  const [active, setActive] = useState<boolean>(true);
+  const [letters, setletters] = useState<string>("");
 
   const { setProduct } = useContext(ProductContext);
 
   const navigate = useNavigate();
 
   
-  // const twoLetters = (): void => {
-    //   let complet_name = name.replace(/\s(de|da|dos|das)\s/g, " ");
-    //   let initial = complet_name.match(/\b(\w)/gi);
-    //   let user_name = complet_name.split("")[0].toUpperCase();
-    //   let last_name = initial!
-    //     .splice(1, initial!.length - 1)
-    //     .join("")
-    //     .toUpperCase();
-    //   setName(user_name + last_name);
-    // };
-    
+  const twoLetters = (name:string):void => {
+      let complet_name = name.replace(/\s(de|da|dos|das)\s/g, " ");
+      let initial = complet_name.match(/\b(\w)/gi);
+      let user_name = complet_name.split("")[0].toUpperCase();
+      let last_name = initial!
+        .splice(1, initial!.length - 1)
+        .join("")
+        .toUpperCase();
+      setletters(user_name + last_name);
+    };
+
+    useEffect(()=>{
+      api.get(`users/${sessionStorage.getItem("@UserId")}`).then((res)=>console.log(res.data)).catch((err)=>console.log(err))
+    })
     
     const callback = (products:IProducts): void => {
       sessionStorage.setItem("@Vitrine", JSON.stringify(products))
@@ -79,10 +85,10 @@ const Cards = ({ products, showIsActive = false }: IProps) => {
       </p>
       <div className="flex w-72 items-center">
         <div className="-bg-brand1 rounded-full -text-white-fixed p-1 text-sm mr-2 font-inter">
-          GP
+         GP
         </div>
         <p className="text-xs -text-grey-2 w-1/2 font-semibold font-inter">
-          {products.user_mokado}
+          {products.userId}
         </p>
       </div>
       <div className="flex w-72 p-0 justify-between self-center">

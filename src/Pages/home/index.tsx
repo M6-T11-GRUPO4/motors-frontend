@@ -13,7 +13,7 @@ export interface IProducts {
   image: IImage[];
   name: string;
   description: string;
-  user_mokado: string;
+  userId: string;
   km: number;
   year: number;
   price: string;

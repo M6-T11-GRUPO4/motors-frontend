@@ -40,15 +40,10 @@ export const ProfileView = () => {
       <Header user={user} />
       <main className="h-full bg-blue-white-gradient flex flex-col select-none">
         <ProfileCard user={user} />
-<<<<<<< HEAD
 
 
 
         <div className="flex overflow-x-hidden mx-4 flex-col ml-6 select-none">
-=======
-        <Auction />
-        <div className="flex overflow-x-auto mx-4 flex-col ml-6">
->>>>>>> 26e5f650d22a2206d89621f0a06b852b2eb93821
           <h1 className="py-8 font-bold text-lg font-lexend ml-10">Carros</h1>
           <motion.div 
            ref={carousel}
