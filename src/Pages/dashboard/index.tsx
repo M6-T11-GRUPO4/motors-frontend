@@ -27,6 +27,7 @@ export const Dashboard = () => {
   const { product } = useContext(ProductContext);
   const { CallBack } = useContext(ModalContext);
   const navigate = useNavigate();
+  window.scrollTo(0,0)
 
   const buttonclick = (data:any) => {
     apiPrivate.post("comments", data).then((res)=>console.log(res)).catch((err)=>console.log(err))

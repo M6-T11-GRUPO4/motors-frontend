@@ -46,6 +46,7 @@ const Cards = ({ products, showIsActive = false }: IProps) => {
     
     
     const callback = (products:IProducts): void => {
+      sessionStorage.setItem("@Vitrine", JSON.stringify(products))
       setProduct(products)
       navigate("/dashboard");
   };

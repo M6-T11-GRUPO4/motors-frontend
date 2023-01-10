@@ -75,7 +75,7 @@ export const Login = () => {
                   </span>
                 </div>
               </div>
-              <button className="mt-2 mb-5 self-end">
+              <button className="mt-2 mb-5 self-end" onClick={()=>navigate("/recover")}>
                 Esqueci minha senha
               </button>
               <div className="flex flex-col gap-6">

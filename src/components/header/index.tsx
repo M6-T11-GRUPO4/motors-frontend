@@ -1,7 +1,7 @@
 import riscos from "../../image/risco.png";
 import x from "../../image/xmark.png";
 import image from "../../image/NameShop.png";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ProductContext } from "../../Providers/product";
 import { ModalContext } from "../../Providers/modal";
@@ -17,10 +17,32 @@ interface IUserProp {
 }
 
 export const Header = ({ user }: IUserProp) => {
-  const { setBoolMobile, boolMobile, logged, setBoolPerfile, boolPerfile } = useContext(ProductContext);
-  const { CallBack } = useContext(ModalContext);
+  const [logged, setLogged] = useState(sessionStorage.getItem("@Token"))
+  const { setBoolMobile, boolMobile, setBoolPerfile, boolPerfile} = useContext(ProductContext);
+  const { setTypeObject, OpenAndCloseModal } = useContext(ModalContext);
   const navigate = useNavigate();
 
+  function exit() {
+    sessionStorage.removeItem("@UserId");
+    sessionStorage.removeItem("@Token");
+    navigate("/login")
+  }
+
+  function login() {
+    navigate("/login")
+    // if (sessionStorage.getItem("@Token")) {
+    //   setLogged(true)
+    // }else{
+    //   setLogged(false)
+    // }
+  }
+  function CallBack(type:string, any?:any) {
+    setTypeObject({ type, obj: { any } });
+    OpenAndCloseModal();
+  }
+  useEffect(()=>{
+    
+  },[])
   return (
     <header
       id="header"
@@ -169,14 +191,14 @@ export const Header = ({ user }: IUserProp) => {
                 )}
               </li>
               <li>
-                <button onClick={() => navigate("/login")}>Sair</button>
+                <button onClick={() => exit()}>Sair</button>
               </li>
             </ul>
           </div>
         ) : (
           <div className=" flex space-x-8 items-center text-sm pr-16">
-            <button className="hover:-text-brand1">Fazer Login</button>
-            <button onClick={() => navigate("/profile")} className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-8 w-28">
+            <button className="hover:-text-brand1" onClick={()=>login()}>Fazer Login</button>
+            <button className="hover:-text-brand1 -border-grey-3 border rounded font-bold h-8 w-28" onClick={()=>navigate("/register")}>
               Cadastrar
             </button>
           </div>
