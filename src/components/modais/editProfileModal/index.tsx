@@ -25,7 +25,7 @@ export const EditProfileModal = () => {
     "09/12/1990",
   ];
   const arrTitle = ["Nome", "Email", "CPF", "Celular", "Data de nascimento"];
-  const arrResponse = ["name", "email", "cpf", "birthdate", "cellphone"];
+  const arrResponse = ["name", "email", "cpf", "cellphone", "birthdate"];
 
   const schemaForm = yup.object().shape({
     name: yup

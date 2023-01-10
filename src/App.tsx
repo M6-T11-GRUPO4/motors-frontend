@@ -5,6 +5,8 @@ import { useContext } from "react";
 import { EditProfileModal } from "./components/modais/editProfileModal";
 import { AddressProfileModal } from "./components/modais/addressProfileModal";
 import { ImageVehicleModal } from "./components/modais/imageVehicleModal";
+import { SuccessProfileModal } from "./components/modais/successProfileModal";
+import { ErrorProfileModal } from "./components/modais/errorProfileModal";
 
 function App() {
   const { customStyles, modal, OpenAndCloseModal, typeObject } =
@@ -24,6 +26,10 @@ function App() {
             <AddressProfileModal />
           ) : typeObject.type === "Car" ? (
             <ImageVehicleModal image={typeObject.obj.any} />
+          ) : typeObject.type === "Success" ? (
+            <SuccessProfileModal/>
+          ) : typeObject.type === "Error" ? (
+            <ErrorProfileModal error={typeObject.obj.any}/>
           ) : null}
         </Modal>
     </div>

@@ -1,7 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
-import { object } from "yup";
-import { IProducts } from "../../Pages/home";
-import { api } from "../../services/api";
+import { createContext, ReactNode, useState } from "react";
 
 interface IContextProps {
   // Transform(string: string): Array<string>;

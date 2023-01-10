@@ -5,6 +5,7 @@ import { ModalContext } from "../../../Providers/modal";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues } from "react-hook-form/dist/types";
+import { api } from "../../../services/api";
 
 export interface IForm {
   cep: string;
@@ -44,17 +45,12 @@ export const AddressProfileModal = () => {
     // return data;
     // OpenAndCloseModal()
 
-    // const EditData = {
-    //   name: data.name,
-    //   email: [data.email1, data.email2],
-    //   telephone: [data.telephone1, data.telephone2],
-    // };
+    api
+      .patch("/users/login", data)
+      .then(() => {
 
-    // const response = AxiosRender({
-    //   method: "patch",
-    //   url: `http://localhost:4000/address/${axiosId}`,
-    //   data
-    // });
+      })
+      .catch((err) => err);
 
     // if (response !== undefined || typeof response !== "string") {
     //   OpenAndCloseModal();
@@ -139,7 +135,6 @@ export const AddressProfileModal = () => {
             </span>
           </div>
         </div>
-
         <div className="flex flex-row-reverse justify-center md:justify-start space-x-4 space-x-reverse">
           <button
             type="submit"

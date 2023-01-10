@@ -4,35 +4,34 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ProductContext } from "../../Providers/product";
 import { ModalContext } from "../../Providers/modal";
-import { EditProfileModal } from "../../components/modais/editProfileModal";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { apiPrivate } from "../../services/api";
 
-
 export const Dashboard = () => {
-
   const formSchema = yup.object().shape({
-		comment: yup.string().max(300)
-	});
+    comment: yup.string().max(300),
+  });
 
   const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<any>({ resolver: yupResolver(formSchema) });
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<any>({ resolver: yupResolver(formSchema) });
 
   const arrComent: Array<number> = [1, 2, 3];
   const { product } = useContext(ProductContext);
   const { CallBack } = useContext(ModalContext);
   const navigate = useNavigate();
-  window.scrollTo(0,0)
+  window.scrollTo(0, 0);
 
-  const buttonclick = (data:any) => {
-    apiPrivate.post("comments", data).then((res)=>console.log(res)).catch((err)=>console.log(err))
-
-  }
+  const buttonclick = (data: any) => {
+    apiPrivate
+      .post("comments", data)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <>
@@ -54,8 +53,12 @@ export const Dashboard = () => {
                   <p className="font-bold w-64 md:w-[32rem]">{product?.name}</p>
                   <div className="flex flex-col h-16 items-baseline md:flex-row justify-between  font-bold">
                     <div className="flex text-xs w-[35%] -text-brand2 mt-10">
-                      <div className="-bg-brand4 h-5 w-[40%] flex items-center justify-center p-3">{product?.year}</div>
-                      <div className="-bg-brand4 h-5 w-[40%] flex flex-row items-center justify-center p-3 ml-2">{product?.km} KM</div>
+                      <div className="-bg-brand4 h-5 w-[40%] flex items-center justify-center p-3">
+                        {product?.year}
+                      </div>
+                      <div className="-bg-brand4 h-5 w-[40%] flex flex-row items-center justify-center p-3 ml-2">
+                        {product?.km} KM
+                      </div>
                     </div>
                     <div>R$ {product?.price}</div>
                   </div>
@@ -66,11 +69,11 @@ export const Dashboard = () => {
               </div>
 
               <div className="flex flex-col mt-5 -bg-grey-10 w-80 md:w-[36rem] p-8 rounded">
-                  <h3 className="font-bold text-lg">Descrição</h3>
-                  <span className="w-[100%] md:w-auto text-sm font-sans">
-                    {product?.description}
-                  </span>
-                </div>
+                <h3 className="font-bold text-lg">Descrição</h3>
+                <span className="w-[100%] md:w-auto text-sm font-sans">
+                  {product?.description}
+                </span>
+              </div>
             </div>
             <div className="flex flex-col items-center w-80 md:w-96 space-y-5">
               <div className=" -bg-grey-10 flex flex-col w-80 md:w-96 justify-evenly h-[20rem] md:p-8 rounded-sm md:mt-[10px]">
@@ -131,34 +134,47 @@ export const Dashboard = () => {
                 </div>
               </div>
             ))}
-
           </div>
 
           <div className="flex flex-col justify-center py-8 -bg-grey-10 w-80 md:w-[320] rounded p-8 lg:w-[36rem]">
+            <div className="flex items-center">
+              <div className="flex items-center justify-center rounded-full w-8 h-8 -bg-brand2 -text-grey-10 mr-3">
+                GP
+              </div>
+              <span>Gabriel Pereira</span>
+            </div>
 
-<div className="flex items-center">
-<div className="flex items-center justify-center rounded-full w-8 h-8 -bg-brand2 -text-grey-10 mr-3">GP</div>
-<span>Gabriel Pereira</span>
-</div>
+            <form
+              onSubmit={handleSubmit(buttonclick)}
+              className=" flex flex-col mt-4"
+            >
+              <textarea
+                {...register("comment")}
+                name="comment"
+                className="w-[100%] h-[80px] p-[15px] -bg-grey-7 text-xs border-solid rounded-sm"
+                placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
+              ></textarea>
+              <button
+                type="submit"
+                className="-bg-brand1 -text-white-fixed rounded font-inter w-24 h-[30px] text-sm relative left-[400px] bottom-[40px]"
+              >
+                Comentar
+              </button>
+            </form>
 
-<form onSubmit={handleSubmit(buttonclick)} className=" flex flex-col mt-4"  >
-<textarea {...register("comment")} name="comment" className="w-[100%] h-[80px] p-[15px] -bg-grey-7 text-xs border-solid rounded-sm" placeholder="Carro muito confortável, foi uma ótima experiência de compra..."></textarea>
-<button type="submit" className="-bg-brand1 -text-white-fixed rounded font-inter w-24 h-[30px] text-sm relative left-[400px] bottom-[40px]">Comentar</button>  
-</form>
-
-
-<div className="flex w-[80%]">
-<span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">gostei muito!</span>
-<span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">incrível!</span>
-<span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">Recomendaria para um amigo!</span>
-</div>
-
-</div>
-
+            <div className="flex w-[80%]">
+              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">
+                gostei muito!
+              </span>
+              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">
+                incrível!
+              </span>
+              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">
+                Recomendaria para um amigo!
+              </span>
+            </div>
+          </div>
         </div>
-
-             
-
       </section>
 
       <Footer />

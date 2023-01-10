@@ -7,7 +7,6 @@ import { Header } from "../../components/header";
 import { motion } from "framer-motion";
 import { ProductContext } from "../../Providers/product";
 
-
 export interface IProducts {
   id: string;
   image: IImage[];
@@ -21,22 +20,21 @@ export interface IProducts {
 }
 export const Home = () => {
   const { response } = useContext(ProductContext);
-  
-  const carousel:any = useRef(null);
 
-  const [widthCar, setWidthCar] = useState(0)
-  const [widthMotorcycle, setWidthMotorcycle] = useState(0)
+  const carousel: any = useRef(null);
 
-  useEffect(()=>{
-    setWidthCar(carousel.current!.scrollWidth - carousel.current?.offsetWidth)
-  },[response])
+  const [widthCar, setWidthCar] = useState(0);
+  const [widthMotorcycle, setWidthMotorcycle] = useState(0);
 
-  useEffect(()=>{
-    setWidthMotorcycle(carousel.current!.scrollWidth - carousel.current?.offsetWidth)
-  },[response])
+  useEffect(() => {
+    setWidthCar(carousel.current!.scrollWidth - carousel.current?.offsetWidth);
+  }, [response]);
 
-
-  
+  useEffect(() => {
+    setWidthMotorcycle(
+      carousel.current!.scrollWidth - carousel.current?.offsetWidth
+    );
+  }, [response]);
 
   return (
     <>
@@ -78,40 +76,41 @@ export const Home = () => {
       <Auction />
 
       <div className="flex overflow-x-hidden mx-4 flex-col ml-6 select-none">
-        <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">Carros</h1>
+        <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">
+          Carros
+        </h1>
         <motion.div
-        ref={carousel}
-        drag="x"
-        dragConstraints={{right:0, left:-widthCar}} 
-        className="flex mx-4" id="carro">
-          {response?.map((products: IProducts) => {
-            if (products.type === "Carro") {
-              return <Cards products={products} />;
-            }
-          })}
+          ref={carousel}
+          drag="x"
+          dragConstraints={{ right: 0, left: -widthCar }}
+          className="flex mx-4"
+          id="carro"
+        >
+          {response?.map(
+            (products: IProducts) =>
+              products.type === "Carro" && <Cards products={products} />
+          )}
         </motion.div>
       </div>
       <div className="flex overflow-x-hidden mx-4 flex-col ml-6 mb-16">
-        <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">Motos</h1>
+        <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">
+          Motos
+        </h1>
         <motion.div
-
-        ref={carousel}
-        drag="x"
-        dragConstraints={{right:0, left:-widthMotorcycle}}
-        className="flex mx-4" id="moto">
-          {response?.map((products: IProducts) => {
-            if (products.type === "Moto") {
-              return (<Cards products={products} />
-              )
-            }
-          })}
-
+          ref={carousel}
+          drag="x"
+          dragConstraints={{ right: 0, left: -widthMotorcycle }}
+          className="flex mx-4"
+          id="moto"
+        >
+          {response?.map(
+            (products: IProducts) =>
+              products.type === "Moto" && <Cards products={products} />
+          )}
         </motion.div>
-
       </div>
 
       <Footer />
-
     </>
   );
 };

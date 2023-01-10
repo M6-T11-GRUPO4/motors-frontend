@@ -98,9 +98,9 @@ export const Header = ({ user }: IUserProp) => {
                 }}
               >
                 <div className="flex items-center justify-center -bg-brand1 rounded-2xl text-white w-8 h-8 ">
-                  {"GP"}
+                  {user.name}
                 </div>
-                <p>{"Gabriel Pereira"}</p>
+                <p>{user.name}</p>
                 <ul
                   className={
                     boolPerfile
@@ -157,9 +157,9 @@ export const Header = ({ user }: IUserProp) => {
             onClick={() => setBoolMobile(!boolMobile)}
           >
             <div className="flex items-center justify-center -bg-brand1 rounded-2xl text-white w-8 h-8 ">
-              {"GP"}
+              {user.name}
             </div>
-            <p>{"Gabriel Pereira"}</p>
+            <p>{user.name}</p>
             <ul
               className={
                 boolMobile
