@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 
 const RecoveryPassword = () => {
@@ -38,6 +39,7 @@ const RecoveryPassword = () => {
           <button type="submit" className="classLabelInputRadioButtonActivate my-5">Alterar Senha</button>
         </form>
       </section>
+      <Footer />
     </>
   );
 };

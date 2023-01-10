@@ -85,7 +85,7 @@ export const Login = () => {
               </div>
               <button
                 className="mt-2 mb-5 self-end"
-                onClick={() => navigate("/recover")}
+                onClick={() => navigate("/forgot-password")}
               >
                 Esqueci minha senha
               </button>

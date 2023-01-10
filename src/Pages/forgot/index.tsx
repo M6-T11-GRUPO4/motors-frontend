@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 
 const ForgotPassword = () => {
@@ -16,7 +17,7 @@ const ForgotPassword = () => {
   return (
     <>
     <Header user={{ name: "string", img: "" }} />
-      <section className="w-4/5 pt-1 text-center m-auto">
+      <section className="w-4/5 pt-1 text-center m-auto h-[75.3vh]">
         <h1 className="font-lexend font-medium text-2xl text-black pt-5">
           Recupere sua senha
         </h1>
@@ -31,6 +32,7 @@ const ForgotPassword = () => {
         {complete && <p className="text-red-600">Email de recuperação enviado, por favor, verifique sua caixa de entrada</p>}
         {recoveryError && <p className="">Email não encontrado, tente novamente</p>}
       </section>
+      <Footer />
     </>
   );
 };
