@@ -8,7 +8,9 @@ import { ModalContext } from "../../Providers/modal";
 import { UserContext } from "../../Providers/user";
 
 export const Header = () => {
+  // comment
   const [logged, setLogged] = useState(sessionStorage.getItem("@Token"));
+  // comment
   const { setBoolMobile, boolMobile, setBoolPerfile, boolPerfile } =
     useContext(ProductContext);
   const { setTypeObject, OpenAndCloseModal } = useContext(ModalContext);
@@ -170,7 +172,7 @@ export const Header = () => {
               className={
                 boolMobile
                   ? "static hidden"
-                  : "absolute top-14 w-44 flex flex-col -bg-grey-9 space-y-4 pl-4 py-2 h-40"
+                  : "absolute top-14 w-44 flex flex-col -bg-grey-10 space-y-4 pl-4 py-2 h-40"
               }
             >
               <li>

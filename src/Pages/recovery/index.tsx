@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
+
 import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues, useForm } from "react-hook-form";
@@ -53,6 +54,7 @@ const RecoveryPassword = () => {
       )
   }
 
+
   return (
     <>
     <Header />
@@ -85,6 +87,7 @@ const RecoveryPassword = () => {
         {tokenTime && <p className="text-red-600">Código de recuperação expirado, gere um novo código e verifique seu e-mail.</p>}
         {recoverySuccess && <p className="text-red-600">Senha alterada com sucesso, faça o login.</p>}
         {error && <p className="text-red-600">Email não cadastrado em nossa base de dados.</p>}
+
       </section>
       <Footer />
     </>
