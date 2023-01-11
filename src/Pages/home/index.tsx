@@ -24,21 +24,21 @@ export interface IProducts {
 
 export const Home = () => {
   const { response } = useContext(ProductContext);
-  
-  const carousel = useRef<HTMLDivElement | null>(null);
 
+  const carousel = useRef<HTMLDivElement | null>(null);
 
   const [widthCar, setWidthCar] = useState(0);
   const [widthMotorcycle, setWidthMotorcycle] = useState(0);
 
-  useEffect(()=>{
-    setWidthCar(carousel.current!.scrollWidth - carousel.current!.offsetWidth)
-  },[response])
+  useEffect(() => {
+    setWidthCar(carousel.current!.scrollWidth - carousel.current!.offsetWidth);
+  }, [response]);
 
-  useEffect(()=>{
-    setWidthMotorcycle(carousel.current!.scrollWidth - carousel.current!.offsetWidth)
-  },[response])
-
+  useEffect(() => {
+    setWidthMotorcycle(
+      carousel.current!.scrollWidth - carousel.current!.offsetWidth
+    );
+  }, [response]);
 
   useEffect(() => {
     setWidthMotorcycle(
@@ -90,11 +90,13 @@ export const Home = () => {
           Carros
         </h1>
         <motion.div
-        ref={carousel}
-        whileTap={{cursor:"grabbing"}}
-        drag="x"
-        dragConstraints={{right:0, left:-widthCar}} 
-        className="flex mx-4" id="carro">
+          ref={carousel}
+          whileTap={{ cursor: "grabbing" }}
+          drag="x"
+          dragConstraints={{ right: 0, left: -widthCar }}
+          className="flex mx-4"
+          id="carro"
+        >
           {response?.map((products: IProducts) => {
             if (products.type === "Carro" && products.is_active) {
               return <Cards key={products.id} products={products} />;
@@ -102,24 +104,34 @@ export const Home = () => {
           })}
         </motion.div>
       </div>
-      {response.length === 0 ? <p className="flex justify-center">Ainda não há carros a exibir</p> : ''}
+      {!response ? (
+        <p className="flex justify-center">Ainda não há carros a exibir</p>
+      ) : (
+        ""
+      )}
       <div className="flex overflow-x-hidden mx-4 flex-col ml-6 mb-16">
         <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">
           Motos
         </h1>
         <motion.div
-        ref={carousel}
-        whileTap={{cursor:"grabbing"}}
-        drag="x"
-        dragConstraints={{right:0, left:-widthMotorcycle}}
-        className="flex mx-4" id="moto">
+          ref={carousel}
+          whileTap={{ cursor: "grabbing" }}
+          drag="x"
+          dragConstraints={{ right: 0, left: -widthMotorcycle }}
+          className="flex mx-4"
+          id="moto"
+        >
           {response?.map((products: IProducts) => {
             if (products.type === "Moto" && products.is_active) {
               return <Cards key={products.id} products={products} />;
             }
           })}
         </motion.div>
-        {response.length === 0 ? <p className="flex justify-center">Ainda não há motos a exibir</p> : ''}
+        {!response ? (
+          <p className="flex justify-center">Ainda não há motos a exibir</p>
+        ) : (
+          ""
+        )}
       </div>
 
       <Footer />
