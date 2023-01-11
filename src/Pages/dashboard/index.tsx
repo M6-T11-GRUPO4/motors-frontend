@@ -11,9 +11,6 @@ import * as yup from "yup";
 import { apiPrivate } from "../../services/api";
 import { api } from './../../services/api';
 
-interface IComment{
-  comment: string
-}
 
 export const Dashboard = () => {
   const formSchema = yup.object().shape({
@@ -25,24 +22,23 @@ export const Dashboard = () => {
     handleSubmit,
   } = useForm({ resolver: yupResolver(formSchema) });
 
-  const arrComent: Array<number> = [1, 2, 3];
-  const[resComment, setResComment] = useState<IComment>()
+  const[resComment, setResComment] = useState<any>()
   const { product } = useContext(ProductContext);
   const { CallBack } = useContext(ModalContext);
   const navigate = useNavigate();
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
 
-  useEffect(()=>{
-    api.get("comments").then((res)=>console.log(res.data)).catch((err)=>console.log(err))
-  })
-
+  
   const buttonclick = (data: object) => {
     apiPrivate
-      .post("comments", data, {headers: { Authorization: `Bearer ${sessionStorage.getItem("@UserId")}` }})
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    .post("comments", data, {headers: { Authorization: `Bearer ${sessionStorage.getItem("@Token")}` }})
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
   };
-
+  
+  useEffect(()=>{
+    api.get("comments").then((res)=>setResComment(res.data)).catch((err)=>console.log(err))
+  })
   return (
     <>
       <Header />
@@ -59,7 +55,7 @@ export const Dashboard = () => {
                 />
               </div>
               <div>
-              <div className="-bg-grey-10 w-80 md:w-[36rem] p-8 rounded-sm md:">
+              <div className="-bg-grey-10 w-80 md:w-[36rem] p-8 rounded-sm">
                 <div className="flex flex-col">
                   <p className="font-bold w-64 md:w-[32rem]">{product?.name}</p>
                   <div className="flex flex-col h-16 items-baseline md:flex-row justify-between  font-bold">
@@ -136,7 +132,7 @@ export const Dashboard = () => {
           </div>
           <div className="flex flex-col space-y-8 font-inter w-80 lg:w-[36rem] lg:pl-8 -bg-grey-10 p-8">
             <h4 className="font-bold text-lg">Comentários</h4>
-            {arrComent.map((e) => (
+            {resComment?.map((element:any) => (
               <div>
                 <div className="flex flex-col space-y-4">
                   <div className="flex flex-row space-x-2 items-center">
@@ -147,7 +143,7 @@ export const Dashboard = () => {
                     <p className="-text-grey-3"> * há 15 dias</p>
                   </div>
                   <div className="w-[100%] text-sm">
-                    {resComment?.comment}
+                    {element.comment}
                   </div>
                 </div>
               </div>

@@ -75,7 +75,7 @@ const Cards = ({ products, showIsActive = false }: IProps) => {
       </p>
       <div className="flex w-72 items-center">
         <div className="-bg-brand1 rounded-full -text-white-fixed p-1 text-sm mr-2 font-inter">
-          {twoLetters(response!.name)}
+          {/* {twoLetters(response?.name)} */} JG
         </div>
         <p className="text-xs -text-grey-2 w-1/2 font-semibold font-inter">
           {response?.name}
