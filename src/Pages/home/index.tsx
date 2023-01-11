@@ -102,6 +102,7 @@ export const Home = () => {
           })}
         </motion.div>
       </div>
+      {response.length === 0 ? <p className="flex justify-center">Ainda não há carros a exibir</p> : ''}
       <div className="flex overflow-x-hidden mx-4 flex-col ml-6 mb-16">
         <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">
           Motos
@@ -118,6 +119,7 @@ export const Home = () => {
             }
           })}
         </motion.div>
+        {response.length === 0 ? <p className="flex justify-center">Ainda não há motos a exibir</p> : ''}
       </div>
 
       <Footer />
