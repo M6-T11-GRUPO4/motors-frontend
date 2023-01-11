@@ -38,7 +38,6 @@ export const Login = () => {
       })
       .catch((err) => err);
 
-    console.log(user);
   }
 
   const {

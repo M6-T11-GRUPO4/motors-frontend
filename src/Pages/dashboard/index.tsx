@@ -8,7 +8,8 @@ import { EditProfileModal } from "../../components/modais/editProfileModal";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { apiPrivate } from "../../services/api";
+import { api, apiPrivate } from "../../services/api";
+import { UserContext } from "../../Providers/user";
 
 export const Dashboard = () => {
   const formSchema = yup.object().shape({
@@ -24,6 +25,7 @@ export const Dashboard = () => {
   const arrComent: Array<number> = [1, 2, 3];
   const { product } = useContext(ProductContext);
   const { CallBack } = useContext(ModalContext);
+  const { twoLetters } = useContext(UserContext);
   const navigate = useNavigate();
   window.scrollTo(0, 0);
 
@@ -32,6 +34,18 @@ export const Dashboard = () => {
       .post("comments", data)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
+  };
+
+  const getSeller = () => {
+    api
+      .get(`/users/${product?.userId}`)
+      .then((res) => {
+        sessionStorage.setItem("@ProfileUser", JSON.stringify(res.data));
+      })
+      .catch((err) => err);
+    setTimeout(() => {
+      navigate("/profile");
+    }, 500);
   };
 
   return (
@@ -102,18 +116,17 @@ export const Dashboard = () => {
               </div>
               <div className="flex flex-col items-center -bg-grey-10 w-80 md:w-96 space-y-7 p-3 md:p-8 rounded-sm">
                 <div className="flex items-center justify-center rounded-full w-20 h-20 -bg-brand2 text-3xl -text-grey-10">
-                  GP
+                  {twoLetters(product?.user.name)}
                 </div>
-                <h4 className="font-bold text-lg">Gabriel Pereira</h4>
+                <h4 className="font-bold text-lg">{product?.user.name}</h4>
                 <div className="flex flex-col text-center w-80">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
+                  {product?.user.description}
                 </div>
                 <button
                   className="-bg-grey-0 h-10 w-56 text-white rounded"
-                  onClick={() => navigate("/profile")}
+                  onClick={() => getSeller()}
                 >
-                  Ver todos anuncios
+                  Ver todos anúncios
                 </button>
               </div>
             </div>
