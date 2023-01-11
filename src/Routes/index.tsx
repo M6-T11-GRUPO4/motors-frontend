@@ -12,6 +12,7 @@ import { useContext } from "react";
 import { EditProfileModal } from "../components/modais/editProfileModal";
 import { AddressProfileModal } from "../components/modais/addressProfileModal";
 import { ImageVehicleModal } from "../components/modais/imageVehicleModal";
+import EditVehicle from "../components/modais/editVehicle";
 
 
 export const Routers = () => {
@@ -39,6 +40,8 @@ export const Routers = () => {
           <AddressProfileModal />
         ) : typeObject.type === "Car" ? (
           <ImageVehicleModal image={typeObject.obj.any} />
+        ) : typeObject.type === "EditVehicle" ? (
+          <EditVehicle />
         ) : null}
       </Modal>
     </>

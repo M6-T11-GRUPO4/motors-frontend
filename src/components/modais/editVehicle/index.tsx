@@ -1,26 +1,55 @@
 import { useContext, useState } from "react";
 import x from "../../../image/x.png";
-import Modal from "react-modal";
+import * as yup from "yup";
 import { ModalContext } from "../../../Providers/modal";
 import { AddInput } from "../../inputs/addInput";
+import { useForm } from "react-hook-form/dist/useForm";
+import { yupResolver } from "@hookform/resolvers/yup";
 
+export interface IVehiclePatchRequest {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  year: number;
+  km: number;
+  type: string;
+  is_active: boolean;
+}
 
 export default function EditVehicle() {
   const [isAuction, setIsAuction] = useState(false);
   const [isCar, setIsCar] = useState(true);
   const [isPublic, setIsPublic] = useState(true);
-  const { customStyles, modal, OpenAndCloseModal } = useContext(ModalContext);
+  const { OpenAndCloseModal } = useContext(ModalContext);
   const [numberImput, setNumberImput] = useState([1] as number[]);
   const [number, setNumber] = useState(0);
   let arr = [0, 1, 2, 3, 4];
 
+  const schemaForm = yup.object().shape({
+    name: yup.string(),
+    description: yup.string(),
+    price: yup.number(),
+    year: yup.number(),
+    km: yup.number(),
+    type: yup.string(),
+    is_active: yup.boolean(),
+    image: yup.array().of(yup.string()),
+    
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IVehiclePatchRequest>({
+    resolver: yupResolver(schemaForm),
+  });
+
+
+
   return (
-    <Modal
-      isOpen={modal}
-      onRequestClose={OpenAndCloseModal}
-      style={customStyles}
-      className="relative"
-    >
+
       <section className="">
         <div className="flex flex-row justify-between mb-[0.8rem]">
           <p className="font-lexend text-base font-medium leading-5 text-[#000000]">
@@ -287,7 +316,7 @@ export default function EditVehicle() {
               type="submit"
               className="classLabelInputRadioButtonActivate w-40 md:w-64"
             >
-              Criar anúncio
+              Editar anúncio
             </button>
             <button
               onClick={OpenAndCloseModal}
@@ -298,6 +327,6 @@ export default function EditVehicle() {
           </div>
         </form>
       </section>
-    </Modal>
+
   );
 }

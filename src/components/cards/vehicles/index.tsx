@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IProducts } from "../../../Pages/home";
+import { ModalContext } from "../../../Providers/modal";
 import { ProductContext } from "../../../Providers/product/index";
 import { IUser, UserContext } from "../../../Providers/user";
 import { api } from "../../../services/api";
@@ -34,6 +35,7 @@ const Cards = ({
   showIsActive = false,
 }: IProps) => {
   const { setProduct } = useContext(ProductContext);
+  const { CallBack } = useContext(ModalContext);
 
   const[response, setResponse] = useState<IUser | null>()
 
@@ -105,7 +107,7 @@ const Cards = ({
 
       {isAdOwner && (
         <div className="flex gap-4 font-inter font-semibold text-sm -text-grey-1">
-          <button className="h-9 border-2 rounded -border-grey-1 px-5 hover:-bg-brand1 hover:-border-brand1">
+          <button className="h-9 border-2 rounded -border-grey-1 px-5 hover:-bg-brand1 hover:-border-brand1" onClick={()=>CallBack("EditVehicle")}>
             Editar
           </button>
 
