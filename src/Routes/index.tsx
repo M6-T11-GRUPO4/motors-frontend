@@ -5,13 +5,15 @@ import { Home } from "../Pages/home";
 import { Login } from "../Pages/login";
 import { ProfileView } from "../Pages/profile";
 import RecoveryPassword from "../Pages/recovery";
-import RegisterPage from "../Pages/register";
 import Modal from "react-modal";
 import { ModalContext } from "../Providers/modal";
 import { useContext } from "react";
 import { EditProfileModal } from "../components/modais/editProfileModal";
 import { AddressProfileModal } from "../components/modais/addressProfileModal";
 import { ImageVehicleModal } from "../components/modais/imageVehicleModal";
+import { SuccessProfileModal } from "../components/modais/successProfileModal";
+import { ErrorProfileModal } from "../components/modais/errorProfileModal";
+import RegisterPage from "../Pages/register";
 
 
 export const Routers = () => {
@@ -33,13 +35,17 @@ export const Routers = () => {
         onRequestClose={OpenAndCloseModal}
         style={customStyles}
       >
-        {typeObject.type === "EditProfile" ? (
-          <EditProfileModal />
-        ) : typeObject.type === "EditAddress" ? (
-          <AddressProfileModal />
-        ) : typeObject.type === "Car" ? (
-          <ImageVehicleModal image={typeObject.obj.any} />
-        ) : null}
+         {typeObject.type === "EditProfile" ? (
+            <EditProfileModal />
+          ) : typeObject.type === "EditAddress" ? (
+            <AddressProfileModal />
+          ) : typeObject.type === "Car" ? (
+            <ImageVehicleModal image={typeObject.obj.any} />
+          ) : typeObject.type === "Success" ? (
+            <SuccessProfileModal/>
+          ) : typeObject.type === "Error" ? (
+            <ErrorProfileModal error={typeObject.obj.any}/>
+          ) : null}
       </Modal>
     </>
   );
