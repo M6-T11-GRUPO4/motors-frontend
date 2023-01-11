@@ -2,9 +2,8 @@ import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IProducts } from "../../../Pages/home";
 import { ProductContext } from "../../../Providers/product/index";
+import { IUser, UserContext } from "../../../Providers/user";
 import { api } from "../../../services/api";
-import { UserContext } from './../../../Providers/user/index';
-import { IUser } from './../../../Pages/profile/index';
 
 export interface IProps {
   products: {
@@ -16,9 +15,11 @@ export interface IProps {
     km: number;
     year: number;
     price: string;
-    is_active?: boolean;
+    is_active: boolean;
+    user: IUser;
   };
 
+  isAdOwner?: boolean;
   showIsActive?: boolean;
 }
 
@@ -27,13 +28,16 @@ export interface IImage {
   url: string;
 }
 
-
-const Cards = ({ products, showIsActive = false }: IProps) => {
+const Cards = ({
+  products,
+  isAdOwner = false,
+  showIsActive = false,
+}: IProps) => {
+  const { setProduct } = useContext(ProductContext);
 
   const[response, setResponse] = useState<IUser | null>()
 
-  const { setProduct } = useContext(ProductContext)
-  const { twoLetters } = useContext(UserContext)
+  const { twoLetters } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -52,6 +56,7 @@ const Cards = ({ products, showIsActive = false }: IProps) => {
   return (
     <div className="w-[19.5rem] h-[22.25rem] -bg-grey-8 flex flex-col gap-4 m-7 relative cursor-pointer select-none">
       {showIsActive &&
+        !isAdOwner &&
         (products.is_active ? (
           <span className="-bg-brand1 -text-white-fixed font-medium font-inter text-xs w-12 h-5 flex justify-center items-center absolute mt-2 ml-6">
             Ativo
@@ -74,11 +79,11 @@ const Cards = ({ products, showIsActive = false }: IProps) => {
         {products.description}
       </p>
       <div className="flex w-72 items-center">
-        <div className="-bg-brand1 rounded-full -text-white-fixed p-1 text-sm mr-2 font-inter">
-          {/* {twoLetters(response?.name)} */} JG
+        <div className="flex items-center justify-center w-8 h-8 -bg-brand1 rounded-full -text-white-fixed text-sm mr-2 font-inter">
+          {twoLetters(products?.user.name)}
         </div>
         <p className="text-xs -text-grey-2 w-1/2 font-semibold font-inter">
-          {response?.name}
+          {products.user.name}
         </p>
       </div>
       <div className="flex w-72 p-0 justify-between self-center">
@@ -98,18 +103,20 @@ const Cards = ({ products, showIsActive = false }: IProps) => {
         </p>
       </div>
 
-      {/* <div className="flex gap-4 font-inter font-semibold text-sm -text-grey-1">
-        <button className="h-9 border-2 rounded -border-grey-1 px-5 hover:-bg-brand1 hover:-border-brand1">
-          Editar
-        </button>
+      {isAdOwner && (
+        <div className="flex gap-4 font-inter font-semibold text-sm -text-grey-1">
+          <button className="h-9 border-2 rounded -border-grey-1 px-5 hover:-bg-brand1 hover:-border-brand1">
+            Editar
+          </button>
 
-        <button
-          className="h-9 border-2 rounded -border-grey-1 px-5 hover:-bg-brand1 hover:-border-brand1"
-          onClick={() => navigate("/dashboard")}
-        >
-          Ver como
-        </button>
-      </div> */}
+          <button
+            className="h-9 border-2 rounded -border-grey-1 px-5 hover:-bg-brand1 hover:-border-brand1"
+            onClick={() => navigate("/dashboard")}
+          >
+            Ver como
+          </button>
+        </div>
+      )}
     </div>
   );
 };

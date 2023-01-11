@@ -7,6 +7,7 @@ interface IInput {
   register: Function;
   errors: FieldErrors
   valueErrors:string
+  defaultValue:string
 }
 
 export const NormalInput = ({
@@ -15,7 +16,8 @@ export const NormalInput = ({
   register,
   valueRegister,
   errors,
-  valueErrors
+  valueErrors,
+  defaultValue
 }: IInput) => {
   return (
     <div className="flex flex-col mb-6">
@@ -23,6 +25,7 @@ export const NormalInput = ({
       <input
         type="text"
         placeholder={placeholder}
+        defaultValue={defaultValue}
         className="w-72 md:w-96 pl-2 h-10"
         {...register(`${valueRegister}`)}
       />

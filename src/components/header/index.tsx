@@ -1,35 +1,32 @@
 import riscos from "../../image/risco.png";
 import x from "../../image/xmark.png";
 import image from "../../image/NameShop.png";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ProductContext } from "../../Providers/product";
 import { ModalContext } from "../../Providers/modal";
-import { UserContext } from "../../Providers/user";
+import { IUser, UserContext } from "../../Providers/user";
 
 export const Header = () => {
-  const [logged, setLogged] = useState(sessionStorage.getItem("@Token"));
+  const logged = sessionStorage.getItem("@Token");
   const { setBoolMobile, boolMobile, setBoolPerfile, boolPerfile } =
     useContext(ProductContext);
   const { setTypeObject, OpenAndCloseModal } = useContext(ModalContext);
   const navigate = useNavigate();
-  const { user, twoLetters } = useContext(UserContext);
+  const { user, setUser, twoLetters } = useContext(UserContext);
 
   function exit() {
     sessionStorage.removeItem("@UserId");
     sessionStorage.removeItem("@User");
     sessionStorage.removeItem("@Token");
-    navigate("/login");
+    setTimeout(() => {
+      setUser({} as IUser);
+      navigate("/login");
+    }, 500);
   }
-  // console.log(user);
 
   function login() {
     navigate("/login");
-    // if (sessionStorage.getItem("@Token")) {
-    //   setLogged(true)
-    // }else{
-    //   setLogged(false)
-    // }
   }
   function CallBack(type: string, any?: any) {
     setTypeObject({ type, obj: { any } });
@@ -110,9 +107,10 @@ export const Header = () => {
                     </button>
                   </li>
                   <li>
-                    <button 
-                    onClick={() => CallBack("EditAddress")}
-                     className="hover:-text-brand1">
+                    <button
+                      onClick={() => CallBack("EditAddress")}
+                      className="hover:-text-brand1"
+                    >
                       Editar Endereço
                     </button>
                   </li>
@@ -170,7 +168,7 @@ export const Header = () => {
               className={
                 boolMobile
                   ? "static hidden"
-                  : "absolute top-14 w-44 flex flex-col -bg-grey-9 space-y-4 pl-4 py-2 h-40"
+                  : "absolute top-14 w-44 flex flex-col -bg-grey-10 space-y-4 pl-4 py-2 h-40"
               }
             >
               <li>

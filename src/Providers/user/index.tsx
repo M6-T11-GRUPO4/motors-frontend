@@ -1,18 +1,16 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
-import { object } from "yup";
-import { IProducts } from "../../Pages/home";
-import { api } from "../../services/api";
+
+import { createContext, ReactNode, useState } from "react";
+
 
 interface IContextProps {
-  // Transform(string: string): Array<string>;
-  setUser(user: IUser): void;
   user: IUser;
+  setUser(user: IUser): void;
+  address: IAddressRequest;
+  setAddress(address: IAddressRequest): void;
+  tokenAndId: TokenAndId;
+  setTokenAndId({token,id}: TokenAndId ): void;
   twoLetters(name: string): string;
-  // setBoolPerfile(boolPerfile: boolean): void;
-  // boolPerfile: boolean;
-  // setProduct(product: IProducts): void;
-  // product: IProducts;
-  // response: any;
+
 }
 export const UserContext = createContext({} as IContextProps);
 
@@ -36,15 +34,37 @@ export interface IUser {
   vehicles: string[];
 }
 
+export interface IAddressRequest {
+  cep: string;
+  state: string;
+  city: string;
+  street: string;
+  number: string;
+  complement?: string;
+}
+interface TokenAndId {
+  token:string
+  id:string
+}
+
 export const UserProvider = ({ children }: IProviderProps) => {
   const [user, setUser] = useState(
     JSON.parse(sessionStorage.getItem("@User") as string) as IUser
   );
 
+  const [address, setAddress] = useState(
+    JSON.parse(sessionStorage.getItem("@Address") as string) as IAddressRequest
+  );
+  const [tokenAndId, setTokenAndId] = useState(
+    {token:sessionStorage.getItem("@Token"), id:sessionStorage.getItem("@UserId")} as TokenAndId 
+  );
+
   const twoLetters = (name: string): string => {
-    let complet_name = name.replace(/\s(de|da|dos|das)\s/g, " ");
-    let initial = complet_name.split(" ");
-    return initial![0][0].toUpperCase() + initial![1][0].toUpperCase();
+    let initial = name?.split(" ");
+    if (initial.length < 2) {
+      return initial[0][0]?.toUpperCase();
+    }
+    return initial[0][0]?.toUpperCase() + initial[1][0]?.toUpperCase();
   };
 
   return (
@@ -53,14 +73,10 @@ export const UserProvider = ({ children }: IProviderProps) => {
         user,
         setUser,
         twoLetters,
-        // Transform,
-        // boolMobile,
-        // setBoolMobile,
-        // boolPerfile,
-        // setBoolPerfile,
-        // response,
-        // setProduct,
-        // product,
+        address,
+        setAddress,
+        tokenAndId,
+        setTokenAndId,
       }}
     >
       {children}
