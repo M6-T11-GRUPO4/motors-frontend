@@ -1,9 +1,7 @@
-
-
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { useNavigate } from "react-router-dom";
-import { useContext,useEffect,useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ProductContext } from "../../Providers/product";
 import { ModalContext } from "../../Providers/modal";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,32 +10,28 @@ import * as yup from "yup";
 import { api, apiPrivate } from "../../services/api";
 import { UserContext } from "../../Providers/user";
 
-
 export const Dashboard = () => {
-  const [cellphone, setCellphone] = useState('')
-
+  const [cellphone, setCellphone] = useState("");
 
   const formSchema = yup.object().shape({
     comment: yup.string().max(300),
   });
 
-  const {
-    register,
-    handleSubmit,
-  } = useForm({ resolver: yupResolver(formSchema) });
+  const { register, handleSubmit } = useForm({
+    resolver: yupResolver(formSchema),
+  });
 
-  const[resComment, setResComment] = useState<any>()
+  const[resComment, setResComment] = useState<any>
   const { product } = useContext(ProductContext);
   const { CallBack } = useContext(ModalContext);
   const { twoLetters } = useContext(UserContext);
   const navigate = useNavigate();
-
   
   const buttonclick = (data: object) => {
     apiPrivate
     .post(`comments/${sessionStorage.getItem("@ProductId")}`, data, {headers: { Authorization: `Bearer ${sessionStorage.getItem("@Token")}` }})
     .then((res) => console.log(res))
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
   };
   
   useEffect(()=>{
@@ -56,11 +50,12 @@ export const Dashboard = () => {
     }, 500);
   };
 
-    api.get(`/vehicles/${product.id}`)
+  api
+    .get(`/vehicles/${product.id}`)
     .then((res) => {
-      setCellphone(res.data.user.cellphone)
+      setCellphone(res.data.user.cellphone);
     })
-    .catch((err) => console.error(err))
+    .catch((err) => console.error(err));
 
   return (
     <>
@@ -87,15 +82,25 @@ export const Dashboard = () => {
                       <div className="-bg-brand4 h-5 flex items-center justify-center p-3">
                         {product?.year}
                       </div>
-                      <div className="-bg-brand4 h-5 flex flex-row items-center justify-center p-3 ml-2">
-                        {product?.km} KM
+                      <div>
+                        {Number(product?.price).toLocaleString("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
+                        })}
                       </div>
                     </div>
-                    <div>
-                      {Number(product?.price).toLocaleString("pt-BR", {
-                        style: "currency",
-                        currency: "BRL",
-                      })}
+                    <div className="flex flex-col mt-5 -bg-grey-10 w-[22rem] md:w-[36rem] p-8 rounded md:h-44">
+                      <h3 className="font-bold text-lg">Descrição</h3>
+                      <span className="w-[100%] md:w-auto text-sm font-sans">
+                        {product?.description}
+                      </span>
+                      <a
+                        href={`https://wa.me/55${cellphone}?text=Tenho%20interesse%20em%20comprar%20seu%20carro`}
+                        target={"blank"}
+                        className="flex items-center justify-center w-40 h-10 rounded-md -bg-brand2 -text-grey-10 mt-5"
+                      >
+                        Comprar
+                      </a>
                     </div>
                   </div>
                   <a href={`https://wa.me/55${cellphone}?text=Tenho%20interesse%20em%20comprar%20seu%20carro`} target={'blank'} className="flex mt-12 md:mt-5 items-center justify-center w-40 h-10 rounded-md -bg-brand2 -text-grey-10 mt-5">
@@ -129,20 +134,40 @@ export const Dashboard = () => {
                   ))}
                 </div>
               </div>
-              <div className="flex flex-col items-center -bg-grey-10 w-[22rem] md:w-96 space-y-7 p-3 md:p-8 rounded-sm">
-                <div className="flex items-center justify-center rounded-full w-20 h-20 -bg-brand2 text-3xl -text-grey-10">
-                  {twoLetters(product?.user.name)}
+              <div className="flex flex-col items-center w-[22rem] md:w-96 space-y-5 mt-3 md:mt-0">
+                <div className=" -bg-grey-10 flex flex-col w-[22rem] md:w-96 justify-evenly h-[20rem] md:p-8 rounded-sm md:mt-[10px] lg:mt-0">
+                  <h4 className="font-bold text-xl pl-8 md:pl-0">Fotos</h4>
+                  <div className="flex flex-row items-center justify-center flex-wrap h-56 gap-2 gap-y-7">
+                    {product?.image.map((e) => (
+                      <div
+                        className="flex items-center justify-center w-24 h-24"
+                        onClick={() => CallBack("Car", e.url)}
+                      >
+                        <img
+                          className="h-14 transition-property: hover:border-2 -border-random4 transition-duration: 200ms ease-in-out delay-200 hover:-translate-y-1 hover:scale-100 duration-300 cursor-pointer"
+                          src={e.url}
+                          alt="carro/moto"
+                          draggable={false}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <h4 className="font-bold text-lg">{product?.user.name}</h4>
-                <div className="flex flex-col text-center w-80">
-                  {product?.user.description}
+                <div className="flex flex-col items-center -bg-grey-10 w-[22rem] md:w-96 space-y-7 p-3 md:p-8 rounded-sm">
+                  <div className="flex items-center justify-center rounded-full w-20 h-20 -bg-brand2 text-3xl -text-grey-10">
+                    {twoLetters(product?.user.name)}
+                  </div>
+                  <h4 className="font-bold text-lg">{product?.user.name}</h4>
+                  <div className="flex flex-col text-center w-80">
+                    {product?.user.description}
+                  </div>
+                  <button
+                    className="-bg-grey-0 h-10 w-56 text-white rounded"
+                    onClick={() => getSeller()}
+                  >
+                    Ver todos anúncios
+                  </button>
                 </div>
-                <button
-                  className="-bg-grey-0 h-10 w-56 text-white rounded"
-                  onClick={() => getSeller()}
-                >
-                  Ver todos anúncios
-                </button>
               </div>
             </div>
           </div>
@@ -190,12 +215,12 @@ export const Dashboard = () => {
                 placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
               ></textarea>
               <div className="w-[100%] flex md:flex-row-reverse relative md:right-2 my-3 md:bottom-[50px]">
-              <button
-                type="submit"
-                className="-bg-brand1 -text-white-fixed rounded font-inter w-24 h-[30px] text-sm"
-              >
-                Comentar
-              </button>
+                <button
+                  type="submit"
+                  className="-bg-brand1 -text-white-fixed rounded font-inter w-24 h-[30px] text-sm"
+                >
+                  Comentar
+                </button>
               </div>
             </form>
 
@@ -211,7 +236,6 @@ export const Dashboard = () => {
               </span>
             </div>
           </div>
-        
         </div>
       </section>
 
@@ -219,5 +243,3 @@ export const Dashboard = () => {
     </>
   );
 };
-
-

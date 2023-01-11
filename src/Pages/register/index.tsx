@@ -5,7 +5,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { api } from "../../services/api";
-import { NormalInput } from "../../components/inputs/normalInput";
 
 interface IUserRegister {
     name: string,
