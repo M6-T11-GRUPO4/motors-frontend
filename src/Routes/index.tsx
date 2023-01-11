@@ -13,6 +13,7 @@ import { AddressProfileModal } from "../components/modais/addressProfileModal";
 import { ImageVehicleModal } from "../components/modais/imageVehicleModal";
 import { SuccessProfileModal } from "../components/modais/successProfileModal";
 import { ErrorProfileModal } from "../components/modais/errorProfileModal";
+import RegisterPage from "../Pages/register";
 
 
 export const Routers = () => {
@@ -27,6 +28,7 @@ export const Routers = () => {
         <Route path="/profile" element={<ProfileView />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<RecoveryPassword />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
       <Modal
         isOpen={modal}
