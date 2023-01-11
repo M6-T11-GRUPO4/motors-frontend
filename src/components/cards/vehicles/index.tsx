@@ -47,8 +47,9 @@ const Cards = ({
     }).catch((err) => console.log(err))
   })
 
-  const callback = (products: IProducts): void => {
+  const callback = (products: IProducts, e:any): void => {
     sessionStorage.setItem("@Vitrine", JSON.stringify(products))
+    sessionStorage.setItem("@ProductId", e.target.id)
     setProduct(products)
     navigate("/dashboard");
   };
@@ -66,16 +67,17 @@ const Cards = ({
             Inativo
           </span>
         ))}
-      <div className="w-full h-[9.5rem] -bg-grey-7 flex justify-center items-center">
+      <div className="w-full h-[15rem] -bg-grey-7 flex justify-center items-center gap-[10px]">
         <img
+          id={products.id}
           className="h-[9.4rem] w-64 -bg-grey-7 transition-property: hover:border-2 -border-random4 transition-duration: 150ms  ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
           src={products.image[0].url}
           alt="foto veiculo"
-          onClick={() => callback(products)}
+          onClick={(e) => callback(products,e)}
         />
       </div>
-      <p className="text-sm font-bold font-lexend truncate">{products.name}</p>
-      <p className="text-xs -text-grey-2 w-72 h-12 font-inter limit-overflow">
+      <p className="flex items-center text-sm font-bold font-lexend truncate py-2">{products.name}</p>
+      <p className="flex items-center text-[10px] -text-grey-2 w-72 h-12 font-inter limit-overflow py-5">
         {products.description}
       </p>
       <div className="flex w-72 items-center">
