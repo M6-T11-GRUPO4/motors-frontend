@@ -24,6 +24,7 @@ export const Login = () => {
       .post("/users/login", data)
       .then((res) => {
         api
+
           .get(`/address/${res.data.id}/`, {
             headers: {
               Authorization: `Bearer ${res.data.token}`,

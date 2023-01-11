@@ -3,15 +3,19 @@
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ProductContext } from "../../Providers/product";
 import { ModalContext } from "../../Providers/modal";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { apiPrivate } from "../../services/api";
+
+import { api, apiPrivate } from "../../services/api";
 
 export const Dashboard = () => {
+  const [cellphone, setCellphone] = useState('')
+
+
   const formSchema = yup.object().shape({
     comment: yup.string().max(300),
   });
@@ -34,6 +38,12 @@ export const Dashboard = () => {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
+
+    api.get(`/vehicles/${product.id}`)
+    .then((res) => {
+      setCellphone(res.data.user.cellphone)
+    })
+    .catch((err) => console.error(err))
 
   return (
     <>
@@ -69,13 +79,17 @@ export const Dashboard = () => {
                       })}
                     </div>
                   </div>
-                  <button className=" w-40 h-10 rounded-md -bg-brand2 -text-grey-10 mt-11">
+              <div className="flex flex-col mt-5 -bg-grey-10 w-[22rem] md:w-[36rem] p-8 rounded md:h-44">
+                <h3 className="font-bold text-lg">Descrição</h3>
+                <span className="w-[100%] md:w-auto text-sm font-sans">
+                  {product?.description}
+                </span>
+                  <a href={`https://wa.me/55${cellphone}?text=Tenho%20interesse%20em%20comprar%20seu%20carro`} target={'blank'} className="flex items-center justify-center w-40 h-10 rounded-md -bg-brand2 -text-grey-10 mt-5">
                     Comprar
-                  </button>
+                  </a>
                 </div>
               </div>
-
-              <div className="flex flex-col mt-5 -bg-grey-10 w-[22rem] md:w-[36rem] p-8 rounded md:h-44">
+              <div className="flex flex-col mt-5 -bg-grey-10 w-80 md:w-[36rem] p-8 rounded">
                 <h3 className="font-bold text-lg">Descrição</h3>
                 <span className="w-[100%] md:w-auto text-sm font-sans">
                   {product?.description}
@@ -120,7 +134,6 @@ export const Dashboard = () => {
             </div>
           </div>
         </div>
-        
         <div className="flex flex-col space-y-8 font-inter w-80 lg:w-[36rem] lg:pl-8 -bg-grey-10 p-8">
             <h4 className="font-bold text-lg">Comentários</h4>
             {arrComent.map((e) => (
@@ -184,6 +197,7 @@ export const Dashboard = () => {
             </div>
           </div>
         {/* </div> */}
+        </div>
       </section>
 
       <Footer />

@@ -1,3 +1,4 @@
+
 import { createContext, ReactNode, useState } from "react";
 
 
@@ -9,6 +10,7 @@ interface IContextProps {
   tokenAndId: TokenAndId;
   setTokenAndId({token,id}: TokenAndId ): void;
   twoLetters(name: string): string;
+
 }
 export const UserContext = createContext({} as IContextProps);
 
@@ -21,7 +23,7 @@ export interface IUser {
   name: string;
   email: string;
   password: string;
-  passwordResetTokenAndId?: string;
+  passwordResetToken?: string;
   passwordResetExpires?: string;
   cpf: string;
   birthdate: string;
@@ -31,6 +33,7 @@ export interface IUser {
   is_active: boolean;
   vehicles: string[];
 }
+
 export interface IAddressRequest {
   cep: string;
   state: string;
@@ -48,12 +51,14 @@ export const UserProvider = ({ children }: IProviderProps) => {
   const [user, setUser] = useState(
     JSON.parse(sessionStorage.getItem("@User") as string) as IUser
   );
+
   const [address, setAddress] = useState(
     JSON.parse(sessionStorage.getItem("@Address") as string) as IAddressRequest
   );
   const [tokenAndId, setTokenAndId] = useState(
     {token:sessionStorage.getItem("@Token"), id:sessionStorage.getItem("@UserId")} as TokenAndId 
   );
+
 
   console.log(user);
 
@@ -73,12 +78,6 @@ export const UserProvider = ({ children }: IProviderProps) => {
         setAddress,
         tokenAndId,
         setTokenAndId,
-        // Transform,
-        // boolMobile,
-        // setBoolMobile,
-        // boolPerfile,
-        // setBoolPerfile,
-        // response,
       }}
     >
       {children}

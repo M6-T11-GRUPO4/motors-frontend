@@ -13,6 +13,7 @@ import { EditProfileModal } from "../components/modais/editProfileModal";
 import { AddressProfileModal } from "../components/modais/addressProfileModal";
 import { ImageVehicleModal } from "../components/modais/imageVehicleModal";
 
+
 export const Routers = () => {
   const { customStyles, modal, OpenAndCloseModal, typeObject } =
     useContext(ModalContext);
