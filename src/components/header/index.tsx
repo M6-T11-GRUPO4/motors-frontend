@@ -168,7 +168,7 @@ export const Header = () => {
               className={
                 boolMobile
                   ? "static hidden"
-                  : "absolute top-14 w-44 flex flex-col -bg-grey-9 space-y-4 pl-4 py-2 h-40"
+                  : "absolute top-14 w-44 flex flex-col -bg-grey-10 space-y-4 pl-4 py-2 h-40"
               }
             >
               <li>

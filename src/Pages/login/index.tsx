@@ -5,11 +5,11 @@ import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import * as yup from "yup";
 import { api } from "../../services/api";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../Providers/user";
 
 export const Login = () => {
-  const { setUser, user } = useContext(UserContext);
+  const { setUser, setAddress, setTokenAndId } = useContext(UserContext);
   const navigate = useNavigate();
   const schemaForm = yup.object().shape({
     email: yup
@@ -24,12 +24,25 @@ export const Login = () => {
       .post("/users/login", data)
       .then((res) => {
         api
+
+          .get(`/address/${res.data.id}/`, {
+            headers: {
+              Authorization: `Bearer ${res.data.token}`,
+            },
+          })
+          .then((res) => {
+            setAddress(res.data);
+            sessionStorage.setItem("@Address", JSON.stringify(res.data));
+          })
+          .catch((err) => err);
+        api
           .get(`/users/${res.data.id}/`)
           .then((res) => {
             setUser(res.data);
             sessionStorage.setItem("@User", JSON.stringify(res.data));
           })
           .catch((err) => err);
+        setTokenAndId({ token: res.data.token, id: res.data.id });
         sessionStorage.setItem("@UserId", res.data.id);
         sessionStorage.setItem("@Token", res.data.token);
         setTimeout(() => {
@@ -37,7 +50,6 @@ export const Login = () => {
         }, 100);
       })
       .catch((err) => err);
-
   }
 
   const {

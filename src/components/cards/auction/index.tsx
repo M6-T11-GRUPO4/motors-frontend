@@ -6,6 +6,7 @@ const Auction = (): JSX.Element => {
   return (
 
     <div className="flex flex-col">
+      
       <h1 className="py-8 font-bold text-lg font-lexend ml-16">Leilão</h1>
       <div className="bg-gradient-to-r -from-random13 -to-random14 w-3/6 p-7 ml-16">
         <div className="flex w-28 justify-between items-center rounded-3xl -bg-white-fixed font-lexend text-xs font-bold">

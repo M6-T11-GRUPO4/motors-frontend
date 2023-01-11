@@ -5,6 +5,8 @@ import { ModalContext } from "../../../Providers/modal";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues } from "react-hook-form/dist/types";
+import { UserContext } from "../../../Providers/user";
+import { api } from "../../../services/api";
 
 export interface IForm {
   cep: string;
@@ -16,6 +18,7 @@ export interface IForm {
 }
 export const AddressProfileModal = () => {
   const { OpenAndCloseModal } = useContext(ModalContext);
+  const { address, setAddress, tokenAndId } = useContext(UserContext);
 
   const schemaForm = yup.object().shape({
     cep: yup
@@ -41,26 +44,22 @@ export const AddressProfileModal = () => {
 
   function onHandleSubmit(data: FieldValues) {
     console.log(data);
-    // return data;
-    // OpenAndCloseModal()
 
-    // const EditData = {
-    //   name: data.name,
-    //   email: [data.email1, data.email2],
-    //   telephone: [data.telephone1, data.telephone2],
-    // };
-
-    // const response = AxiosRender({
-    //   method: "patch",
-    //   url: `http://localhost:4000/address/${axiosId}`,
-    //   data
-    // });
-
-    // if (response !== undefined || typeof response !== "string") {
-    //   OpenAndCloseModal();
-    // }
+    api
+      .patch(`http://localhost:4000/address/${tokenAndId.id}`, data, {
+        headers: {
+          Authorization: `Bearer ${tokenAndId.token}`,
+        },
+      })
+      .then((res) => {
+        sessionStorage.setItem("@Address", JSON.stringify(res.data));
+        setAddress(res.data);
+        OpenAndCloseModal();
+      })
+      .catch((err) => err);
   }
-
+  console.log(address);
+  
   return (
     <div>
       <div className="flex flex-row justify-between">
@@ -79,6 +78,7 @@ export const AddressProfileModal = () => {
             type="text"
             placeholder="89888.888"
             className="w-full pl-2 h-10"
+            defaultValue={address?.cep}
             {...register("cep")}
           />
           <span className="error">{errors.cep?.message as string}</span>
@@ -90,6 +90,7 @@ export const AddressProfileModal = () => {
               type="text"
               placeholder="Paraná"
               className="w-40 md:w-56 pl-2 h-10"
+              defaultValue={address?.state}
               {...register("state")}
             />
             <span className="error">{errors.state?.message as string}</span>
@@ -100,6 +101,7 @@ export const AddressProfileModal = () => {
               type="text"
               placeholder="Curitiba"
               className="w-40 md:w-56 pl-2 h-10"
+              defaultValue={address?.city}
               {...register("city")}
             />
             <span className="error">{errors.city?.message as string}</span>
@@ -111,6 +113,7 @@ export const AddressProfileModal = () => {
             type="text"
             placeholder="Rua do paraná"
             className="w-full pl-2 h-10"
+            defaultValue={address?.street}
             {...register("street")}
           />
           <span className="error">{errors.street?.message as string}</span>
@@ -122,6 +125,7 @@ export const AddressProfileModal = () => {
               type="text"
               placeholder="1029"
               className="w-40 md:w-56 pl-2 h-10"
+              defaultValue={address?.number}
               {...register("number")}
             />
             <span className="error">{errors.number?.message as string}</span>
@@ -132,6 +136,7 @@ export const AddressProfileModal = () => {
               type="text"
               placeholder="Apart 12"
               className="w-40 md:w-56 pl-2 h-10"
+              defaultValue={address?.complement}
               {...register("complement")}
             />
             <span className="error">
@@ -158,3 +163,5 @@ export const AddressProfileModal = () => {
     </div>
   );
 };
+
+

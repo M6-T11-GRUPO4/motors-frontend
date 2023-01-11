@@ -1,8 +1,9 @@
-import { DetailedHTMLProps, useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IProducts } from "../../../Pages/home";
 import { ProductContext } from "../../../Providers/product/index";
 import { IUser, UserContext } from "../../../Providers/user";
+import { api } from "../../../services/api";
 
 export interface IProps {
   products: {
@@ -22,6 +23,7 @@ export interface IProps {
   showIsActive?: boolean;
 }
 
+
 export interface IImage {
   url: string;
 }
@@ -33,13 +35,21 @@ const Cards = ({
 }: IProps) => {
   const { setProduct } = useContext(ProductContext);
 
+  const[response, setResponse] = useState<IUser | null>()
+
   const { twoLetters } = useContext(UserContext);
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    api.get(`users/${products.userId}`).then((res) => {
+      setResponse(res.data)
+    }).catch((err) => console.log(err))
+  })
+
   const callback = (products: IProducts): void => {
-    sessionStorage.setItem("@Vitrine", JSON.stringify(products));
-    setProduct(products);
+    sessionStorage.setItem("@Vitrine", JSON.stringify(products))
+    setProduct(products)
     navigate("/dashboard");
   };
 

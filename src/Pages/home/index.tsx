@@ -24,15 +24,21 @@ export interface IProducts {
 
 export const Home = () => {
   const { response } = useContext(ProductContext);
+  
+  const carousel = useRef<HTMLDivElement | null>(null);
 
-  const carousel: any = useRef(null);
 
   const [widthCar, setWidthCar] = useState(0);
   const [widthMotorcycle, setWidthMotorcycle] = useState(0);
 
-  useEffect(() => {
-    setWidthCar(carousel.current!.scrollWidth - carousel.current?.offsetWidth);
-  }, [response]);
+  useEffect(()=>{
+    setWidthCar(carousel.current!.scrollWidth - carousel.current!.offsetWidth)
+  },[response])
+
+  useEffect(()=>{
+    setWidthMotorcycle(carousel.current!.scrollWidth - carousel.current!.offsetWidth)
+  },[response])
+
 
   useEffect(() => {
     setWidthMotorcycle(
@@ -84,12 +90,11 @@ export const Home = () => {
           Carros
         </h1>
         <motion.div
-          ref={carousel}
-          drag="x"
-          dragConstraints={{ right: 0, left: -widthCar }}
-          className="flex mx-4"
-          id="carro"
-        >
+        ref={carousel}
+        whileTap={{cursor:"grabbing"}}
+        drag="x"
+        dragConstraints={{right:0, left:-widthCar}} 
+        className="flex mx-4" id="carro">
           {response?.map((products: IProducts) => {
             if (products.type === "Carro" && products.is_active) {
               return <Cards key={products.id} products={products} />;
@@ -102,12 +107,11 @@ export const Home = () => {
           Motos
         </h1>
         <motion.div
-          ref={carousel}
-          drag="x"
-          dragConstraints={{ right: 0, left: -widthMotorcycle }}
-          className="flex mx-4"
-          id="moto"
-        >
+        ref={carousel}
+        whileTap={{cursor:"grabbing"}}
+        drag="x"
+        dragConstraints={{right:0, left:-widthMotorcycle}}
+        className="flex mx-4" id="moto">
           {response?.map((products: IProducts) => {
             if (products.type === "Moto" && products.is_active) {
               return <Cards key={products.id} products={products} />;
