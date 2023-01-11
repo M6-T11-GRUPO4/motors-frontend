@@ -1,37 +1,32 @@
 import riscos from "../../image/risco.png";
 import x from "../../image/xmark.png";
 import image from "../../image/NameShop.png";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ProductContext } from "../../Providers/product";
 import { ModalContext } from "../../Providers/modal";
-import { UserContext } from "../../Providers/user";
+import { IUser, UserContext } from "../../Providers/user";
 
 export const Header = () => {
-  // comment
-  const [logged, setLogged] = useState(sessionStorage.getItem("@Token"));
-  // comment
+  const logged = sessionStorage.getItem("@Token");
   const { setBoolMobile, boolMobile, setBoolPerfile, boolPerfile } =
     useContext(ProductContext);
   const { setTypeObject, OpenAndCloseModal } = useContext(ModalContext);
   const navigate = useNavigate();
-  const { user, twoLetters } = useContext(UserContext);
+  const { user, setUser, twoLetters } = useContext(UserContext);
 
   function exit() {
     sessionStorage.removeItem("@UserId");
     sessionStorage.removeItem("@User");
     sessionStorage.removeItem("@Token");
-    navigate("/login");
+    setTimeout(() => {
+      setUser({} as IUser);
+      navigate("/login");
+    }, 500);
   }
-  // console.log(user);
 
   function login() {
     navigate("/login");
-    // if (sessionStorage.getItem("@Token")) {
-    //   setLogged(true)
-    // }else{
-    //   setLogged(false)
-    // }
   }
   function CallBack(type: string, any?: any) {
     setTypeObject({ type, obj: { any } });
@@ -112,9 +107,10 @@ export const Header = () => {
                     </button>
                   </li>
                   <li>
-                    <button 
-                    onClick={() => CallBack("EditAddress")}
-                     className="hover:-text-brand1">
+                    <button
+                      onClick={() => CallBack("EditAddress")}
+                      className="hover:-text-brand1"
+                    >
                       Editar Endereço
                     </button>
                   </li>

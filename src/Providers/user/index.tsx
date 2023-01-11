@@ -52,7 +52,6 @@ export const UserProvider = ({ children }: IProviderProps) => {
     JSON.parse(sessionStorage.getItem("@User") as string) as IUser
   );
 
-
   const [address, setAddress] = useState(
     JSON.parse(sessionStorage.getItem("@Address") as string) as IAddressRequest
   );
@@ -61,9 +60,11 @@ export const UserProvider = ({ children }: IProviderProps) => {
   );
 
   const twoLetters = (name: string): string => {
-    let complet_name = name.replace(/\s(de|da|dos|das)\s/g, " ");
-    let initial = complet_name.split(" ");
-    return initial![0][0].toUpperCase() + initial![1][0].toUpperCase();
+    let initial = name?.split(" ");
+    if (initial.length < 2) {
+      return initial[0][0]?.toUpperCase();
+    }
+    return initial[0][0]?.toUpperCase() + initial[1][0]?.toUpperCase();
   };
 
   return (

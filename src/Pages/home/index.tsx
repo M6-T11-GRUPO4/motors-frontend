@@ -6,7 +6,7 @@ import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { motion } from "framer-motion";
 import { ProductContext } from "../../Providers/product";
-
+import { IUser } from "../../Providers/user";
 
 export interface IProducts {
   id: string;
@@ -18,14 +18,18 @@ export interface IProducts {
   year: number;
   price: string;
   type?: string;
+  user: IUser;
+  is_active: boolean;
 }
+
 export const Home = () => {
   const { response } = useContext(ProductContext);
   
   const carousel = useRef<HTMLDivElement | null>(null);
 
-  const [widthCar, setWidthCar] = useState(0)
-  const [widthMotorcycle, setWidthMotorcycle] = useState(0)
+
+  const [widthCar, setWidthCar] = useState(0);
+  const [widthMotorcycle, setWidthMotorcycle] = useState(0);
 
   useEffect(()=>{
     setWidthCar(carousel.current!.scrollWidth - carousel.current!.offsetWidth)
@@ -36,7 +40,11 @@ export const Home = () => {
   },[response])
 
 
-  
+  useEffect(() => {
+    setWidthMotorcycle(
+      carousel.current!.scrollWidth - carousel.current?.offsetWidth
+    );
+  }, [response]);
 
   return (
     <>
@@ -78,7 +86,9 @@ export const Home = () => {
       <Auction />
 
       <div className="flex overflow-x-hidden mx-4 flex-col ml-6 select-none">
-        <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">Carros</h1>
+        <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">
+          Carros
+        </h1>
         <motion.div
         ref={carousel}
         whileTap={{cursor:"grabbing"}}
@@ -86,34 +96,31 @@ export const Home = () => {
         dragConstraints={{right:0, left:-widthCar}} 
         className="flex mx-4" id="carro">
           {response?.map((products: IProducts) => {
-            if (products.type === "Carro") {
-              return <Cards products={products} />;
+            if (products.type === "Carro" && products.is_active) {
+              return <Cards key={products.id} products={products} />;
             }
           })}
         </motion.div>
       </div>
       <div className="flex overflow-x-hidden mx-4 flex-col ml-6 mb-16">
-        <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">Motos</h1>
+        <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">
+          Motos
+        </h1>
         <motion.div
-
         ref={carousel}
         whileTap={{cursor:"grabbing"}}
         drag="x"
         dragConstraints={{right:0, left:-widthMotorcycle}}
         className="flex mx-4" id="moto">
           {response?.map((products: IProducts) => {
-            if (products.type === "Moto") {
-              return (<Cards products={products} />
-              )
+            if (products.type === "Moto" && products.is_active) {
+              return <Cards key={products.id} products={products} />;
             }
           })}
-
         </motion.div>
-
       </div>
 
       <Footer />
-
     </>
   );
 };
