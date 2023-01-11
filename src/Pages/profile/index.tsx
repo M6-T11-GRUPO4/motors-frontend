@@ -7,24 +7,32 @@ import { IProducts } from "../home";
 
 import Cards from "../../components/cards/vehicles";
 import { motion } from "framer-motion";
-
-export interface IUser {
-  name: string;
-  img: string;
-  isSeller: boolean;
-}
+import { IUser, UserContext } from "../../Providers/user";
 
 export const ProfileView = () => {
   const carousel: any = useRef(null);
+
   const [widthCar, setWidthCar] = useState<any>(0);
+
   const [widthMotorcycle, setWidthMotorcycle] = useState<any>(0);
 
-  const user: IUser = {
-    name: "Roberto Ferreira",
-    img: "www.google.com",
-    isSeller: false,
-  };
+  const [isAdOwner, setIsAdOwner] = useState(false);
+
+  const seller: IUser = JSON.parse(
+    sessionStorage.getItem("@ProfileUser") as string
+  );
+
+  const { user } = useContext(UserContext);
+
   const { response } = useContext(ProductContext);
+
+  useEffect(() => {
+    if (user) {
+      setIsAdOwner(user?.cpf === seller.cpf);
+    } else {
+      setIsAdOwner(false);
+    }
+  }, [user, seller]);
 
   useEffect(() => {
     setWidthCar(carousel.current!.scrollWidth - carousel.current?.offsetWidth);
@@ -38,9 +46,9 @@ export const ProfileView = () => {
 
   return (
     <>
-      <Header user={user} />
+      <Header />
       <main className="h-full bg-blue-white-gradient flex flex-col select-none">
-        <ProfileCard user={user} />
+        <ProfileCard seller={seller} isAdOwner={isAdOwner} />
 
         <div className="flex overflow-x-hidden mx-4 flex-col ml-6 select-none">
           <h1 className="py-8 font-bold text-lg font-lexend ml-10">Carros</h1>
@@ -51,12 +59,21 @@ export const ProfileView = () => {
             className="flex mx-4"
             id="carro"
           >
-            {response?.map(
-              (products: IProducts) =>
-                products.type === "Carro" && (
-                  <Cards products={products} showIsActive={!user.isSeller} />
-                )
-            )}
+            {response?.map((products: IProducts) => {
+              if (
+                products.type === "Carro" &&
+                products.user.cpf === seller.cpf
+              ) {
+                return (
+                  <Cards
+                    key={products.id}
+                    products={products}
+                    isAdOwner={isAdOwner}
+                    showIsActive={true}
+                  />
+                );
+              }
+            })}
           </motion.div>
         </div>
         <div className="flex overflow-x-hidden mx-4 flex-col ml-6 select-none">
@@ -68,12 +85,21 @@ export const ProfileView = () => {
             className="flex mx-4"
             id="moto"
           >
-            {response?.map(
-              (products: IProducts) =>
-                products.type === "Moto" && (
-                  <Cards products={products} showIsActive={!user.isSeller} />
-                )
-            )}
+            {response?.map((products: IProducts) => {
+              if (
+                products.type === "Moto" &&
+                products.user.cpf === seller.cpf
+              ) {
+                return (
+                  <Cards
+                    key={products.id}
+                    products={products}
+                    isAdOwner={isAdOwner}
+                    showIsActive={true}
+                  />
+                );
+              }
+            })}
           </motion.div>
         </div>
       </main>

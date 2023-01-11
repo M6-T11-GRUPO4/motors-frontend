@@ -9,7 +9,7 @@ export const apiPrivate = axios.create({
   baseURL: "http://localhost:4000/",
   headers: {
     Authorization: `Bearer ${JSON.parse(
-      JSON.stringify(localStorage.getItem("@token"))
+      JSON.stringify(sessionStorage.getItem("@Token"))
     )}`,
   },
 });

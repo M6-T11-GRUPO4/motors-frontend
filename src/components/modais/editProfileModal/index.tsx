@@ -6,6 +6,8 @@ import { NormalInput } from "../../inputs/normalInput";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues } from "react-hook-form/dist/types";
+import { UserContext } from "../../../Providers/user";
+import { api } from "../../../services/api";
 
 export interface IForm {
   name: string;
@@ -17,6 +19,7 @@ export interface IForm {
 }
 export const EditProfileModal = () => {
   const { OpenAndCloseModal } = useContext(ModalContext);
+  const { user, setUser, tokenAndId } = useContext(UserContext);
   const arrPlaceholder = [
     "Samuel Leão Silva",
     "samuel@kenzie.com.br",
@@ -26,6 +29,17 @@ export const EditProfileModal = () => {
   ];
   const arrTitle = ["Nome", "Email", "CPF", "Celular", "Data de nascimento"];
   const arrResponse = ["name", "email", "cpf", "cellphone", "birthdate"];
+  const arrUser = [
+    user.name,
+    user.email,
+    user.cpf,
+    user.cellphone,
+    EditDateModal(user.birthdate),
+  ];
+
+  function EditDateModal(date: string) {
+    return date.slice(0, 10).split("-").reverse().join("/");
+  }
 
   const schemaForm = yup.object().shape({
     name: yup
@@ -59,20 +73,31 @@ export const EditProfileModal = () => {
     resolver: yupResolver(schemaForm),
   });
 
+  function editDateData(data: string) {
+    const birthdate = data.split("/");
+    return birthdate.reverse().join("-") + "T00:00:00.000Z";
+  }
+
   function onHandleSubmit(data: FieldValues) {
-    console.log(data);
+    const birthdate = data.birthdate;
+    delete data.birthdate;
+    data = {
+      ...data,
+      birthdate: editDateData(birthdate),
+    };
 
-    // const EditData = {
-    //   name: data.name,
-    //   email: [data.email1, data.email2],
-    //   telephone: [data.telephone1, data.telephone2],
-    // };
-
-    // const response = AxiosRender({
-    //   method: "patch",
-    //   url: `http://localhost:4000/users/${UserId}`,
-    //   data,
-    // });
+    api
+      .patch(`http://localhost:4000/users/${tokenAndId.id}`, data, {
+        headers: {
+          Authorization: `Bearer ${tokenAndId.token}`,
+        },
+      })
+      .then((res) => {
+        sessionStorage.setItem("@Address", JSON.stringify(res.data));
+        setUser(res.data);
+        OpenAndCloseModal();
+      })
+      .catch((err) => err);
 
     // if (response !== undefined || typeof response !== "string") {
     //   OpenAndCloseModal();
@@ -97,6 +122,7 @@ export const EditProfileModal = () => {
             title={arrTitle[i]}
             key={arrTitle[i]}
             register={register}
+            defaultValue={arrUser[i]}
             valueRegister={arrResponse[i]}
             valueErrors={arrResponse[i]}
             errors={errors}
@@ -110,6 +136,7 @@ export const EditProfileModal = () => {
             rows={3}
             placeholder="Digitar descrição"
             className="textAreaDefaultModal"
+            defaultValue={user.description}
             {...register("description")}
           ></textarea>
           <span className="error">{errors.description?.message as string}</span>

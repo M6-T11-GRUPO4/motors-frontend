@@ -9,7 +9,7 @@ import { useContext } from "react";
 import { UserContext } from "../../Providers/user";
 
 export const Login = () => {
-  const { setUser, user } = useContext(UserContext);
+  const { setUser, setAddress, setTokenAndId } = useContext(UserContext);
   const navigate = useNavigate();
   const schemaForm = yup.object().shape({
     email: yup
@@ -23,18 +23,35 @@ export const Login = () => {
     api
       .post("/users/login", data)
       .then((res) => {
-        sessionStorage.setItem("@UserId", res.data.id);
-        sessionStorage.setItem("@Token", res.data.token);
+        api
+
+          .get(`/address/${res.data.id}/`, {
+            headers: {
+              Authorization: `Bearer ${res.data.token}`,
+            },
+          })
+          .then((res) => {
+            setAddress(res.data);
+            sessionStorage.setItem("@Address", JSON.stringify(res.data));
+          })
+          .catch((err) => err);
         api
           .get(`/users/${res.data.id}/`)
-          .then((res) => setUser(res.data))
+          .then((res) => {
+            setUser(res.data);
+            sessionStorage.setItem("@User", JSON.stringify(res.data));
+          })
           .catch((err) => err);
-        navigate("/");
+        setTimeout(() => {
+          setTokenAndId({ token: res.data.token, id: res.data.id });
+          sessionStorage.setItem("@UserId", res.data.id);
+          sessionStorage.setItem("@Token", res.data.token);
+          navigate("/");
+        }, 100);
       })
       .catch((err) => err);
-
-    console.log(user);
   }
+
   const {
     register,
     handleSubmit,
@@ -42,7 +59,7 @@ export const Login = () => {
   } = useForm({ resolver: yupResolver(schemaForm) });
   return (
     <>
-      <Header user={{ name: "string", img: "" }} />
+      <Header />
       <div className="flex flex-col justify-center items-center w-full h-[72.7vh] -bg-grey-8 ">
         <section className="w-72 h-fit md:w-[25.75rem] -bg-grey-10 rounded flex flex-col items-center py-11 mt-[1.25rem] mb-16 md:mb-2">
           <div className="flex flex-col gap-8">
@@ -73,7 +90,7 @@ export const Login = () => {
                     Senha
                   </label>
                   <input
-                    type="text"
+                    type="password"
                     placeholder="Digitar senha"
                     className="h-12 border-2 rounded -border-grey-7 placeholder:-text-grey-3 pl-3"
                     {...register("password")}
@@ -85,7 +102,7 @@ export const Login = () => {
               </div>
               <button
                 className="mt-2 mb-5 self-end"
-                onClick={() => navigate("/recover")}
+                onClick={() => navigate("/forgot-password")}
               >
                 Esqueci minha senha
               </button>
