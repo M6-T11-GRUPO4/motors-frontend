@@ -42,10 +42,10 @@ export const Login = () => {
             sessionStorage.setItem("@User", JSON.stringify(res.data));
           })
           .catch((err) => err);
-        setTokenAndId({ token: res.data.token, id: res.data.id });
-        sessionStorage.setItem("@UserId", res.data.id);
-        sessionStorage.setItem("@Token", res.data.token);
         setTimeout(() => {
+          setTokenAndId({ token: res.data.token, id: res.data.id });
+          sessionStorage.setItem("@UserId", res.data.id);
+          sessionStorage.setItem("@Token", res.data.token);
           navigate("/");
         }, 100);
       })

@@ -21,10 +21,10 @@ export interface IProviderProps {
 export const ProductProvider = ({ children }: IProviderProps) => {
   const [boolMobile, setBoolMobile] = useState(true);
   const [boolPerfile, setBoolPerfile] = useState(false);
-  const [response, setResponse] = useState<IProducts[]>([] as IProducts[]);
+  const [response, setResponse] = useState<IProducts[]>(JSON.parse(sessionStorage.getItem("@Response") as string) as IProducts[]);
   const [product, setProduct] = useState<IProducts>(JSON.parse(sessionStorage.getItem("@Vitrine") as string) as IProducts);
 
-  
+
   function Transform(string: string): string[] {
     let arr: string[] = [];
     string
@@ -41,6 +41,7 @@ export const ProductProvider = ({ children }: IProviderProps) => {
     api
       .get("vehicles")
       .then((res) => {
+        sessionStorage.setItem("@Response", JSON.stringify(res.data))
         setResponse(res.data);
       })
       .catch((err) => {
