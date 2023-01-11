@@ -1,7 +1,7 @@
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext,useEffect,useState } from "react";
 import { ProductContext } from "../../Providers/product";
 import { ModalContext } from "../../Providers/modal";
 import { EditProfileModal } from "../../components/modais/editProfileModal";
@@ -9,6 +9,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { apiPrivate } from "../../services/api";
+import { api } from './../../services/api';
+
+interface IComment{
+  comment: string
+}
 
 export const Dashboard = () => {
   const formSchema = yup.object().shape({
@@ -18,18 +23,22 @@ export const Dashboard = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<any>({ resolver: yupResolver(formSchema) });
+  } = useForm({ resolver: yupResolver(formSchema) });
 
   const arrComent: Array<number> = [1, 2, 3];
+  const[resComment, setResComment] = useState<IComment>()
   const { product } = useContext(ProductContext);
   const { CallBack } = useContext(ModalContext);
   const navigate = useNavigate();
   window.scrollTo(0, 0);
 
-  const buttonclick = (data: any) => {
+  useEffect(()=>{
+    api.get("comments").then((res)=>console.log(res.data)).catch((err)=>console.log(err))
+  })
+
+  const buttonclick = (data: object) => {
     apiPrivate
-      .post("comments", data)
+      .post("comments", data, {headers: { Authorization: `Bearer ${sessionStorage.getItem("@UserId")}` }})
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
@@ -138,11 +147,7 @@ export const Dashboard = () => {
                     <p className="-text-grey-3"> * há 15 dias</p>
                   </div>
                   <div className="w-[100%] text-sm">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book.
+                    {resComment?.comment}
                   </div>
                 </div>
               </div>
@@ -167,22 +172,24 @@ export const Dashboard = () => {
                 className="w-[100%] h-[80px] p-[15px] -bg-grey-7 text-xs border-solid rounded-sm"
                 placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
               ></textarea>
+              <div className="w-[100%] flex md:flex-row-reverse relative md:right-2 my-3 md:bottom-[50px]">
               <button
                 type="submit"
-                className="-bg-brand1 -text-white-fixed rounded font-inter w-24 h-[30px] text-sm relative left-[400px] bottom-[40px]"
+                className="-bg-brand1 -text-white-fixed rounded font-inter w-24 h-[30px] text-sm"
               >
                 Comentar
               </button>
+              </div>
             </form>
 
-            <div className="flex w-[80%]">
-              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">
+            <div className="flex flex-wrap w-[80%]">
+              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-2xl mr-2 -text-grey-3 h-[25px] my-2">
                 gostei muito!
               </span>
-              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">
+              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-2xl mr-2 -text-grey-3 h-[25px] my-2">
                 incrível!
               </span>
-              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">
+              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-2xl mr-2 -text-grey-3 h-[25px] my-2">
                 Recomendaria para um amigo!
               </span>
             </div>

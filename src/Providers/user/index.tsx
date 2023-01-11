@@ -41,8 +41,6 @@ export const UserProvider = ({ children }: IProviderProps) => {
     JSON.parse(sessionStorage.getItem("@User") as string) as IUser
   );
 
-  console.log(user);
-
   const twoLetters = (name: string): string => {
     let complet_name = name.replace(/\s(de|da|dos|das)\s/g, " ");
     let initial = complet_name.split(" ");

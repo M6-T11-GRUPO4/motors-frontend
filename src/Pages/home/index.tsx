@@ -22,17 +22,17 @@ export interface IProducts {
 export const Home = () => {
   const { response } = useContext(ProductContext);
   
-  const carousel:any = useRef(null);
+  const carousel = useRef<HTMLDivElement | null>(null);
 
   const [widthCar, setWidthCar] = useState(0)
   const [widthMotorcycle, setWidthMotorcycle] = useState(0)
 
   useEffect(()=>{
-    setWidthCar(carousel.current!.scrollWidth - carousel.current?.offsetWidth)
+    setWidthCar(carousel.current!.scrollWidth - carousel.current!.offsetWidth)
   },[response])
 
   useEffect(()=>{
-    setWidthMotorcycle(carousel.current!.scrollWidth - carousel.current?.offsetWidth)
+    setWidthMotorcycle(carousel.current!.scrollWidth - carousel.current!.offsetWidth)
   },[response])
 
 
@@ -81,6 +81,7 @@ export const Home = () => {
         <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">Carros</h1>
         <motion.div
         ref={carousel}
+        whileTap={{cursor:"grabbing"}}
         drag="x"
         dragConstraints={{right:0, left:-widthCar}} 
         className="flex mx-4" id="carro">
@@ -96,6 +97,7 @@ export const Home = () => {
         <motion.div
 
         ref={carousel}
+        whileTap={{cursor:"grabbing"}}
         drag="x"
         dragConstraints={{right:0, left:-widthMotorcycle}}
         className="flex mx-4" id="moto">
