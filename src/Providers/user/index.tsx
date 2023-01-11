@@ -52,15 +52,13 @@ export const UserProvider = ({ children }: IProviderProps) => {
     JSON.parse(sessionStorage.getItem("@User") as string) as IUser
   );
 
+
   const [address, setAddress] = useState(
     JSON.parse(sessionStorage.getItem("@Address") as string) as IAddressRequest
   );
   const [tokenAndId, setTokenAndId] = useState(
     {token:sessionStorage.getItem("@Token"), id:sessionStorage.getItem("@UserId")} as TokenAndId 
   );
-
-
-  console.log(user);
 
   const twoLetters = (name: string): string => {
     let complet_name = name.replace(/\s(de|da|dos|das)\s/g, " ");

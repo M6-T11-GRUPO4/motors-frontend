@@ -1,7 +1,10 @@
-import { DetailedHTMLProps, useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IProducts } from "../../../Pages/home";
 import { ProductContext } from "../../../Providers/product/index";
+import { api } from "../../../services/api";
+import { UserContext } from './../../../Providers/user/index';
+import { IUser } from './../../../Pages/profile/index';
 
 export interface IProps {
   products: {
@@ -9,7 +12,7 @@ export interface IProps {
     image: IImage[];
     name: string;
     description: string;
-    user_mokado: string;
+    userId: string;
     km: number;
     year: number;
     price: string;
@@ -19,18 +22,30 @@ export interface IProps {
   showIsActive?: boolean;
 }
 
+
 export interface IImage {
   url: string;
 }
 
+
 const Cards = ({ products, showIsActive = false }: IProps) => {
-  const { setProduct } = useContext(ProductContext);
+
+  const[response, setResponse] = useState<IUser | null>()
+
+  const { setProduct } = useContext(ProductContext)
+  const { twoLetters } = useContext(UserContext)
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    api.get(`users/${products.userId}`).then((res) => {
+      setResponse(res.data)
+    }).catch((err) => console.log(err))
+  })
+
   const callback = (products: IProducts): void => {
-    sessionStorage.setItem("@Vitrine", JSON.stringify(products));
-    setProduct(products);
+    sessionStorage.setItem("@Vitrine", JSON.stringify(products))
+    setProduct(products)
     navigate("/dashboard");
   };
 
@@ -60,10 +75,10 @@ const Cards = ({ products, showIsActive = false }: IProps) => {
       </p>
       <div className="flex w-72 items-center">
         <div className="-bg-brand1 rounded-full -text-white-fixed p-1 text-sm mr-2 font-inter">
-          GP
+          {twoLetters(response!.name)}
         </div>
         <p className="text-xs -text-grey-2 w-1/2 font-semibold font-inter">
-          {products.user_mokado}
+          {response?.name}
         </p>
       </div>
       <div className="flex w-72 p-0 justify-between self-center">

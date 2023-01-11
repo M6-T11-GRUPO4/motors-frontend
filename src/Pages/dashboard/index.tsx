@@ -3,14 +3,17 @@
 import { Footer } from "../../components/footer";
 import { Header } from "../../components/header";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext,useEffect,useState } from "react";
 import { ProductContext } from "../../Providers/product";
 import { ModalContext } from "../../Providers/modal";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { apiPrivate } from "../../services/api";
 
-import { api, apiPrivate } from "../../services/api";
+interface IComment{
+  comment: string
+}
 
 export const Dashboard = () => {
   const [cellphone, setCellphone] = useState('')
@@ -23,18 +26,22 @@ export const Dashboard = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<any>({ resolver: yupResolver(formSchema) });
+  } = useForm({ resolver: yupResolver(formSchema) });
 
   const arrComent: Array<number> = [1, 2, 3];
+  const[resComment, setResComment] = useState<IComment>()
   const { product } = useContext(ProductContext);
   const { CallBack } = useContext(ModalContext);
   const navigate = useNavigate();
   window.scrollTo(0, 0);
 
-  const buttonclick = (data: any) => {
+  useEffect(()=>{
+    api.get("comments").then((res)=>console.log(res.data)).catch((err)=>console.log(err))
+  })
+
+  const buttonclick = (data: object) => {
     apiPrivate
-      .post("comments", data)
+      .post("comments", data, {headers: { Authorization: `Bearer ${sessionStorage.getItem("@UserId")}` }})
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
@@ -60,7 +67,9 @@ export const Dashboard = () => {
                   draggable={false}
                 />
               </div>
-              <div className="-bg-grey-10 w-[22rem] md:w-[36rem] p-8 rounded-sm">
+
+              <div>
+              <div className="-bg-grey-10 w-80 md:w-[36rem] p-8 rounded-sm">
                 <div className="flex flex-col">
                   <p className="font-bold w-64 md:w-[32rem]">{product?.name}</p>
                   <div className="flex flex-col h-16 items-baseline md:flex-row justify-between space-y-3 font-bold">
@@ -89,12 +98,18 @@ export const Dashboard = () => {
                   </a>
                 </div>
               </div>
-              <div className="flex flex-col mt-5 -bg-grey-10 w-80 md:w-[36rem] p-8 rounded">
+              <div className="flex flex-col mt-8 -bg-grey-10 w-80 md:w-[36rem] p-8 rounded">
                 <h3 className="font-bold text-lg">Descrição</h3>
                 <span className="w-[100%] md:w-auto text-sm font-sans">
-                  {product?.description}
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a
+                  type specimen book.
                 </span>
               </div>
+              </div>
+
             </div>
             <div className="flex flex-col items-center w-[22rem] md:w-96 space-y-5 mt-3 md:mt-0">
               <div className=" -bg-grey-10 flex flex-col w-[22rem] md:w-96 justify-evenly h-[20rem] md:p-8 rounded-sm md:mt-[10px] lg:mt-0">
@@ -106,7 +121,7 @@ export const Dashboard = () => {
                       onClick={() => CallBack("Car", e.url)}
                     >
                       <img
-                        className="h-14"
+                        className="h-14 transition-property: hover:border-2 -border-random4 transition-duration: 200ms ease-in-out delay-200 hover:-translate-y-1 hover:scale-100 duration-300 cursor-pointer"
                         src={e.url}
                         alt="carro/moto"
                         draggable={false}
@@ -147,11 +162,7 @@ export const Dashboard = () => {
                     <p className="-text-grey-3"> * há 15 dias</p>
                   </div>
                   <div className="w-[100%] text-sm">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book.
+                    {resComment?.comment}
                   </div>
                 </div>
               </div>
@@ -176,22 +187,24 @@ export const Dashboard = () => {
                 className="w-[100%] h-[80px] p-[15px] -bg-grey-7 text-xs border-solid rounded-sm"
                 placeholder="Carro muito confortável, foi uma ótima experiência de compra..."
               ></textarea>
+              <div className="w-[100%] flex md:flex-row-reverse relative md:right-2 my-3 md:bottom-[50px]">
               <button
                 type="submit"
-                className="-bg-brand1 -text-white-fixed rounded font-inter w-24 h-[30px] text-sm relative left-[400px] bottom-[40px]"
+                className="-bg-brand1 -text-white-fixed rounded font-inter w-24 h-[30px] text-sm"
               >
                 Comentar
               </button>
+              </div>
             </form>
 
-            <div className="flex w-[80%]">
-              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">
+            <div className="flex flex-wrap w-[80%]">
+              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-2xl mr-2 -text-grey-3 h-[25px] my-2">
                 gostei muito!
               </span>
-              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">
+              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-2xl mr-2 -text-grey-3 h-[25px] my-2">
                 incrível!
               </span>
-              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-lg mr-2 -text-grey-3 h-[25px]">
+              <span className="flex items-center -bg-grey-7 p-2 text-xs font-inter rounded-2xl mr-2 -text-grey-3 h-[25px] my-2">
                 Recomendaria para um amigo!
               </span>
             </div>
