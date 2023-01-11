@@ -42,7 +42,7 @@ export const Home = () => {
 
   useEffect(() => {
     setWidthMotorcycle(
-      carousel.current!.scrollWidth - carousel.current?.offsetWidth
+      carousel.current!.scrollWidth - carousel.current!.offsetWidth
     );
   }, [response]);
 
