@@ -16,9 +16,9 @@
     - [4.2. Decisões de desenvolvimento](#42-decisões-de-desenvolvimento)
       - [4.2.1. Ordem de desenvolvimento](#421-ordem-de-desenvolvimento)
       - [4.2.2. Componentes](#422-componentes)
-      - [4.2.3. Page (alterar no fim)](#423-page-alterar-no-fim)
+      - [4.2.3. Page](#423-page)
       - [4.2.4. Rotas e Consumo da API](#424-rotas-e-consumo-da-api)
-      - [4.2.4.1. Rotas (alterar no fim)](#4241-rotas-alterar-no-fim)
+      - [4.2.4.1. Rotas](#4241-rotas)
       - [4.2.4.2. Consumo da API](#4242-consumo-da-api)
     - [4.2.5. Estilização](#425-estilização)
   - [5. Agradecimentos](#5-agradecimentos)
@@ -34,7 +34,7 @@
 
 Essa aplicação foi desenvolvida para o Projeto Final realizado nas sprints 4-8 do módulo 6 para a Kenzie Academy Brasil no intuito de revisar, treinar e validar os conhecimentos adquiridos ao longo do curso, que serão usados no mercado de trabalho.
 
-O objetivo dessa aplicação é servir como um backend para o projeto fullstack de uma "Olx de veículos".
+O objetivo dessa aplicação é servir como um frontend para o projeto fullstack, chamado Motors Shop, parecido com uma "Olx de veículos".
 
 **Frontend**
 - [Frontend Deploy](https://motors-doc-api.vercel.app/)
@@ -44,10 +44,9 @@ O objetivo dessa aplicação é servir como um backend para o projeto fullstack 
 - [Backend Documentação: Rotas e requisições](https://motors-doc-api.vercel.app/)
 - [Backend Repositório](https://github.com/M6-T11-GRUPO4/motors-backend)
 
-Tecnologias usadas nesse projeto: (adicionar novos caso necessário)
+Principais tecnologias usadas nesse projeto:
 
 - [React](https://pt-br.reactjs.org/docs/getting-started.html)
-- [Toastfy](https://www.npmjs.com/package/react-toastify)
 - [React-hook-form](https://react-hook-form.com)
 - [Axios](https://axios-http.com/ptbr/docs/intro)
 - [React-router-dom](https://v5.reactrouter.com/web/guides/quick-start)
@@ -133,28 +132,44 @@ O Objetivo principal dessa aplicação é a validação dos conhecimentos do tim
 
 #### 4.2.2. Componentes
 
-Foram criados, no total, 4 componentes: (adicionar mais)
+Foram criados, no total, 16 componentes, divididos em categorias:
 
 - Header: cabeçalho da aplicação, onde é recebido o H1;
 - Cards: onde são exibidos os cards relacionados aos anúncios, separados por Carro, Moto e Leilão;
 - Footer: componente responsável pelo rodapé da aplicação;
-- Mid: responsável pela parte central do footer;
+- Inputs: que são relacionados aos inputs que vão a alguns dos modais utilizados na aplicação
+- Modais: total de 9 itens, responsável por todos os modais da aplicação
 
-#### 4.2.3. Page (alterar no fim)
+#### 4.2.3. Page
 
-Ao total, foram criadas 1 página para a construção da aplicação, sendo a página inicial, a que possui o componente vários componentes já criados.
+Ao total, foram criadas 7 páginas para a construção da aplicação, sendo a Home, a que possui o componente vários componentes já criados.
+
+- Home: página inicial da aplicação, onde são exibidos todos os veículos anunciados
+- Dashborard: página dedicada a visualização de um anúncio
+- Login e Register: responsável pelas requisições supracitadas
+- Profile: mostra os dados do perfil do usuário e os anuncios ele (caso possua)
+- Forgot e Recovery: local onde é feita a recuperação de senha do usuário
 
 #### 4.2.4. Rotas e Consumo da API
 
-#### 4.2.4.1. Rotas (alterar no fim)
+#### 4.2.4.1. Rotas
 
-Para o desenvolvimento dessa aplicação, foram necessárias x rotas, explicação de cada rota
+Para o desenvolvimento dessa aplicação, foram necessárias 8 rotas, sendo uma especial para o modal.
+
+- /login -> aciona o Login
+- / -> aciona a Home
+- /dashboard -> aciona a Dashboard
+- /profile -> aciona a ProfileView
+- /forgot-password -> aciona a ForgotPassword
+- /reset-password -> RecoveryPassword
+- /register -> RegisterPage
+- Especial: componente modal que analisa o state e entrega o modal adequado para cada solicitação
 
 #### 4.2.4.2. Consumo da API
 
 A configuração da API ocorre em "services", utilizando a tecnologia "Axios". Foram divididas em dois "creates", sendo um para rotas públicas e outro para rotas privadas (que busca a informação no localstorage)
 
-Para os dados trafegarem pelos componentes, decidimos usar o contextAPI do próprio React, por ser mais simples de se configurar e escalar a aplicação, a ferramenta permite a criação de um estado com as respostas da API, dessa forma, eu consiguimos enviar os dados gerados por ela, para o componente, tratando os possíveis erros de entrada do usuário e de resposta da API e gerando os resultados esperados.
+Para os dados trafegarem pelos componentes, decidimos usar o contextAPI do próprio React, por ser mais simples de se configurar e escalar a aplicação, a ferramenta permite a criação de um estado com as respostas da API, dessa forma, conseguimos enviar os dados gerados por ela, para o componente, tratando os possíveis erros de entrada do usuário e de resposta da API e gerando os resultados esperados.
 
 ### 4.2.5. Estilização
 
