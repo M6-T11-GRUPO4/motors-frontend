@@ -267,9 +267,9 @@ export default function EditVehicle() {
               className="inputDefaultModal"
             />
           </div>
-          {numberImput?.map((e, i) => (
+          {/* {numberImput?.map((e, i) => (
             <AddInput number={numberImput[arr[i]]} />
-          ))}
+          ))} */}
           <button
             onClick={(e) => {
               e.preventDefault();
