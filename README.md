@@ -37,7 +37,7 @@ Essa aplicação foi desenvolvida para o Projeto Final realizado nas sprints 4-8
 O objetivo dessa aplicação é servir como um frontend para o projeto fullstack, chamado Motors Shop, parecido com uma "Olx de veículos".
 
 **Frontend**
-- [Frontend Deploy](https://motors-doc-api.vercel.app/)
+- [Frontend Deploy](https://motors-shop-brunotiberio.vercel.app/)
 - [Frontend Repositório](https://github.com/M6-T11-GRUPO4/motors-frontend)
 
 **Backend**
@@ -105,7 +105,7 @@ OBS: Não se esqueça de executar a aplicação de backend para que tudo funcion
 
 Nessa mesma documentação é possível adquirir informações sobre os requests, chaves necessárias do request e informações de algumas rotas.
 
-**Base URL da API: https://motors-doc-api.vercel.app/**
+**Conheça a API: https://motors-doc-api.vercel.app/**
 
 ## 4. Histórico de desenvolvimento
 
