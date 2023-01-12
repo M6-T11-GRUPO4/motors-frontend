@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { ProductContext } from "../../Providers/product";
 import { ModalContext } from "../../Providers/modal";
 import { IUser, UserContext } from "../../Providers/user";
+import { api } from "../../services/api";
+import { Link as Scrool } from "react-scroll";
 
 export const Header = () => {
   const logged = sessionStorage.getItem("@Token");
@@ -13,7 +15,19 @@ export const Header = () => {
     useContext(ProductContext);
   const { setTypeObject, OpenAndCloseModal } = useContext(ModalContext);
   const navigate = useNavigate();
-  const { user, setUser, twoLetters } = useContext(UserContext);
+  const { user, setUser, twoLetters, tokenAndId } = useContext(UserContext);
+
+  const getSeller = () => {
+    api
+      .get(`/users/${tokenAndId.id}`)
+      .then((res) => {
+        sessionStorage.setItem("@ProfileUser", JSON.stringify(res.data));
+      })
+      .catch((err) => err);
+    setTimeout(() => {
+      navigate("/profile");
+    }, 500);
+  };
 
   function exit() {
     sessionStorage.removeItem("@UserId");
@@ -66,12 +80,30 @@ export const Header = () => {
             <ul className="flex flex-col items-start px-8 space-y-8 mt-10 pb-6 font-inter border-b -border-grey-4">
               <li>
                 <button className={"block w-full hover:-text-brand1"}>
-                  Carros
+                  <Scrool
+                    to="carro"
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={500}
+                    className="flex items-center justify-center w-full h-full"
+                  >
+                    Carros
+                  </Scrool>
                 </button>
               </li>
               <li>
                 <button className="block w-full hover:-text-brand1">
-                  Motos
+                  <Scrool
+                    to="moto"
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={500}
+                    className="flex items-center justify-center w-full h-full"
+                  >
+                    Motos
+                  </Scrool>
                 </button>
               </li>
               <li>
@@ -116,7 +148,10 @@ export const Header = () => {
                   </li>
                   <li>
                     {user?.is_seller ? (
-                      <button className="hover:-text-brand1">
+                      <button
+                        onClick={() => getSeller()}
+                        className="hover:-text-brand1"
+                      >
                         Meus Anúncios
                       </button>
                     ) : (
@@ -151,8 +186,31 @@ export const Header = () => {
       </div>
       <div className="hidden sm:flex items-center space-x-10 font-inter ">
         <nav className="flex space-x-3 text-sm h-5">
-          <button className=" hover:-text-brand1 ">Carros</button>
-          <button className=" hover:-text-brand1 ">Motos</button>
+          <button className=" hover:-text-brand1 ">
+            {" "}
+            <Scrool
+              to="carro"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+              className="flex items-center justify-center w-full h-full"
+            >
+              Carros
+            </Scrool>
+          </button>
+          <button className=" hover:-text-brand1 ">
+            <Scrool
+              to="moto"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+              className="flex items-center justify-center w-full h-full"
+            >
+              Motos
+            </Scrool>
+          </button>
           <button className=" hover:-text-brand1 ">Leilão</button>
         </nav>
         {logged ? (
@@ -189,7 +247,12 @@ export const Header = () => {
               </li>
               <li>
                 {user?.is_seller ? (
-                  <button className="hover:-text-brand1">Meus Anúncios</button>
+                  <button
+                    onClick={() => getSeller()}
+                    className="hover:-text-brand1"
+                  >
+                    Meus Anúncios
+                  </button>
                 ) : (
                   <button className="hover:-text-brand1">Minhas Compras</button>
                 )}

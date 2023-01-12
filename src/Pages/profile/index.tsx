@@ -36,13 +36,13 @@ export const ProfileView = () => {
 
   useEffect(() => {
     setWidthCar(carousel.current!.scrollWidth - carousel.current?.offsetWidth);
-  }, []);
+  }, [widthCar]);
 
   useEffect(() => {
     setWidthMotorcycle(
       carousel.current!.scrollWidth - carousel.current?.offsetWidth
     );
-  }, []);
+  }, [widthMotorcycle]);
 
   return (
     <>
@@ -50,7 +50,7 @@ export const ProfileView = () => {
       <main className="h-full bg-blue-white-gradient flex flex-col select-none">
         <ProfileCard seller={seller} isAdOwner={isAdOwner} />
 
-        <div className="flex overflow-x-hidden mx-4 flex-col ml-6 select-none">
+        <div className="flex overflow-x-hidden flex-col select-none">
           <h1 className="py-8 font-bold text-lg font-lexend ml-10">Carros</h1>
           <motion.div
             ref={carousel}
@@ -76,7 +76,7 @@ export const ProfileView = () => {
             })}
           </motion.div>
         </div>
-        <div className="flex overflow-x-hidden mx-4 flex-col ml-6 select-none">
+        <div className="flex overflow-x-hidden flex-col  select-none">
           <h1 className="py-8 font-bold text-lg font-lexend ml-10">Motos</h1>
           <motion.div
             ref={carousel}

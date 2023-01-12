@@ -32,19 +32,14 @@ export const Home = () => {
 
   useEffect(() => {
     setWidthCar(carousel.current!.scrollWidth - carousel.current!.offsetWidth);
-  }, [response]);
+  }, [widthCar]);
 
   useEffect(() => {
     setWidthMotorcycle(
       carousel.current!.scrollWidth - carousel.current!.offsetWidth
     );
-  }, [response]);
+  }, [widthMotorcycle]);
 
-  useEffect(() => {
-    setWidthMotorcycle(
-      carousel.current!.scrollWidth - carousel.current!.offsetWidth
-    );
-  }, [response]);
 
   return (
     <>
@@ -85,7 +80,7 @@ export const Home = () => {
       </section>
       <Auction />
 
-      <div className="flex overflow-x-hidden mx-4 flex-col ml-6 select-none">
+      <div className="flex overflow-x-hidden flex-col select-none">
         <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">
           Carros
         </h1>
@@ -109,7 +104,7 @@ export const Home = () => {
       ) : (
         ""
       )}
-      <div className="flex overflow-x-hidden mx-4 flex-col ml-6 mb-16">
+      <div className="flex overflow-x-hidden flex-col select-none">
         <h1 className="py-8 font-bold text-lg font-lexend ml-10 mt-20">
           Motos
         </h1>

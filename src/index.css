@@ -58,6 +58,24 @@
 
     cursor: pointer;
   }
+  .classDeleteVehicle {
+    /* @apply font-inter not-italic font-semibold text-base -bg-brand1 -text-white-fixed */
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-size: 16px;
+
+    background: #FDD8d8;
+    color: #cd2b31;
+
+    height: 48px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+  }
   .classButtonCancelDefault {
     font-family: "Inter", sans-serif;
     font-style: normal;

@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { IProducts } from "../../../Pages/home";
+import { ModalContext } from "../../../Providers/modal";
 import { ProductContext } from "../../../Providers/product/index";
 import { IUser, UserContext } from "../../../Providers/user";
 import { api } from "../../../services/api";
@@ -23,7 +24,6 @@ export interface IProps {
   showIsActive?: boolean;
 }
 
-
 export interface IImage {
   url: string;
 }
@@ -34,28 +34,32 @@ const Cards = ({
   showIsActive = false,
 }: IProps) => {
   const { setProduct } = useContext(ProductContext);
+  const { CallBack } = useContext(ModalContext);
 
-  const[response, setResponse] = useState<IUser | null>()
+  const [response, setResponse] = useState<IUser | null>();
 
   const { twoLetters } = useContext(UserContext);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.get(`users/${products.userId}`).then((res) => {
-      setResponse(res.data)
-    }).catch((err) => console.log(err))
-  })
+    api
+      .get(`users/${products.userId}`)
+      .then((res) => {
+        setResponse(res.data);
+      })
+      .catch((err) => console.log(err));
+  });
 
-  const callback = (products: IProducts, e:any): void => {
-    sessionStorage.setItem("@Vitrine", JSON.stringify(products))
-    sessionStorage.setItem("@ProductId", e.target.id)
-    setProduct(products)
+  const callback = (products: IProducts, e?: any): void => {
+    sessionStorage.setItem("@Vitrine", JSON.stringify(products));
+    sessionStorage.setItem("@ProductId", e.target.id);
+    setProduct(products);
     navigate("/dashboard");
   };
 
   return (
-    <div className="w-[19.5rem] h-[22.25rem] -bg-grey-8 flex flex-col gap-4 m-7 relative cursor-pointer select-none">
+    <div className="w-[19.5rem] h-[22.25rem] -bg-grey-8 flex flex-col gap-4 m-7 relative cursor-pointer select-none mb-32">
       {showIsActive &&
         !isAdOwner &&
         (products.is_active ? (
@@ -73,11 +77,13 @@ const Cards = ({
           className="h-[9.4rem] w-64 -bg-grey-7 transition-property: hover:border-2 -border-random4 transition-duration: 150ms  ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
           src={products.image[0].url}
           alt="foto veiculo"
-          onClick={(e) => callback(products,e)}
+          onClick={(e) => callback(products, e)}
         />
       </div>
-      <p className="flex items-center text-sm font-bold font-lexend truncate py-2">{products.name}</p>
-      <p className="flex items-center text-[10px] -text-grey-2 w-72 h-12 font-inter limit-overflow py-5">
+      <p className="flex items-center text-sm font-bold font-lexend truncate py-2">
+        {products.name}
+      </p>
+      <p className="flex items-center text-[10px] -text-grey-2 w-80 h-12 font-inter limit-overflow py-5">
         {products.description}
       </p>
       <div className="flex w-72 items-center">
@@ -107,13 +113,20 @@ const Cards = ({
 
       {isAdOwner && (
         <div className="flex gap-4 font-inter font-semibold text-sm -text-grey-1">
-          <button className="h-9 border-2 rounded -border-grey-1 px-5 hover:-bg-brand1 hover:-border-brand1">
+          <button
+            className="h-9 border-2 rounded -border-grey-1 px-5 hover:-bg-brand1 hover:-border-brand1"
+            onClick={() => {
+              CallBack("EditVehicle", products.id);
+              setProduct(products);
+            }}
+          >
             Editar
           </button>
 
           <button
+            id={products.id}
             className="h-9 border-2 rounded -border-grey-1 px-5 hover:-bg-brand1 hover:-border-brand1"
-            onClick={() => navigate("/dashboard")}
+            onClick={(e) => callback(products, e)}
           >
             Ver como
           </button>
