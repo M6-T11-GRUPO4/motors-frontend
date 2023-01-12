@@ -29,7 +29,7 @@ export default function EditVehicle() {
   const [isAuction, setIsAuction] = useState(false);
   const [isCar, setIsCar] = useState(true);
   const [isPublic, setIsPublic] = useState(true);
-  const { OpenAndCloseModal } = useContext(ModalContext);
+  const { OpenAndCloseModal, setTypeObject } = useContext(ModalContext);
   const { tokenAndId } = useContext(UserContext);
   const { product } = useContext(ProductContext);
 
@@ -80,7 +80,6 @@ export default function EditVehicle() {
     delete data.image4;
     delete data.image5;
     delete data.image6;
-    console.log(data);
 
     api
       .patch(`http://localhost:4000/vehicles/${product.id}`, data, {
@@ -89,10 +88,12 @@ export default function EditVehicle() {
         },
       })
       .then((res) => {
-        console.log(res.data);
 
-        sessionStorage.setItem("@Address", JSON.stringify(res.data));
-        OpenAndCloseModal();
+
+        sessionStorage.setItem("@Vitrine", JSON.stringify(res.data));
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       })
       .catch((err) => console.log(err));
   }
@@ -388,7 +389,7 @@ export default function EditVehicle() {
             Editar anúncio
           </button>
           <button
-            onClick={OpenAndCloseModal}
+            onClick={()=> setTypeObject({type:"DeleteVehicle", obj:{}})}
             className="classButtonCancelDefault w-28 md:w-40"
           >
             Excluir Anúncio

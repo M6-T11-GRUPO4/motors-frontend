@@ -138,19 +138,22 @@ export const Dashboard = () => {
                 <div className=" -bg-grey-10 flex flex-col w-[22rem] md:w-96 justify-evenly h-[20rem] md:p-8 rounded-sm md:mt-[10px] lg:mt-0">
                   <h4 className="font-bold text-xl pl-8 md:pl-0">Fotos</h4>
                   <div className="flex flex-row items-center justify-center flex-wrap h-56 gap-2 gap-y-7">
-                    {product?.image.map((e) => (
-                      <div
-                        className="flex items-center justify-center w-24 h-24"
-                        onClick={() => CallBack("Car", e.url)}
-                      >
-                        <img
-                          className="h-14 transition-property: hover:border-2 -border-random4 transition-duration: 200ms ease-in-out delay-200 hover:-translate-y-1 hover:scale-100 duration-300 cursor-pointer"
-                          src={e.url}
-                          alt="carro/moto"
-                          draggable={false}
-                        />
-                      </div>
-                    ))}
+                    {product?.image.map(
+                      (e) =>
+                        e.url !== "" && (
+                          <div
+                            className="flex items-center justify-center w-24 h-24"
+                            onClick={() => CallBack("Car", e.url)}
+                          >
+                            <img
+                              className="h-14 transition-property: hover:border-2 -border-random4 transition-duration: 200ms ease-in-out delay-200 hover:-translate-y-1 hover:scale-100 duration-300 cursor-pointer"
+                              src={e.url}
+                              alt="carro/moto"
+                              draggable={false}
+                            />
+                          </div>
+                        )
+                    )}
                   </div>
                 </div>
                 <div className="flex flex-col items-center -bg-grey-10 w-[22rem] md:w-96 space-y-7 p-3 md:p-8 rounded-sm">

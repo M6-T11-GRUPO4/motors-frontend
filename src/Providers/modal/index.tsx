@@ -31,6 +31,16 @@ export const ModalProvider = ({ children }: IProviderProps) => {
     OpenAndCloseModal();
   }
 
+  function show(data:string) {
+
+
+    let dia = data.slice(8,10)
+    return `${dia} * dias` 
+    
+  }
+  console.log(show("1996-08-18T"));
+  
+
   const customStyles: Styles = {
     overlay: {
       position: "fixed",
@@ -44,13 +54,18 @@ export const ModalProvider = ({ children }: IProviderProps) => {
     },
     content: {
       position: "absolute",
-      top: typeObject.type === "Car" || typeObject.type === "CreateSuccess" ? "30%" : "50%",
+      top:
+        typeObject.type === "Car" || typeObject.type === "CreateSuccess" || typeObject.type === "DeleteVehicle"
+          ? "30%"
+          : "50%",
       left: "50%",
       right: "auto",
       bottom: 0,
       height:
         typeObject.type === "Car"
           ? "250px"
+          : typeObject.type === "DeleteVehicle"
+          ? "270px"
           : typeObject.type === "EditAddress"
           ? "530px"
           : typeObject.type === "CreateSuccess"

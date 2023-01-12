@@ -6,7 +6,8 @@ import x from "../../../image/x.png";
 import Modal from "react-modal";
 import { ModalContext } from "../../../Providers/modal";
 import { AddInput } from "../../inputs/addInput";
-import { apiPrivate } from "../../../services/api";
+import { api, apiPrivate } from "../../../services/api";
+import { UserContext } from "../../../Providers/user";
 
 interface IVehicleRequest {
   name: string;
@@ -30,6 +31,9 @@ export default function CreateVehicle() {
 
   const { customStyles, modal, OpenAndCloseModal, setTypeObject } =
     useContext(ModalContext);
+
+  const { tokenAndId } =
+    useContext(UserContext);
 
   const [numberImput, setNumberImput] = useState([1] as number[]);
 
@@ -76,9 +80,14 @@ export default function CreateVehicle() {
       type: isCar ? "Carro" : "Moto",
       image,
     };
-
-    apiPrivate
-      .post("/vehicles", finalData)
+    console.log(tokenAndId);
+    
+    api
+      .post("/vehicles", finalData, {
+        headers: {
+          Authorization: `Bearer ${tokenAndId.token}`,
+        },
+      })
       .then((res) => {
         setTypeObject({ type: "CreateSuccess", obj: {} });
 

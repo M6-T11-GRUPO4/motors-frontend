@@ -18,6 +18,7 @@ import { ErrorProfileModal } from "../components/modais/errorProfileModal";
 import RegisterPage from "../Pages/register";
 import CreateVehicle from "../components/modais/createVehicle";
 import { SuccessModal } from "../components/modais/successModal";
+import { DeleteVehicle } from "../components/modais/deleteVehicleModal";
 
 export const Routers = () => {
   const { customStyles, modal, OpenAndCloseModal, typeObject } =
@@ -54,6 +55,8 @@ export const Routers = () => {
           <CreateVehicle />
         ) : typeObject.type === "CreateSuccess" ? (
           <SuccessModal />
+        ) : typeObject.type === "DeleteVehicle" ? (
+          <DeleteVehicle />
         ) : null}
       </Modal>
     </>
