@@ -8,22 +8,21 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues } from "react-hook-form/dist/types";
+import { IComment } from "../../../Pages/dashboard";
 
 interface IIdEditComment {
-  id: string;
+  comment: IComment;
 }
 
-interface IComment {
-  comment: string;
-}
 
-export const EditComment = ({ id }: IIdEditComment) => {
+
+export const EditComment = ({ comment }: IIdEditComment) => {
   const { OpenAndCloseModal } = useContext(ModalContext);
   const { tokenAndId } = useContext(UserContext);
   const { product } = useContext(ProductContext);
 
   const schemaForm = yup.object().shape({
-    comment: yup.string().required("oiiii"),
+    comment: yup.string(),
   });
 
   const {
@@ -38,14 +37,12 @@ export const EditComment = ({ id }: IIdEditComment) => {
     console.log(data);
 
     api
-      .patch(`/comments/${id}`, data, {
+      .patch(`/comments/${comment.id}`, data, {
         headers: {
           Authorization: `Bearer ${tokenAndId.token}`,
         },
       })
       .then((res) => {
-
-        
         setTimeout(() => {
           OpenAndCloseModal();
           window.location.reload();
@@ -71,7 +68,7 @@ export const EditComment = ({ id }: IIdEditComment) => {
           </label>
           <textarea
             rows={3}
-            defaultValue={product.description}
+            defaultValue={comment.comment}
             placeholder="Digitar descrição"
             className="textAreaDefaultModal"
             {...register("comment")}

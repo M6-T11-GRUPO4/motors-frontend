@@ -16,6 +16,11 @@ export interface IComment {
   date: string;
   userId: string;
   vehicleId: string;
+  user: IUserComent;
+}
+interface IUserComent {
+  id: string;
+  name: string;
 }
 
 export const Dashboard = () => {
@@ -27,18 +32,17 @@ export const Dashboard = () => {
     resolver: yupResolver(formSchema),
   });
 
-  
   const [resComment, setResComment] = useState<any>([] as any);
 
   const { product } = useContext(ProductContext);
   const { CallBack } = useContext(ModalContext);
-  const { twoLetters, tokenAndId } = useContext(UserContext);
+  const { twoLetters, tokenAndId, user } = useContext(UserContext);
   const navigate = useNavigate();
   const buttonclick = (data: object) => {
     apiPrivate
       .post(`comments/${product.id}`, data, {
         headers: {
-          Authorization: `Bearer ${tokenAndId.token}`,
+          Authorization: `Bearer ${sessionStorage.getItem("@Token")}`,
         },
       })
       .then(() => window.location.reload())
@@ -76,7 +80,7 @@ export const Dashboard = () => {
           Authorization: `Bearer ${tokenAndId.token}`,
         },
       })
-      .then(()=> window.location.reload())
+      .then(() => window.location.reload())
       .catch();
   };
   const logged = sessionStorage.getItem("@UserId");
@@ -184,40 +188,48 @@ export const Dashboard = () => {
                 <div className="flex flex-col">
                   <div className="flex flex-row items-center">
                     <p className="flex items-center justify-center rounded-full w-8 h-8 -bg-brand2 text-md -text-grey-10 mr-[10px]">
-                      {twoLetters(product?.user.name)}
+                      {twoLetters(element?.user.name)}
                     </p>
-                    <p className="mr-[10px]">{product?.user.name}</p>
+                    <p className="mr-[10px]">{element?.user.name}</p>
                     <p className="-text-grey-3">
                       * há {element.date.slice(8, 10)} dias
                     </p>
-
                   </div>
                   <div className="w-[100%] text-sm mt-5 ml-1">
                     {element.comment}
                   </div>
                 </div>
-                {logged === product.user.id ?   <div className="flex w-[40%] justify-between ml-1 mt-5 lg:w-[30%]">
-                  <button
-                    onClick={() => deleteComment(element.id)}
-                    className="text-xs font-inter text-gray-400 hover:text-gray-900"
-                  >
-                    excluir
-                  </button>
-                  <button onClick={()=>CallBack("EditComment", element.id)} className="text-xs font-inter text-gray-400 hover:text-gray-900">
-                    editar
-                  </button>
-                </div> : <div></div>}
-
+                {logged === element.user.id ? (
+                  <div className="flex w-[40%] justify-between ml-1 mt-5 lg:w-[30%]">
+                    <button
+                      onClick={() => deleteComment(element.id)}
+                      className="text-xs font-inter text-gray-400 hover:text-gray-900"
+                    >
+                      excluir
+                    </button>
+                    <button
+                      onClick={() => CallBack("EditComment", element)}
+                      className="text-xs font-inter text-gray-400 hover:text-gray-900"
+                    >
+                      editar
+                    </button>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
               </div>
             ))}
           </div>
           <div className="flex flex-col justify-center py-8 -bg-grey-10 w-[22rem] md:w-[24rem] rounded p-8 lg:w-[36rem]">
-            <div className="flex items-center">
-              <div className="flex items-center justify-center rounded-full w-8 h-8 -bg-brand2 -text-grey-10 mr-3">
-                {twoLetters(product?.user.name)}
+            {user && (
+              <div className="flex items-center">
+                <div className="flex items-center justify-center rounded-full w-8 h-8 -bg-brand2 -text-grey-10 mr-3">
+                  {twoLetters(user?.name)}
+                </div>
+                <span>{user?.name}</span>
               </div>
-              <span>{product?.user.name}</span>
-            </div>
+            )}
+
             <form
               onSubmit={handleSubmit(buttonclick)}
               className=" flex flex-col mt-4"
@@ -231,7 +243,11 @@ export const Dashboard = () => {
               <div className="w-[100%] flex md:flex-row-reverse relative md:right-2 my-3 md:bottom-[50px]">
                 <button
                   type="submit"
-                  className="-bg-brand1 -text-white-fixed rounded font-inter w-24 h-[30px] text-sm"
+                  className={`${
+                    user
+                      ? "-bg-brand1 cursor-pointer"
+                      : "-bg-grey-5 cursor-not-allowed"
+                  }  -text-white-fixed rounded font-inter w-24 h-[30px] text-sm`}
                 >
                   Comentar
                 </button>

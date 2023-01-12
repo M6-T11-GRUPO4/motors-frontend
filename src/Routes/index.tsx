@@ -56,7 +56,7 @@ export const Routers = () => {
         ) : typeObject.type === "DeleteVehicle" ? (
           <DeleteVehicle id={typeObject.obj.any}/>
         ) : typeObject.type === "EditComment" ? (
-          <EditComment id={typeObject.obj.any} />
+          <EditComment comment={typeObject.obj.any} />
         ) : typeObject.type === "Success" ? (
           <SuccessProfileModal isSeller={typeObject.obj.any} />
         ) : typeObject.type === "Error" ? (

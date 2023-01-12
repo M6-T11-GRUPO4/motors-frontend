@@ -7,6 +7,7 @@ import { ProductContext } from "../../Providers/product";
 import { ModalContext } from "../../Providers/modal";
 import { IUser, UserContext } from "../../Providers/user";
 import { api } from "../../services/api";
+import { Link as Scrool } from "react-scroll";
 
 export const Header = () => {
   const logged = sessionStorage.getItem("@Token");
@@ -79,12 +80,30 @@ export const Header = () => {
             <ul className="flex flex-col items-start px-8 space-y-8 mt-10 pb-6 font-inter border-b -border-grey-4">
               <li>
                 <button className={"block w-full hover:-text-brand1"}>
-                  Carros
+                  <Scrool
+                    to="carro"
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={500}
+                    className="flex items-center justify-center w-full h-full"
+                  >
+                    Carros
+                  </Scrool>
                 </button>
               </li>
               <li>
                 <button className="block w-full hover:-text-brand1">
-                  Motos
+                  <Scrool
+                    to="moto"
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={500}
+                    className="flex items-center justify-center w-full h-full"
+                  >
+                    Motos
+                  </Scrool>
                 </button>
               </li>
               <li>
@@ -167,8 +186,31 @@ export const Header = () => {
       </div>
       <div className="hidden sm:flex items-center space-x-10 font-inter ">
         <nav className="flex space-x-3 text-sm h-5">
-          <button className=" hover:-text-brand1 ">Carros</button>
-          <button className=" hover:-text-brand1 ">Motos</button>
+          <button className=" hover:-text-brand1 ">
+            {" "}
+            <Scrool
+              to="carro"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+              className="flex items-center justify-center w-full h-full"
+            >
+              Carros
+            </Scrool>
+          </button>
+          <button className=" hover:-text-brand1 ">
+            <Scrool
+              to="moto"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+              className="flex items-center justify-center w-full h-full"
+            >
+              Motos
+            </Scrool>
+          </button>
           <button className=" hover:-text-brand1 ">Leilão</button>
         </nav>
         {logged ? (
