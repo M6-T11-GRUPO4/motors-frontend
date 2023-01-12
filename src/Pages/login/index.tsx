@@ -7,10 +7,15 @@ import * as yup from "yup";
 import { api } from "../../services/api";
 import { useContext } from "react";
 import { UserContext } from "../../Providers/user";
+import { ModalContext } from "../../Providers/modal";
 
 export const Login = () => {
   const { setUser, setAddress, setTokenAndId } = useContext(UserContext);
+
+  const { setTypeObject, OpenAndCloseModal } = useContext(ModalContext);
+
   const navigate = useNavigate();
+
   const schemaForm = yup.object().shape({
     email: yup
       .string()
@@ -24,7 +29,6 @@ export const Login = () => {
       .post("/users/login", data)
       .then((res) => {
         api
-
           .get(`/address/${res.data.id}/`, {
             headers: {
               Authorization: `Bearer ${res.data.token}`,
@@ -49,7 +53,14 @@ export const Login = () => {
           navigate("/");
         }, 100);
       })
-      .catch((err) => err);
+      .catch((err) => {
+        OpenAndCloseModal();
+
+        setTypeObject({
+          type: "Error",
+          obj: { any: err.response.data.message },
+        });
+      });
   }
 
   const {
