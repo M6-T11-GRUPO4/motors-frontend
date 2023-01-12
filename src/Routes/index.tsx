@@ -21,6 +21,7 @@ import { SuccessModal } from "../components/modais/successModal";
 import { DeleteVehicle } from "../components/modais/deleteVehicleModal";
 import { EditComment } from "../components/modais/editComment";
 
+
 export const Routers = () => {
   const { customStyles, modal, OpenAndCloseModal, typeObject } =
     useContext(ModalContext);
@@ -48,10 +49,6 @@ export const Routers = () => {
           <ImageVehicleModal image={typeObject.obj.any} />
         ) : typeObject.type === "EditVehicle" ? (
           <EditVehicle id={typeObject.obj.any}/>
-        ) : typeObject.type === "Success" ? (
-          <SuccessProfileModal />
-        ) : typeObject.type === "Error" ? (
-          <ErrorProfileModal error={typeObject.obj.any} />
         ) : typeObject.type === "CreateVehicle" ? (
           <CreateVehicle />
         ) : typeObject.type === "CreateSuccess" ? (
@@ -60,6 +57,10 @@ export const Routers = () => {
           <DeleteVehicle id={typeObject.obj.any}/>
         ) : typeObject.type === "EditComment" ? (
           <EditComment id={typeObject.obj.any} />
+        ) : typeObject.type === "Success" ? (
+          <SuccessProfileModal isSeller={typeObject.obj.any} />
+        ) : typeObject.type === "Error" ? (
+          <ErrorProfileModal error={typeObject.obj.any} />
         ) : null}
       </Modal>
     </>

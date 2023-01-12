@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { api, apiPrivate } from "../../services/api";
 import { UserContext } from "../../Providers/user";
+
 export interface IComment {
   id: string;
   comment: string;
@@ -16,6 +17,7 @@ export interface IComment {
   userId: string;
   vehicleId: string;
 }
+
 export const Dashboard = () => {
   const [cellphone, setCellphone] = useState("");
   const formSchema = yup.object().shape({
@@ -24,8 +26,10 @@ export const Dashboard = () => {
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(formSchema),
   });
+
   
   const [resComment, setResComment] = useState<any>([] as any);
+
   const { product } = useContext(ProductContext);
   const { CallBack } = useContext(ModalContext);
   const { twoLetters, tokenAndId } = useContext(UserContext);
@@ -40,12 +44,14 @@ export const Dashboard = () => {
       .then(() => window.location.reload())
       .catch();
   };
+
   useEffect(() => {
     api
       .get(`comments/${product.id}`)
       .then((res) => setResComment(res.data))
       .catch();
   }, [product]);
+
   const getSeller = () => {
     api
       .get(`/users/${product?.userId}`)
@@ -170,6 +176,7 @@ export const Dashboard = () => {
               </div>
             </div>
           </div>
+
           <div className="flex flex-col space-y-8 font-inter w-[22rem] md:w-[24rem] lg:w-[36rem] lg:pl-8 -bg-grey-10 mt-3 mb-10 p-8">
             <h4 className="font-bold text-lg">Comentários</h4>
             {resComment?.map((element: IComment) => (
@@ -183,12 +190,12 @@ export const Dashboard = () => {
                     <p className="-text-grey-3">
                       * há {element.date.slice(8, 10)} dias
                     </p>
+
                   </div>
                   <div className="w-[100%] text-sm mt-5 ml-1">
                     {element.comment}
                   </div>
                 </div>
-                
                 {logged === product.user.id ?   <div className="flex w-[40%] justify-between ml-1 mt-5 lg:w-[30%]">
                   <button
                     onClick={() => deleteComment(element.id)}
