@@ -21,7 +21,7 @@ export const Dashboard = () => {
     resolver: yupResolver(formSchema),
   });
 
-  const[resComment, setResComment] = useState<any>
+  const[resComment, setResComment] = useState<any>()
   const { product } = useContext(ProductContext);
   const { CallBack } = useContext(ModalContext);
   const { twoLetters } = useContext(UserContext);
