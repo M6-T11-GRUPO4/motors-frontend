@@ -107,7 +107,7 @@ const Cards = ({
 
       {isAdOwner && (
         <div className="flex gap-4 font-inter font-semibold text-sm -text-grey-1">
-          <button className="h-9 border-2 rounded -border-grey-1 px-5 hover:-bg-brand1 hover:-border-brand1" onClick={()=>CallBack("EditVehicle")}>
+          <button className="h-9 border-2 rounded -border-grey-1 px-5 hover:-bg-brand1 hover:-border-brand1" onClick={()=>CallBack("EditVehicle", products.id)}>
             Editar
           </button>
 

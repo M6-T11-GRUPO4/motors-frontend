@@ -24,14 +24,17 @@ export interface IVehiclePatchRequest {
   image5: string;
   image6: string;
 }
+export interface IId {
+  id:string
+}
 
-export default function EditVehicle() {
+export default function EditVehicle({id}:IId) {
   const [isAuction, setIsAuction] = useState(false);
   const [isCar, setIsCar] = useState(true);
   const [isPublic, setIsPublic] = useState(true);
   const { OpenAndCloseModal, setTypeObject } = useContext(ModalContext);
   const { tokenAndId } = useContext(UserContext);
-  const { product } = useContext(ProductContext);
+  const { product, setProduct } = useContext(ProductContext);
 
   const [numberImput, setNumberImput] = useState([1] as number[]);
   const [number, setNumber] = useState(0);
@@ -82,14 +85,14 @@ export default function EditVehicle() {
     delete data.image6;
 
     api
-      .patch(`http://localhost:4000/vehicles/${product.id}`, data, {
+      .patch(`http://localhost:4000/vehicles/${id}`, data, {
         headers: {
           Authorization: `Bearer ${tokenAndId.token}`,
         },
       })
       .then((res) => {
 
-
+        setProduct(res.data)
         sessionStorage.setItem("@Vitrine", JSON.stringify(res.data));
         setTimeout(() => {
           window.location.reload();
@@ -389,7 +392,7 @@ export default function EditVehicle() {
             Editar anúncio
           </button>
           <button
-            onClick={()=> setTypeObject({type:"DeleteVehicle", obj:{}})}
+            onClick={()=> setTypeObject({type:"DeleteVehicle", obj:{any:id}})}
             className="classButtonCancelDefault w-28 md:w-40"
           >
             Excluir Anúncio

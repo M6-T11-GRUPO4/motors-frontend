@@ -4,8 +4,9 @@ import { ModalContext } from "../../../Providers/modal";
 import { ProductContext } from "../../../Providers/product";
 import { UserContext } from "../../../Providers/user";
 import { api } from "../../../services/api";
+import { IId } from "../editVehicle";
 
-export const DeleteVehicle = () => {
+export const DeleteVehicle = ({id}:IId) => {
 
   const { OpenAndCloseModal, setTypeObject } = useContext(ModalContext);
   const { tokenAndId } = useContext(UserContext);
@@ -13,7 +14,7 @@ export const DeleteVehicle = () => {
 
   function deleteVehicleNow() {
     api
-      .delete(`http://localhost:4000/vehicles/${product.id}`,  {
+      .delete(`http://localhost:4000/vehicles/${id}`,  {
         headers: {
           Authorization: `Bearer ${tokenAndId.token}`,
         },

@@ -19,6 +19,7 @@ import RegisterPage from "../Pages/register";
 import CreateVehicle from "../components/modais/createVehicle";
 import { SuccessModal } from "../components/modais/successModal";
 import { DeleteVehicle } from "../components/modais/deleteVehicleModal";
+import { EditComment } from "../components/modais/editComment";
 
 export const Routers = () => {
   const { customStyles, modal, OpenAndCloseModal, typeObject } =
@@ -46,7 +47,7 @@ export const Routers = () => {
         ) : typeObject.type === "Car" ? (
           <ImageVehicleModal image={typeObject.obj.any} />
         ) : typeObject.type === "EditVehicle" ? (
-          <EditVehicle />
+          <EditVehicle id={typeObject.obj.any}/>
         ) : typeObject.type === "Success" ? (
           <SuccessProfileModal />
         ) : typeObject.type === "Error" ? (
@@ -56,7 +57,9 @@ export const Routers = () => {
         ) : typeObject.type === "CreateSuccess" ? (
           <SuccessModal />
         ) : typeObject.type === "DeleteVehicle" ? (
-          <DeleteVehicle />
+          <DeleteVehicle id={typeObject.obj.any}/>
+        ) : typeObject.type === "EditComment" ? (
+          <EditComment id={typeObject.obj.any} />
         ) : null}
       </Modal>
     </>
