@@ -36,13 +36,13 @@ export const ProfileView = () => {
 
   useEffect(() => {
     setWidthCar(carousel.current!.scrollWidth - carousel.current?.offsetWidth);
-  }, []);
+  }, [widthCar]);
 
   useEffect(() => {
     setWidthMotorcycle(
       carousel.current!.scrollWidth - carousel.current?.offsetWidth
     );
-  }, []);
+  }, [widthMotorcycle]);
 
   return (
     <>

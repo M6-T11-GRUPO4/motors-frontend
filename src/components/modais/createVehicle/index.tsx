@@ -215,9 +215,7 @@ export default function CreateVehicle() {
               className="inputDefaultModal"
             />
           </div>
-          {numberImput?.map((e, i) => (
-            <AddInput number={numberImput[arr[i]]} />
-          ))}
+
           <button
             onClick={(e) => {
               e.preventDefault();
