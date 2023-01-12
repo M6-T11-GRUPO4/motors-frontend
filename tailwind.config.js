@@ -3,6 +3,10 @@ module.exports = {
   content: ["./src/**/*.{tsx,ts}"],
   theme: {
     extend: {
+      backgroundImage: {
+        'risco': "url('/src/image/risco.png')",
+        'carro': "url('/src/image/carro2.png')"
+      },
       fontFamily: {
         'lexend': ['Lexend',"sans-serif"],
         'inter': ['Inter',"sans-serif"],
@@ -42,6 +46,8 @@ module.exports = {
         "-random10": "#6100FF",
         "-random11": "#5700E3",
         "-random12": "#30007D",
+        "-random13": "rgba(0, 0, 0, 0.29)",
+        "-random14": "#000000b3",
       },
     },
     
