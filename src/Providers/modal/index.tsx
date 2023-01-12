@@ -6,7 +6,7 @@ interface IContextProps {
   modal: boolean;
   setTypeObject(typeCar: Itype): void;
   typeObject: Itype;
-  CallBack(type:string, any?:any): void;
+  CallBack(type: string, any?: any): void;
   OpenAndCloseModal(): void;
   customStyles: Styles;
 }
@@ -26,7 +26,7 @@ export const ModalProvider = ({ children }: IProviderProps) => {
   const [typeObject, setTypeObject] = useState<Itype>({} as Itype);
   const [modal, setModal] = useState(false);
 
-  function CallBack(type:string, any?:any) {
+  function CallBack(type: string, any?: any) {
     setTypeObject({ type, obj: { any } });
     OpenAndCloseModal();
   }
@@ -44,11 +44,20 @@ export const ModalProvider = ({ children }: IProviderProps) => {
     },
     content: {
       position: "absolute",
-      top: typeObject.type === "Car" ? "30%" : "50%",
+      top: typeObject.type === "Car" || "Success" || "Error" ? "30%" : "50%",
       left: "50%",
       right: "auto",
       bottom: 0,
-      height: typeObject.type === "Car" ? "250px" : typeObject.type === "EditAddress" ? "530px" : "740px",
+      height:
+        typeObject.type === "Car"
+          ? "250px"
+          : typeObject.type === "EditAddress"
+          ? "530px"
+          : typeObject.type === "Success"
+          ? "250px"
+          : typeObject.type === "Error"
+          ? "160px"
+          : "740px",
       background: "#fff",
       overflow: "auto",
       overflowX: "hidden",
@@ -63,7 +72,6 @@ export const ModalProvider = ({ children }: IProviderProps) => {
       minWidth: "346px",
     },
   };
-
 
   function OpenAndCloseModal(): void {
     setModal(!modal);

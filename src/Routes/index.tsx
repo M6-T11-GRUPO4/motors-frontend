@@ -15,7 +15,6 @@ import { SuccessProfileModal } from "../components/modais/successProfileModal";
 import { ErrorProfileModal } from "../components/modais/errorProfileModal";
 import RegisterPage from "../Pages/register";
 
-
 export const Routers = () => {
   const { customStyles, modal, OpenAndCloseModal, typeObject } =
     useContext(ModalContext);
@@ -35,17 +34,17 @@ export const Routers = () => {
         onRequestClose={OpenAndCloseModal}
         style={customStyles}
       >
-         {typeObject.type === "EditProfile" ? (
-            <EditProfileModal />
-          ) : typeObject.type === "EditAddress" ? (
-            <AddressProfileModal />
-          ) : typeObject.type === "Car" ? (
-            <ImageVehicleModal image={typeObject.obj.any} />
-          ) : typeObject.type === "Success" ? (
-            <SuccessProfileModal/>
-          ) : typeObject.type === "Error" ? (
-            <ErrorProfileModal error={typeObject.obj.any}/>
-          ) : null}
+        {typeObject.type === "EditProfile" ? (
+          <EditProfileModal />
+        ) : typeObject.type === "EditAddress" ? (
+          <AddressProfileModal />
+        ) : typeObject.type === "Car" ? (
+          <ImageVehicleModal image={typeObject.obj.any} />
+        ) : typeObject.type === "Success" ? (
+          <SuccessProfileModal isSeller={typeObject.obj.any} />
+        ) : typeObject.type === "Error" ? (
+          <ErrorProfileModal error={typeObject.obj.any} />
+        ) : null}
       </Modal>
     </>
   );
