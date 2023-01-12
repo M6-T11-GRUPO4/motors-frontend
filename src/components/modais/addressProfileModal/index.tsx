@@ -144,7 +144,6 @@ export const AddressProfileModal = () => {
             </span>
           </div>
         </div>
-
         <div className="flex flex-row-reverse justify-center md:justify-start space-x-4 space-x-reverse">
           <button
             type="submit"

@@ -5,7 +5,6 @@ import { Home } from "../Pages/home";
 import { Login } from "../Pages/login";
 import { ProfileView } from "../Pages/profile";
 import RecoveryPassword from "../Pages/recovery";
-import RegisterPage from "../Pages/register";
 import Modal from "react-modal";
 import { ModalContext } from "../Providers/modal";
 import { useContext } from "react";
@@ -14,6 +13,11 @@ import { AddressProfileModal } from "../components/modais/addressProfileModal";
 import { ImageVehicleModal } from "../components/modais/imageVehicleModal";
 import EditVehicle from "../components/modais/editVehicle";
 
+import { SuccessProfileModal } from "../components/modais/successProfileModal";
+import { ErrorProfileModal } from "../components/modais/errorProfileModal";
+import RegisterPage from "../Pages/register";
+import CreateVehicle from "../components/modais/createVehicle";
+import { SuccessModal } from "../components/modais/successModal";
 
 export const Routers = () => {
   const { customStyles, modal, OpenAndCloseModal, typeObject } =
@@ -42,6 +46,14 @@ export const Routers = () => {
           <ImageVehicleModal image={typeObject.obj.any} />
         ) : typeObject.type === "EditVehicle" ? (
           <EditVehicle />
+        ) : typeObject.type === "Success" ? (
+          <SuccessProfileModal />
+        ) : typeObject.type === "Error" ? (
+          <ErrorProfileModal error={typeObject.obj.any} />
+        ) : typeObject.type === "CreateVehicle" ? (
+          <CreateVehicle />
+        ) : typeObject.type === "CreateSuccess" ? (
+          <SuccessModal />
         ) : null}
       </Modal>
     </>

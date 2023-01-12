@@ -1,13 +1,16 @@
 import { useContext } from "react";
+import { ModalContext } from "../../../Providers/modal";
 import { IUser, UserContext } from "../../../Providers/user";
 
 interface IUserProp {
   seller: IUser;
-  isAdOwner: boolean
+  isAdOwner: boolean;
 }
 
 export const ProfileCard = ({ seller, isAdOwner }: IUserProp) => {
   const { twoLetters } = useContext(UserContext);
+
+  const { CallBack } = useContext(ModalContext);
 
   return (
     <section className="w-72 md:w-[40rem] lg:min-w-[58rem] -bg-grey-10 rounded flex flex-col gap-6 self-center py-10 px-6 mt-16">
@@ -30,7 +33,10 @@ export const ProfileCard = ({ seller, isAdOwner }: IUserProp) => {
       <p className="-text-grey-2 font-inter ">{seller.description}</p>
 
       {isAdOwner && (
-        <button className="w-40 h-12 rounded border-2 -border-brand1 hover:-bg-brand4 -text-brand1 font-semibold font-inter">
+        <button
+          onClick={() => CallBack("CreateVehicle")}
+          className="w-40 h-12 rounded border-2 -border-brand1 hover:-bg-brand4 -text-brand1 font-semibold font-inter"
+        >
           Criar anúncio
         </button>
       )}

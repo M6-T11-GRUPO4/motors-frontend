@@ -29,7 +29,7 @@ export const AddInput = ({
         className="inputDefaultModal"
         {...register(`${valueRegister}`)}
       />
-      <span className="error">{errors[valueErrors]?.message as string}</span>
+      <span className="font-semibold font-inter text-sm text-red-600">{errors[valueRegister]?.message as string}</span>
     </div>
   );
 };
