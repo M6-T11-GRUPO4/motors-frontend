@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ProductContext } from "../../Providers/product";
 import { ModalContext } from "../../Providers/modal";
 import { IUser, UserContext } from "../../Providers/user";
+import { api } from "../../services/api";
 
 export const Header = () => {
   const logged = sessionStorage.getItem("@Token");
@@ -13,7 +14,19 @@ export const Header = () => {
     useContext(ProductContext);
   const { setTypeObject, OpenAndCloseModal } = useContext(ModalContext);
   const navigate = useNavigate();
-  const { user, setUser, twoLetters } = useContext(UserContext);
+  const { user, setUser, twoLetters, tokenAndId } = useContext(UserContext);
+
+  const getSeller = () => {
+    api
+      .get(`/users/${tokenAndId.id}`)
+      .then((res) => {
+        sessionStorage.setItem("@ProfileUser", JSON.stringify(res.data));
+      })
+      .catch((err) => err);
+    setTimeout(() => {
+      navigate("/profile");
+    }, 500);
+  };
 
   function exit() {
     sessionStorage.removeItem("@UserId");
@@ -116,7 +129,10 @@ export const Header = () => {
                   </li>
                   <li>
                     {user?.is_seller ? (
-                      <button className="hover:-text-brand1">
+                      <button
+                        onClick={() => getSeller()}
+                        className="hover:-text-brand1"
+                      >
                         Meus Anúncios
                       </button>
                     ) : (
@@ -189,7 +205,12 @@ export const Header = () => {
               </li>
               <li>
                 {user?.is_seller ? (
-                  <button className="hover:-text-brand1">Meus Anúncios</button>
+                  <button
+                    onClick={() => getSeller()}
+                    className="hover:-text-brand1"
+                  >
+                    Meus Anúncios
+                  </button>
                 ) : (
                   <button className="hover:-text-brand1">Minhas Compras</button>
                 )}
